@@ -38,6 +38,7 @@ export interface AppConfig {
   mandapName: string;
   festivalName: string;
   tagline: string;
+  rajaTitle: string;
   whatsappNumber: string;
   contact: {
     addressLines: string[];
@@ -61,6 +62,12 @@ export const APP_CONFIG: AppConfig = {
   mandapName: 'Akhuratha Mandap',
   festivalName: 'Ganesh Mahotsav',
   tagline: 'Devotion • Culture • Community',
+
+  /**
+   * The mandap's honorific, shown in the hero in place of the countdown once
+   * the timer reaches zero and the festival is under way.
+   */
+  rajaTitle: 'Siricilla Ka Raja',
 
   /**
    * Mandap WhatsApp number: 90328 31464.

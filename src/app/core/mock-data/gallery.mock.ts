@@ -18,7 +18,7 @@ export const MOCK_GALLERY: Gallery[] = [
     galleryId: 1,
     title: 'Shree Ganesh at the Mandap',
     description: 'The idol seated on the peacock throne, garlanded for darshan.',
-    imageUrl: '/images/IMG_20250905_123731.jpg',
+    imageUrl: 'assets/images/IMG_20250905_123805.jpg',
     category: 'Ganesh',
     displayOrder: 1,
     isActive: true,

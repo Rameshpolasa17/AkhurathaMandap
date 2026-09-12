@@ -172,6 +172,52 @@
   }
 }
 
+/* ------------------------------------------------- after the countdown */
+
+/*
+ * Once the timer reaches zero the countdown is replaced by the mandap's
+ * title, flanked by two gold rules so it sits in the same visual slot.
+ */
+.hero__raja {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 46px;
+}
+
+.hero__raja-rule {
+  flex: 1 1 0;
+  max-width: 92px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 193, 7, 0.75), transparent);
+}
+
+.hero__raja-name {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  background: linear-gradient(100deg, #ffffff 0%, #ffd98a 48%, #ff9800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: heroRajaGlow 4.5s ease-in-out infinite;
+}
+
+@keyframes heroRajaGlow {
+  50% {
+    filter: drop-shadow(0 0 14px rgba(255, 193, 7, 0.4));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__raja-name {
+    animation: none;
+  }
+}
+
 /* -------------------------------------------------------------- visual */
 
 .hero__visual {
@@ -291,7 +337,8 @@
   }
 
   .hero__cta,
-  .hero__units {
+  .hero__units,
+  .hero__raja {
     justify-content: center;
   }
 
@@ -318,5 +365,14 @@
 
   .hero__cta .akm-btn {
     width: 100%;
+  }
+
+  /* Keep the title on one line by letting the flanking rules give way. */
+  .hero__raja {
+    gap: 12px;
+  }
+
+  .hero__raja-rule {
+    max-width: 34px;
   }
 }

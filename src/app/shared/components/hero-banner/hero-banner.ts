@@ -26,6 +26,9 @@ export class HeroBanner implements OnInit, OnDestroy {
   readonly mandapName = APP_CONFIG.mandapName;
   readonly festivalName = APP_CONFIG.festivalName;
 
+  /** Shown in place of the countdown once the timer reaches zero. */
+  readonly rajaTitle = APP_CONFIG.rajaTitle;
+
   private readonly targetDate = new Date(APP_CONFIG.festivalStartDate);
 
   /** Year shown on the badge, derived from the configured start date. */

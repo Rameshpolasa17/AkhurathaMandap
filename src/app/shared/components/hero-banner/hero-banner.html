@@ -46,6 +46,13 @@
             }
           </div>
         </div>
+      } @else {
+        <!-- The countdown has reached zero: the timer gives way to the title. -->
+        <div class="hero__raja akm-enter" style="--i: 5">
+          <span class="hero__raja-rule" aria-hidden="true"></span>
+          <span class="hero__raja-name">{{ rajaTitle }}</span>
+          <span class="hero__raja-rule" aria-hidden="true"></span>
+        </div>
       }
     </div>
 
