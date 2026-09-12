@@ -1,0 +1,67 @@
+<div class="page-header">
+  <div>
+    <h2>Announcements</h2>
+    <p>Manage all festival announcements</p>
+  </div>
+
+  <button class="add-btn" (click)="openForm()">
+    <i class="fa-solid fa-plus"></i>
+    Add Announcement
+  </button>
+</div>
+
+<div class="announcement-grid">
+  @for (item of announcements; track item.announcementId) {
+    <div class="announcement-card">
+      <div class="card-top">
+        <div class="icon">
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+
+        <div class="status" [class.active]="item.isActive" [class.inactive]="!item.isActive">
+          {{ item.isActive ? 'Active' : 'Inactive' }}
+        </div>
+      </div>
+
+      <h3>{{ item.title }}</h3>
+
+      <p class="description">
+        {{ item.description }}
+      </p>
+
+      <div class="date-row">
+        <i class="fa-regular fa-calendar-days"></i>
+
+        <span>
+          {{ item.publishDate | date: 'dd MMM yyyy' }}
+        </span>
+      </div>
+
+      <div class="footer">
+        <button class="edit-btn" (click)="edit(item)">
+          <i class="fa-solid fa-pen"></i>
+          Edit
+        </button>
+
+        <button class="delete-btn" (click)="delete(item)">
+          <i class="fa-solid fa-trash"></i>
+          Delete
+        </button>
+      </div>
+    </div>
+  } @empty {
+    <div class="empty-state">
+      <i class="fa-solid fa-bullhorn"></i>
+
+      <h3>No Announcements</h3>
+
+      <p>Click "Add Announcement" to create your first announcement.</p>
+    </div>
+  }
+  @if (showForm) {
+    <div class="popup-overlay">
+      <app-announcement-form [announcement]="selectedAnnouncement" (close)="closeForm()">
+      </app-announcement-form>
+    </div>
+  }
+</div>

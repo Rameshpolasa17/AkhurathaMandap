@@ -1,0 +1,145 @@
+<section class="competition-results-page">
+  <div class="page-header">
+    <div>
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Competitions</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>Results</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+        <div>
+          <h1>Competition Results</h1>
+          <p>Manage competition results and winners.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+      <div>
+        <span>Total Results</span>
+        <strong>{{ results.length }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-medal"></i></div>
+      <div>
+        <span>Winners</span>
+        <strong>{{ results.filter((r) => r.rank === 1).length }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        type="text"
+        placeholder="Search results..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <button type="button" class="refresh-button" (click)="loadResults()">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+      <h3>Loading Results...</h3>
+    </div>
+  }
+
+  @if (!loading && filteredResults.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+      <h2>No Results Found</h2>
+      <p>No competition results are available.</p>
+    </div>
+  }
+
+  @if (!loading && filteredResults.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing <strong>{{ filteredResults.length }}</strong> result(s)
+      </p>
+    </div>
+
+    <div class="results-table-wrapper">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Participant</th>
+            <th>Registration</th>
+            <th>Category</th>
+            <th>Score</th>
+            <th>Remarks</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (result of filteredResults; track result.id) {
+            <tr>
+              <td>
+                <span class="rank-badge">
+                  {{ result.rank ?? '-' }}
+                </span>
+              </td>
+
+              <td>
+                <strong>
+                  {{ result.childName || result.name || 'Participant' }}
+                </strong>
+              </td>
+
+              <td>
+                {{ result.registrationNumber || '-' }}
+              </td>
+
+              <td>
+                {{ result.categoryName || '-' }}
+              </td>
+
+              <td>
+                {{ result.score ?? '-' }}
+              </td>
+
+              <td>
+                {{ result.remarks || '-' }}
+              </td>
+
+              <td>
+                <button type="button" class="delete-button" (click)="deleteResult(result)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <div class="bottom-actions">
+    <button type="button" class="back-button" (click)="backToCompetitions()">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Competitions
+    </button>
+  </div>
+</section>

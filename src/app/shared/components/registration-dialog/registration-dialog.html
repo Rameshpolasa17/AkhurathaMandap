@@ -1,0 +1,147 @@
+<div class="reg" (click)="onBackdrop($event)">
+  <div
+    class="reg__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="reg-title"
+  >
+    <header class="reg__head">
+      <div>
+        <span class="reg__kicker">{{ heading }}</span>
+        <h2 id="reg-title">{{ subject }}</h2>
+        @if (subtitle) {
+          <p class="reg__subtitle">{{ subtitle }}</p>
+        }
+      </div>
+
+      <button type="button" class="reg__close" aria-label="Close registration form" (click)="close()">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <form class="reg__body" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      @if (!whatsappAvailable) {
+        <p class="akm-note akm-note--warn">
+          <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          <span>
+            Registration opens WhatsApp, and no number has been configured yet. Add one
+            to <code>whatsappNumber</code> in <code>core/config/app.config.ts</code>.
+          </span>
+        </p>
+      }
+
+      <div class="reg__row">
+        <div class="akm-field">
+          <label for="reg-name">
+            {{ kind === 'competition' ? 'Participant Name' : 'Name' }}
+            <span class="akm-req" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="reg-name"
+            type="text"
+            class="akm-input"
+            formControlName="name"
+            autocomplete="name"
+            placeholder="Full name"
+            [class.is-invalid]="invalid('name')"
+            [attr.aria-invalid]="invalid('name')"
+          />
+          @if (invalid('name')) {
+            <span class="akm-error">{{ errorFor('name') }}</span>
+          }
+        </div>
+
+        @if (kind === 'competition') {
+          <div class="akm-field">
+            <label for="reg-age">Age <span class="reg__optional">(optional)</span></label>
+            <input
+              id="reg-age"
+              type="text"
+              class="akm-input"
+              formControlName="age"
+              inputmode="numeric"
+              maxlength="3"
+              placeholder="e.g. 9"
+            />
+          </div>
+        }
+      </div>
+
+      <div class="reg__row">
+        <div class="akm-field">
+          <label for="reg-mobile">Mobile <span class="akm-req" aria-hidden="true">*</span></label>
+          <input
+            id="reg-mobile"
+            type="tel"
+            class="akm-input"
+            formControlName="mobile"
+            autocomplete="tel"
+            inputmode="numeric"
+            maxlength="10"
+            placeholder="10-digit mobile number"
+            [class.is-invalid]="invalid('mobile')"
+            [attr.aria-invalid]="invalid('mobile')"
+          />
+          @if (invalid('mobile')) {
+            <span class="akm-error">{{ errorFor('mobile') }}</span>
+          }
+        </div>
+
+        <div class="akm-field">
+          <label for="reg-email">Email <span class="reg__optional">(optional)</span></label>
+          <input
+            id="reg-email"
+            type="email"
+            class="akm-input"
+            formControlName="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            [class.is-invalid]="invalid('email')"
+            [attr.aria-invalid]="invalid('email')"
+          />
+          @if (invalid('email')) {
+            <span class="akm-error">{{ errorFor('email') }}</span>
+          }
+        </div>
+      </div>
+
+      <div class="akm-field">
+        <label for="reg-message">Anything we should know? <span class="reg__optional">(optional)</span></label>
+        <textarea
+          id="reg-message"
+          class="akm-input"
+          formControlName="message"
+          rows="3"
+          placeholder="Group size, accessibility needs, questions…"
+        ></textarea>
+      </div>
+
+      <p class="akm-note akm-note--info">
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        <span>
+          Submitting opens WhatsApp with these details filled in. Your place is
+          confirmed once the committee replies — this website does not record
+          registrations.
+        </span>
+      </p>
+
+      <div class="reg__actions">
+        <button type="button" class="akm-btn akm-btn--ghost" (click)="close()">Cancel</button>
+        <button
+          type="submit"
+          class="akm-btn akm-btn--brand"
+          [disabled]="!whatsappAvailable || opening()"
+        >
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          {{ opening() ? 'Opening WhatsApp…' : 'Register via WhatsApp' }}
+        </button>
+      </div>
+
+      <p class="reg__status" role="status" aria-live="polite">
+        @if (opening()) {
+          <span>Opening WhatsApp…</span>
+        }
+      </p>
+    </form>
+  </div>
+</div>

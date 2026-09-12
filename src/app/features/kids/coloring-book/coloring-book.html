@@ -1,0 +1,790 @@
+<section class="coloring-page">
+  <!--=====================================================
+                          HERO
+  ======================================================-->
+
+  <section class="coloring-hero">
+    <div class="hero-decoration decoration-one"></div>
+    <div class="hero-decoration decoration-two"></div>
+    <div class="hero-decoration decoration-three"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <!-- HERO CONTENT -->
+
+        <div class="hero-content">
+          <span class="hero-tag"> 🎨 Kids Creative Zone </span>
+
+          <h1>
+            Ganesh
+            <span>Coloring Book</span>
+          </h1>
+
+          <p>
+            {{ heroSubtitle }}
+          </p>
+
+          <div class="hero-actions">
+            <button type="button" class="primary-btn" (click)="selectPicture(0)">
+              🎨 Start Coloring
+            </button>
+
+            <button type="button" class="secondary-btn" (click)="goToKidsZone()">
+              ← Kids Zone
+            </button>
+          </div>
+
+          <!-- STATS -->
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="stat-icon"> 🎨 </span>
+
+              <div>
+                <strong>
+                  {{ completedArtworks }}
+                </strong>
+
+                <span> Artworks </span>
+              </div>
+            </div>
+
+            <div class="hero-stat">
+              <span class="stat-icon"> ⭐ </span>
+
+              <div>
+                <strong>
+                  {{ totalStars }}
+                </strong>
+
+                <span> Stars </span>
+              </div>
+            </div>
+
+            <div class="hero-stat">
+              <span class="stat-icon"> 🖌️ </span>
+
+              <div>
+                <strong>
+                  {{ drawingsStarted }}
+                </strong>
+
+                <span> Drawings </span>
+              </div>
+            </div>
+
+            <div class="hero-stat">
+              <span class="stat-icon"> 🏅 </span>
+
+              <div>
+                <strong>
+                  {{ achievements }}
+                </strong>
+
+                <span> Achievements </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+          <div class="hero-image-wrapper">
+            <div class="hero-glow"></div>
+
+            <img src="images/coloring/coloring-hero.png" alt="Ganesh Coloring Book" />
+
+            <div class="floating-card floating-one">
+              <span> 🎨 </span>
+
+              <div>
+                <strong> Choose Colors </strong>
+
+                <small> Create your style </small>
+              </div>
+            </div>
+
+            <div class="floating-card floating-two">
+              <span> 🖌️ </span>
+
+              <div>
+                <strong> Draw </strong>
+
+                <small> Use magic brushes </small>
+              </div>
+            </div>
+
+            <div class="floating-card floating-three">
+              <span> ⭐ </span>
+
+              <div>
+                <strong> Earn Stars </strong>
+
+                <small> Complete artworks </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                      PICTURE SELECTION
+  ======================================================-->
+
+  <section class="pictures-section">
+    <div class="container">
+      <div class="section-header">
+        <span> 🖼️ Coloring Gallery </span>
+
+        <h2>Choose A Picture</h2>
+
+        <p>Pick your favourite Lord Ganesha picture and turn it into a colorful masterpiece.</p>
+      </div>
+
+      <div class="pictures-grid">
+        @for (picture of pictures; track picture.id) {
+          <article
+            class="picture-card"
+            [class.active]="selectedPictureIndex === $index"
+            (click)="selectPicture($index)"
+          >
+            <div class="picture-preview">
+              <img [src]="picture.image" [alt]="picture.title" />
+
+              <span class="picture-difficulty">
+                {{ picture.difficulty }}
+              </span>
+
+              <div class="picture-overlay">
+                <button type="button" (click)="selectPicture($index); $event.stopPropagation()">
+                  🎨 Color This
+                </button>
+              </div>
+            </div>
+
+            <div class="picture-content">
+              <span class="picture-category">
+                {{ picture.icon }}
+                {{ picture.category }}
+              </span>
+
+              <h3>
+                {{ picture.title }}
+              </h3>
+
+              <div class="picture-footer">
+                <span> Coloring Page </span>
+
+                @if (selectedPictureIndex === $index) {
+                  <strong> ✓ Selected </strong>
+                } @else {
+                  <strong> Choose → </strong>
+                }
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                     COLORING STUDIO
+  ======================================================-->
+
+  <section class="coloring-studio-section" id="coloringStudio">
+    <div class="container">
+      <div class="section-header">
+        <span> ✨ Creative Studio </span>
+
+        <h2>Start Coloring</h2>
+
+        <p>
+          Select a color and brush size, then draw directly on the picture using your mouse, pen or
+          finger.
+        </p>
+      </div>
+
+      <div class="studio-layout">
+        <!--=================================================
+                         LEFT TOOLBAR
+        ==================================================-->
+
+        <aside class="studio-sidebar">
+          <!-- CURRENT PICTURE -->
+
+          <div class="tool-panel current-picture-panel">
+            <div class="tool-heading">
+              <span> 🖼️ </span>
+
+              <div>
+                <small> Current Picture </small>
+
+                <h3>
+                  {{ pictures[selectedPictureIndex].title }}
+                </h3>
+              </div>
+            </div>
+
+            <div class="current-picture-preview">
+              <img
+                [src]="pictures[selectedPictureIndex].image"
+                [alt]="pictures[selectedPictureIndex].title"
+              />
+            </div>
+
+            <div class="picture-meta">
+              <span>
+                {{ pictures[selectedPictureIndex].category }}
+              </span>
+
+              <strong>
+                {{ pictures[selectedPictureIndex].difficulty }}
+              </strong>
+            </div>
+          </div>
+
+          <!-- DRAWING TOOLS -->
+
+          <div class="tool-panel">
+            <div class="panel-title">
+              <span> 🛠️ </span>
+
+              <h3>Drawing Tools</h3>
+            </div>
+
+            <div class="drawing-tools">
+              <button
+                type="button"
+                class="tool-button"
+                [class.active]="activeTool === 'brush'"
+                (click)="setTool('brush')"
+              >
+                <span> 🖌️ </span>
+
+                <strong> Brush </strong>
+              </button>
+
+              <button
+                type="button"
+                class="tool-button"
+                [class.active]="activeTool === 'eraser'"
+                (click)="setTool('eraser')"
+              >
+                <span> 🧽 </span>
+
+                <strong> Eraser </strong>
+              </button>
+
+              <button
+                type="button"
+                class="tool-button magic-tool"
+                [class.active]="activeTool === 'magic'"
+                (click)="setTool('magic')"
+              >
+                <span> ✨ </span>
+
+                <strong> Magic </strong>
+              </button>
+            </div>
+          </div>
+
+          <!-- BRUSH SIZE -->
+
+          <div class="tool-panel">
+            <div class="panel-title">
+              <span> 📏 </span>
+
+              <h3>Brush Size</h3>
+            </div>
+
+            <div class="brush-sizes">
+              @for (brush of brushSizes; track brush.size) {
+                <button
+                  type="button"
+                  class="brush-size-button"
+                  [class.active]="selectedBrushSize === brush.size"
+                  (click)="selectBrushSize(brush.size)"
+                >
+                  <span
+                    class="brush-preview"
+                    [style.width.px]="brush.size"
+                    [style.height.px]="brush.size"
+                  >
+                  </span>
+
+                  <strong>
+                    {{ brush.name }}
+                  </strong>
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- HISTORY -->
+
+          <div class="tool-panel">
+            <div class="panel-title">
+              <span> ↩️ </span>
+
+              <h3>History</h3>
+            </div>
+
+            <div class="history-actions">
+              <button type="button" [disabled]="undoStack.length <= 1" (click)="undo()">
+                <span> ↩️ </span>
+
+                Undo
+              </button>
+
+              <button type="button" [disabled]="redoStack.length === 0" (click)="redo()">
+                <span> ↪️ </span>
+
+                Redo
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!--=================================================
+                          CANVAS AREA
+        ==================================================-->
+
+        <main class="canvas-studio">
+          <!-- TOP BAR -->
+
+          <div class="canvas-topbar">
+            <div class="canvas-title">
+              <span class="canvas-title-icon"> 🎨 </span>
+
+              <div>
+                <small> Now Coloring </small>
+
+                <h3>
+                  {{ pictures[selectedPictureIndex].title }}
+                </h3>
+              </div>
+            </div>
+
+            <div class="active-tool-status">
+              <span
+                class="current-color-dot"
+                [style.background]="activeTool === 'eraser' ? '#ffffff' : selectedColor"
+              >
+              </span>
+
+              <div>
+                <small> Active Tool </small>
+
+                <strong>
+                  @if (activeTool === 'brush') {
+                    🖌️ Brush
+                  }
+
+                  @if (activeTool === 'eraser') {
+                    🧽 Eraser
+                  }
+
+                  @if (activeTool === 'magic') {
+                    ✨ Magic Brush
+                  }
+                </strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- CANVAS -->
+
+          <div class="canvas-wrapper" #canvasWrapper>
+            <div class="canvas-decoration top-left">✨</div>
+
+            <div class="canvas-decoration top-right">🌸</div>
+
+            <div class="canvas-decoration bottom-left">🍬</div>
+
+            <div class="canvas-decoration bottom-right">⭐</div>
+
+            <canvas
+              #colorCanvas
+              class="color-canvas"
+              (pointerdown)="startDrawing($event)"
+              (pointermove)="draw($event)"
+              (pointerup)="stopDrawing($event)"
+              (pointercancel)="stopDrawing($event)"
+              (pointerleave)="stopDrawing($event)"
+            >
+            </canvas>
+          </div>
+
+          <!-- CANVAS HELP -->
+
+          <div class="canvas-help">
+            <span> 💡 </span>
+
+            <p>
+              Pick a color and draw directly on the picture. On mobile, use your finger to color.
+            </p>
+          </div>
+
+          <!-- CANVAS ACTIONS -->
+
+          <div class="canvas-actions">
+            <button type="button" class="clear-btn" (click)="clearDrawing()">🗑️ Clear</button>
+
+            <button type="button" class="download-btn" (click)="downloadArtwork()">
+              💾 Save Picture
+            </button>
+
+            <button type="button" class="complete-btn" (click)="completeArtwork()">
+              ⭐ Complete Artwork
+            </button>
+          </div>
+        </main>
+
+        <!--=================================================
+                        RIGHT COLOR PANEL
+        ==================================================-->
+
+        <aside class="color-sidebar">
+          <!-- COLOR PALETTE -->
+
+          <div class="tool-panel color-panel">
+            <div class="panel-title">
+              <span> 🎨 </span>
+
+              <h3>Color Palette</h3>
+            </div>
+
+            <p class="panel-description">Choose your favourite color.</p>
+
+            <div class="color-grid">
+              @for (color of colors; track color.value) {
+                <button
+                  type="button"
+                  class="color-button"
+                  [class.active]="selectedColor === color.value && activeTool !== 'eraser'"
+                  [attr.aria-label]="color.name"
+                  [title]="color.name"
+                  (click)="selectColor(color.value)"
+                >
+                  <span [style.background]="color.value"> </span>
+
+                  <small>
+                    {{ color.name }}
+                  </small>
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- CUSTOM COLOR -->
+
+          <div class="tool-panel custom-color-panel">
+            <div class="panel-title">
+              <span> 🌈 </span>
+
+              <h3>Custom Color</h3>
+            </div>
+
+            <div class="custom-color-control">
+              <label class="custom-color-picker">
+                <input type="color" [value]="customColor" (input)="changeCustomColor($event)" />
+
+                <span class="custom-color-preview" [style.background]="customColor"> </span>
+
+                <div>
+                  <small> Selected </small>
+
+                  <strong>
+                    {{ customColor }}
+                  </strong>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- MAGIC BRUSH -->
+
+          <div class="tool-panel magic-panel">
+            <div class="magic-icon">✨</div>
+
+            <span> Special Tool </span>
+
+            <h3>Magic Rainbow Brush</h3>
+
+            <p>Every brush movement changes through beautiful festival colors.</p>
+
+            <div class="rainbow-preview">
+              @for (color of magicColors; track color) {
+                <span [style.background]="color"> </span>
+              }
+            </div>
+
+            <button
+              type="button"
+              [class.active]="activeTool === 'magic'"
+              (click)="setTool('magic')"
+            >
+              @if (activeTool === 'magic') {
+                ✓ Magic Active
+              } @else {
+                ✨ Use Magic Brush
+              }
+            </button>
+          </div>
+
+          <!-- QUICK TIPS -->
+
+          <div class="tool-panel tips-panel">
+            <div class="panel-title">
+              <span> 💡 </span>
+
+              <h3>Coloring Tips</h3>
+            </div>
+
+            <div class="tip-list">
+              <div class="tip-item">
+                <span> 1 </span>
+
+                <p>Start with a medium brush for larger areas.</p>
+              </div>
+
+              <div class="tip-item">
+                <span> 2 </span>
+
+                <p>Use a small brush near the outlines.</p>
+              </div>
+
+              <div class="tip-item">
+                <span> 3 </span>
+
+                <p>Try the magic brush for colorful festival effects.</p>
+              </div>
+
+              <div class="tip-item">
+                <span> 4 </span>
+
+                <p>Save your masterpiece when you finish.</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                      ACHIEVEMENTS
+  ======================================================-->
+
+  <section class="achievements-section">
+    <div class="container">
+      <div class="section-header">
+        <span> 🏅 Creative Journey </span>
+
+        <h2>Coloring Achievements</h2>
+
+        <p>Complete beautiful artworks and unlock special creative awards.</p>
+      </div>
+
+      <div class="achievements-grid">
+        <!-- FIRST ARTWORK -->
+
+        <article class="achievement-card" [class.unlocked]="completedArtworks >= 1">
+          <div class="achievement-icon">🎨</div>
+
+          <span> First Artwork </span>
+
+          <h3>Little Artist</h3>
+
+          <p>Complete your first Ganesh coloring picture.</p>
+
+          <div class="achievement-status">
+            @if (completedArtworks >= 1) {
+              ✓ Unlocked
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+
+        <!-- THREE ARTWORKS -->
+
+        <article class="achievement-card" [class.unlocked]="completedArtworks >= 3">
+          <div class="achievement-icon">🖌️</div>
+
+          <span> 3 Artworks </span>
+
+          <h3>Creative Explorer</h3>
+
+          <p>Complete three different coloring artworks.</p>
+
+          <div class="achievement-status">
+            @if (completedArtworks >= 3) {
+              ✓ Unlocked
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+
+        <!-- SIX ARTWORKS -->
+
+        <article class="achievement-card" [class.unlocked]="completedArtworks >= 6">
+          <div class="achievement-icon">🌈</div>
+
+          <span> Gallery Master </span>
+
+          <h3>Master Artist</h3>
+
+          <p>Complete all six Ganesh coloring pictures.</p>
+
+          <div class="achievement-status">
+            @if (completedArtworks >= 6) {
+              ✓ Unlocked
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+
+        <!-- 300 STARS -->
+
+        <article class="achievement-card champion" [class.unlocked]="totalStars >= 300">
+          <div class="achievement-icon">🏆</div>
+
+          <span> 300 Stars </span>
+
+          <h3>Coloring Champion</h3>
+
+          <p>Collect 300 stars by completing beautiful artworks.</p>
+
+          <div class="achievement-status">
+            @if (totalStars >= 300) {
+              ✓ Champion
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                       ARTIST SUMMARY
+  ======================================================-->
+
+  <section class="artist-summary">
+    <div class="container">
+      <div class="summary-card">
+        <div class="summary-decoration summary-one">🎨</div>
+
+        <div class="summary-decoration summary-two">🌸</div>
+
+        <div class="summary-decoration summary-three">✨</div>
+
+        <div class="summary-icon">🐘</div>
+
+        <div class="summary-content">
+          <span> Your Creative Journey </span>
+
+          <h2>Every Child Is An Artist</h2>
+
+          <p>Keep coloring, experimenting and creating beautiful Ganesh festival memories.</p>
+        </div>
+
+        <div class="summary-stats">
+          <div>
+            <strong>
+              {{ completedArtworks }}
+            </strong>
+
+            <span> 🎨 Artworks </span>
+          </div>
+
+          <div>
+            <strong>
+              {{ totalStars }}
+            </strong>
+
+            <span> ⭐ Stars </span>
+          </div>
+
+          <div>
+            <strong>
+              {{ achievements }}
+            </strong>
+
+            <span> 🏅 Awards </span>
+          </div>
+        </div>
+
+        <div class="summary-actions">
+          <button type="button" class="summary-primary" (click)="selectPicture(0)">
+            🎨 Color Another
+          </button>
+
+          <button type="button" class="summary-secondary" (click)="goToKidsZone()">
+            ← Kids Zone
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                     CELEBRATION POPUP
+  ======================================================-->
+
+  @if (showCelebration) {
+    <div class="celebration-overlay" (click)="closeCelebration()">
+      <div class="celebration-card" (click)="$event.stopPropagation()">
+        <!-- CONFETTI -->
+
+        <span class="confetti confetti-one"> 🎨 </span>
+
+        <span class="confetti confetti-two"> ⭐ </span>
+
+        <span class="confetti confetti-three"> 🌸 </span>
+
+        <span class="confetti confetti-four"> ✨ </span>
+
+        <span class="confetti confetti-five"> 🌈 </span>
+
+        <span class="confetti confetti-six"> 🎉 </span>
+
+        <button type="button" class="celebration-close" (click)="closeCelebration()">×</button>
+
+        <div class="celebration-glow"></div>
+
+        <div class="celebration-icon">🎨</div>
+
+        <span class="celebration-label"> Artwork Complete </span>
+
+        <h2>
+          {{ celebrationTitle }}
+        </h2>
+
+        <p>
+          {{ celebrationMessage }}
+        </p>
+
+        <div class="celebration-stars">
+          <span> ⭐ </span>
+
+          <strong> +{{ celebrationStars }} </strong>
+
+          <small> Creative Stars </small>
+        </div>
+
+        <button type="button" class="celebration-button" (click)="closeCelebration()">
+          🎉 Awesome!
+        </button>
+      </div>
+    </div>
+  }
+</section>

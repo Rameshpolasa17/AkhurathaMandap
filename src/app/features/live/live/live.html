@@ -1,0 +1,88 @@
+<!-- ============================================================== HERO -->
+<section class="lv-hero" aria-labelledby="lv-title">
+  <div class="lv-hero__veil" aria-hidden="true"></div>
+
+  <div class="akm-container lv-hero__inner">
+    <span class="lv-hero__badge">
+      <span class="lv-hero__dot" aria-hidden="true"></span>
+      Live Darshan
+    </span>
+    <h1 id="lv-title">Darshan from Anywhere</h1>
+    <p>
+      For devotees who cannot reach the mandap in person, the aarti is shared here
+      during the festival.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ STREAM -->
+<section class="lv akm-section akm-section--tint" aria-labelledby="lv-stream-title">
+  <div class="akm-container">
+    <h2 id="lv-stream-title" class="akm-visually-hidden">Live stream</h2>
+
+    @if (hasStream) {
+      <div class="lv__player" akmReveal>
+        <iframe
+          [src]="streamUrl"
+          title="Live darshan from Akhuratha Mandap"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      @if (config.live.channelUrl) {
+        <div class="lv__channel">
+          <a
+            class="akm-btn akm-btn--brand"
+            [href]="config.live.channelUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            Watch on the mandap channel
+          </a>
+        </div>
+      }
+    } @else {
+      <div class="lv__soon" akmReveal>
+        <span class="lv__soon-icon">
+          <i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i>
+        </span>
+        <h3>Live updates coming soon.</h3>
+        <p>
+          The stream for this year's festival has not been set up yet. When it goes
+          live it will appear right here — and the aarti timings below are when to
+          check back.
+        </p>
+        <div class="lv__soon-cta">
+          <a class="akm-btn akm-btn--brand" routerLink="/festival-schedule">
+            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+            Festival Schedule
+          </a>
+          <a class="akm-btn akm-btn--ghost" routerLink="/gallery">
+            <i class="fa-solid fa-images" aria-hidden="true"></i>
+            Browse the Gallery
+          </a>
+        </div>
+      </div>
+    }
+
+    <!-- Aarti timings -->
+    <div class="lv__times" akmReveal>
+      <h3>When the aarti happens</h3>
+      <ul>
+        @for (aarti of aartiTimes; track aarti.name) {
+          <li>
+            <strong>{{ aarti.time }}</strong>
+            <span>{{ aarti.name }}</span>
+          </li>
+        }
+      </ul>
+      <p class="lv__times-note">
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        Timings hold for every day of the festival. Special programmes are listed on
+        the <a routerLink="/festival-schedule">festival schedule</a>.
+      </p>
+    </div>
+  </div>
+</section>

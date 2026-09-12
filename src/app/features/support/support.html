@@ -1,0 +1,51 @@
+<app-page-hero
+  titleId="sup-title"
+  eyebrow="Seva &amp; Support"
+  icon="fa-solid fa-hands-holding-circle"
+  heading="Support {{ mandapName }}"
+  [lede]="heroLede"
+/>
+
+<!--
+  Scan & Support QR — hidden while SUPPORT_QR_ENABLED is false.
+  The component is untouched; only this guard keeps it off the page.
+-->
+@if (supportQrEnabled) {
+  <app-support-qr [showHeading]="false" />
+}
+
+<!-- ======================================================= OTHER WAYS -->
+<section class="sup-ways akm-section akm-section--cream" aria-labelledby="sup-ways-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-heart" aria-hidden="true"></i>
+        Beyond contributions
+      </span>
+      <h2 id="sup-ways-title">Other ways to help</h2>
+      <p>Support is not only financial — the mandap runs on people and goodwill too.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    <div class="sup-ways__grid">
+      @for (way of otherWays; track way.title; let i = $index) {
+        <article class="sup-ways__card" akmReveal [revealDelay]="i * 90">
+          <span class="sup-ways__icon">
+            <i [class]="way.icon" aria-hidden="true"></i>
+          </span>
+          <h3>{{ way.title }}</h3>
+          <p>{{ way.text }}</p>
+        </article>
+      }
+    </div>
+
+    <!-- Only relevant while there is a payment path on the page at all. -->
+    @if (supportQrEnabled) {
+      <p class="sup-ways__note">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+        Contributions are made directly through your own UPI app. This website never
+        processes, collects or stores any payment information.
+      </p>
+    }
+  </div>
+</section>

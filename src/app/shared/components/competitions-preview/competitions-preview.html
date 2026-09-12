@@ -1,0 +1,68 @@
+<section class="cpv akm-section akm-section--cream" aria-labelledby="cpv-title">
+  <div class="akm-container">
+    <div class="cpv__head" akmReveal>
+      <div class="akm-section-head">
+        <span class="akm-eyebrow">
+          <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+          Take part
+        </span>
+        <h2 id="cpv-title">Competitions</h2>
+        <p>Free to enter, open to every age group, and always the loudest part of the festival.</p>
+        <div class="akm-rule"></div>
+      </div>
+
+      <a class="akm-btn akm-btn--ghost cpv__all" routerLink="/competitions">
+        All competitions
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    @if (competitions.length) {
+      <div class="cpv__grid">
+        @for (item of competitions; track item.competitionId; let i = $index) {
+          <a
+            class="cpv__card"
+            routerLink="/competitions"
+            akmReveal
+            [revealDelay]="i * 90"
+            [attr.aria-label]="item.name + ' — see competitions and register'"
+          >
+            <app-safe-image
+              class="cpv__img"
+              [src]="item.imageUrl"
+              [alt]="item.name"
+              icon="fa-solid fa-trophy"
+            />
+            <span class="cpv__scrim" aria-hidden="true"></span>
+
+            <span class="cpv__body">
+              <span class="cpv__cat">{{ item.category }}</span>
+              <span class="cpv__name">{{ item.name }}</span>
+              @if (item.date || item.time) {
+                <span class="cpv__when">
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  @if (item.date) {
+                    {{ item.date | date: 'd MMM' }}
+                  }
+                  @if (item.date && item.time) {
+                    ·
+                  }
+                  {{ item.time }}
+                </span>
+              }
+              @if (item.registrationEnabled) {
+                <span class="cpv__open">Registration open</span>
+              }
+            </span>
+          </a>
+        }
+      </div>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+        <h3>Competitions coming soon</h3>
+        <p>This year's line-up is being finalised.</p>
+      </div>
+    }
+  </div>
+</section>

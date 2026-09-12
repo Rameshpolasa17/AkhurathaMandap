@@ -1,0 +1,150 @@
+<section class="jigsaw-page">
+  <!--=========================================
+                    HERO
+  ==========================================-->
+
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tag"> 🧩 Interactive Puzzle </span>
+
+      <h1>Ganesh Jigsaw Puzzle</h1>
+
+      <p>Arrange all puzzle pieces correctly to complete the beautiful image of Lord Ganesha.</p>
+    </div>
+  </section>
+
+  <!--=========================================
+                GAME PANEL
+  ==========================================-->
+
+  <section class="game-section">
+    <div class="container">
+      <div class="game-header">
+        <div class="info-card">
+          <span>⏱ Time</span>
+
+          <h3>
+            {{ formattedTime }}
+          </h3>
+        </div>
+
+        <div class="info-card">
+          <span>🔄 Moves</span>
+
+          <h3>
+            {{ moves }}
+          </h3>
+        </div>
+
+        <div class="info-card">
+          <span>📊 Progress</span>
+
+          <h3>{{ progress }}%</h3>
+        </div>
+      </div>
+
+      <!--=====================================
+                  PROGRESS BAR
+      ======================================-->
+
+      <div class="progress-wrapper">
+        <div class="progress-fill" [style.width.%]="progress"></div>
+      </div>
+
+      <!--=====================================
+                  ACTIONS
+      ======================================-->
+
+      <div class="actions">
+        <button class="btn-orange" (click)="shuffle()">🔀 Shuffle</button>
+
+        <button class="btn-light" (click)="reset()">🔄 Reset</button>
+
+        <button class="btn-light" (click)="togglePreview()">👁 Preview</button>
+      </div>
+
+      <!--=====================================
+                PREVIEW IMAGE
+      ======================================-->
+
+      @if (preview) {
+        <div class="preview-card">
+          <img [src]="image" alt="Puzzle Preview" />
+        </div>
+      }
+
+      <!--=====================================
+                PUZZLE GRID
+      ======================================-->
+
+      <div class="puzzle-grid" [style.gridTemplateColumns]="'repeat(' + gridSize + ',1fr)'">
+        @for (piece of pieces; track piece.id) {
+          <div
+            class="piece"
+            [class.selected]="selectedPiece == $index"
+            (click)="selectPiece($index)"
+          >
+            <img
+              [src]="piece.image"
+              [style.object-position]="
+                -100 * (piece.correctIndex % gridSize) +
+                '% ' +
+                -100 * Math.floor(piece.correctIndex / gridSize) +
+                '%'
+              "
+              alt="Puzzle Piece"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              COMPLETED
+  ==========================================-->
+
+  @if (completed) {
+    <section class="completed-section">
+      <div class="container">
+        <div class="completed-card">
+          <div class="icon">🏆</div>
+
+          <h2>Congratulations!</h2>
+
+          <p>You completed the Ganesh Jigsaw Puzzle successfully.</p>
+
+          <div class="result-grid">
+            <div>
+              <span>Time</span>
+
+              <h3>
+                {{ formattedTime }}
+              </h3>
+            </div>
+
+            <div>
+              <span>Moves</span>
+
+              <h3>
+                {{ moves }}
+              </h3>
+            </div>
+
+            <div>
+              <span>Progress</span>
+
+              <h3>100%</h3>
+            </div>
+          </div>
+
+          <div class="completed-buttons">
+            <button class="btn-orange" (click)="reset()">Play Again</button>
+
+            <button class="btn-light">Download Certificate</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+</section>

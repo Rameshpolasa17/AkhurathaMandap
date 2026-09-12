@@ -1,0 +1,588 @@
+/*==========================================================
+                    STORIES PAGE
+==========================================================*/
+
+.stories-page {
+  background: linear-gradient(180deg, #fffdf8 0%, #fff8ef 100%);
+  overflow: hidden;
+}
+
+/*==========================================================
+                    HERO
+==========================================================*/
+
+.stories-hero {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 193, 7, 0.12), transparent 30%),
+    radial-gradient(circle at 80% 25%, rgba(255, 152, 0, 0.12), transparent 25%),
+    radial-gradient(circle at 50% 90%, rgba(255, 87, 34, 0.08), transparent 20%);
+}
+
+.stories-hero .container {
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  align-items: center;
+  gap: 70px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag {
+  display: inline-flex;
+  padding: 12px 28px;
+  border-radius: 40px;
+  background: #fff;
+  color: #ef6c00;
+  font-weight: 700;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.hero-content h1 {
+  margin: 25px 0;
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 1.1;
+  font-weight: 900;
+  color: #2f2418;
+}
+
+.hero-content h1 span {
+  display: block;
+  color: #ff9800;
+}
+
+.hero-content p {
+  max-width: 620px;
+  color: #666;
+  font-size: 18px;
+  line-height: 1.9;
+}
+
+.hero-image {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 500px;
+  animation: floatBook 6s ease-in-out infinite;
+  filter: drop-shadow(0 30px 55px rgba(0, 0, 0, 0.15));
+}
+
+/*==========================================================
+                FEATURED STORY
+==========================================================*/
+
+.featured-story {
+  padding: 80px 0 110px;
+}
+
+.story-card {
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  gap: 45px;
+  align-items: center;
+  padding: 40px;
+  border-radius: 35px;
+  background: white;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+}
+
+.story-image {
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.story-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.6s;
+}
+
+.story-card:hover .story-image img {
+  transform: scale(1.08);
+}
+
+.story-category {
+  display: inline-flex;
+  padding: 10px 22px;
+  border-radius: 30px;
+  background: #fff3e0;
+  color: #ef6c00;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.story-content h2 {
+  font-size: 42px;
+  color: #2f2418;
+  margin-bottom: 18px;
+  font-weight: 800;
+}
+
+.story-content p {
+  color: #666;
+  line-height: 1.9;
+  font-size: 17px;
+}
+
+.story-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin: 35px 0;
+}
+
+.story-info div {
+  padding: 14px 24px;
+  border-radius: 40px;
+  background: #fff8ef;
+  font-weight: 600;
+  color: #555;
+}
+
+.story-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nav-btn,
+.read-btn {
+  height: 56px;
+  padding: 0 30px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.35s;
+}
+
+.nav-btn {
+  background: #f3f3f3;
+}
+
+.nav-btn:hover {
+  transform: translateY(-5px);
+}
+
+.read-btn {
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+  color: white;
+  box-shadow: 0 18px 35px rgba(255, 152, 0, 0.25);
+}
+
+.read-btn:hover {
+  transform: translateY(-5px);
+}
+
+/*==========================================================
+                ANIMATION
+==========================================================*/
+
+@keyframes floatBook {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/*==========================================================
+                RESPONSIVE
+==========================================================*/
+
+@media (max-width: 992px) {
+  .stories-hero .container,
+  .story-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .story-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .stories-hero {
+    padding: 90px 0;
+  }
+
+  .story-content h2 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 576px) {
+  .story-card {
+    padding: 25px;
+  }
+
+  .story-actions {
+    flex-direction: column;
+  }
+
+  .nav-btn,
+  .read-btn {
+    width: 100%;
+  }
+}
+.story-videos {
+  padding: 100px 0;
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.video-card {
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  transition: 0.35s;
+}
+
+.video-card:hover {
+  transform: translateY(-8px);
+}
+
+.video-card iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+}
+
+.video-card h4 {
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .videos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/*==========================================================
+                STORY BOOK POPUP
+==========================================================*/
+
+.story-book-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+}
+
+.story-book-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(15, 15, 15, 0.78);
+  backdrop-filter: blur(10px);
+
+  animation: fadeIn 0.35s ease;
+}
+
+.story-book {
+  position: relative;
+
+  width: min(920px, 100%);
+  max-height: 92vh;
+
+  overflow-y: auto;
+
+  border-radius: 35px;
+
+  background: linear-gradient(180deg, #fffdf8 0%, #fff9ef 100%);
+
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.25);
+
+  z-index: 2;
+
+  padding: 45px;
+
+  animation: popup 0.45s ease;
+}
+
+/*==========================================================
+                    CLOSE BUTTON
+==========================================================*/
+
+.close-btn {
+  position: absolute;
+
+  right: 20px;
+  top: 20px;
+
+  width: 52px;
+  height: 52px;
+
+  border: none;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  background: #ffffff;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #444;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+
+  transition: 0.35s;
+}
+
+.close-btn:hover {
+  transform: rotate(90deg);
+
+  background: #ff9800;
+  color: #fff;
+}
+
+/*==========================================================
+                    HEADER
+==========================================================*/
+
+.book-header {
+  text-align: center;
+
+  margin-bottom: 35px;
+}
+
+.book-tag {
+  display: inline-flex;
+
+  padding: 10px 24px;
+
+  border-radius: 40px;
+
+  background: #fff3e0;
+
+  color: #ef6c00;
+
+  font-weight: 700;
+}
+
+.book-header h2 {
+  margin-top: 22px;
+
+  font-size: 42px;
+
+  font-weight: 800;
+
+  color: #32251b;
+}
+
+/*==========================================================
+                    IMAGE
+==========================================================*/
+
+.book-image {
+  display: flex;
+
+  justify-content: center;
+
+  margin-bottom: 35px;
+}
+
+.book-image img {
+  width: 100%;
+
+  max-width: 520px;
+
+  border-radius: 24px;
+
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.15);
+}
+
+/*==========================================================
+                    STORY PAGE
+==========================================================*/
+
+.book-page {
+  background: #fff;
+
+  border-radius: 24px;
+
+  padding: 40px;
+
+  line-height: 2;
+
+  font-size: 20px;
+
+  color: #444;
+
+  margin-bottom: 30px;
+
+  box-shadow: inset 0 0 0 1px rgba(255, 193, 7, 0.12);
+}
+
+.book-page p {
+  margin: 0;
+}
+
+/*==========================================================
+                    COUNTER
+==========================================================*/
+
+.page-counter {
+  text-align: center;
+
+  margin-bottom: 35px;
+
+  color: #777;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+/*==========================================================
+                    ACTIONS
+==========================================================*/
+
+.book-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 15px;
+
+  justify-content: center;
+}
+
+.book-actions button {
+  height: 54px;
+
+  padding: 0 28px;
+
+  border: none;
+
+  border-radius: 40px;
+
+  cursor: pointer;
+
+  font-weight: 700;
+
+  transition: 0.35s;
+}
+
+.nav-btn {
+  background: #ececec;
+}
+
+.nav-btn:hover:not(:disabled) {
+  transform: translateY(-5px);
+}
+
+.nav-btn:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+.listen-btn {
+  background: linear-gradient(135deg, #2196f3, #42a5f5);
+
+  color: #fff;
+
+  box-shadow: 0 18px 35px rgba(33, 150, 243, 0.25);
+}
+
+.listen-btn:hover {
+  transform: translateY(-5px);
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #43a047, #66bb6a);
+
+  color: #fff;
+
+  box-shadow: 0 18px 35px rgba(67, 160, 71, 0.25);
+}
+
+.download-btn:hover {
+  transform: translateY(-5px);
+}
+
+/*==========================================================
+                    ANIMATIONS
+==========================================================*/
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/*==========================================================
+                    RESPONSIVE
+==========================================================*/
+
+@media (max-width: 768px) {
+  .story-book {
+    padding: 28px;
+  }
+
+  .book-header h2 {
+    font-size: 30px;
+  }
+
+  .book-page {
+    padding: 25px;
+
+    font-size: 17px;
+  }
+
+  .book-actions {
+    flex-direction: column;
+  }
+
+  .book-actions button {
+    width: 100%;
+  }
+}

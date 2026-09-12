@@ -1,0 +1,228 @@
+<section class="stories-page">
+  <!--=========================================
+                  HERO
+  ==========================================-->
+
+  <section class="stories-hero">
+    <div class="hero-pattern"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag"> 📖 Story World </span>
+
+        <h1>
+          Divine Stories
+          <span>For Every Child</span>
+        </h1>
+
+        <p>
+          Discover inspiring stories of Lord Ganesha filled with wisdom, kindness, courage and
+          family values through beautiful illustrations.
+        </p>
+      </div>
+
+      <div class="hero-image">
+        <img src="images/stories/story-hero.png" alt="Story Hero" />
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              FEATURED STORY
+  ==========================================-->
+
+  <section class="featured-story">
+    <div class="container">
+      <div class="story-card">
+        <div class="story-image">
+          <img [src]="stories[selectedStory].image" [alt]="stories[selectedStory].title" />
+        </div>
+
+        <div class="story-content">
+          <span class="story-category">
+            {{ stories[selectedStory].category }}
+          </span>
+
+          <h2>
+            {{ stories[selectedStory].title }}
+          </h2>
+
+          <p>
+            {{ stories[selectedStory].description }}
+          </p>
+
+          <div class="story-info">
+            <div>⏱ {{ stories[selectedStory].duration }}</div>
+
+            <div>
+              💡 Moral :
+              <strong>{{ stories[selectedStory].moral }}</strong>
+            </div>
+          </div>
+
+          <div class="story-actions">
+            <button class="nav-btn" (click)="previousStory()">← Previous</button>
+
+            <button class="read-btn" (click)="openStory()">📖 Read Story</button>
+
+            <button class="nav-btn" (click)="nextStory()">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                STORIES GRID
+  ==========================================-->
+
+  <section class="stories-list">
+    <div class="container">
+      <div class="section-header">
+        <span>Explore Stories</span>
+
+        <h2>Choose Your Favorite Story</h2>
+
+        <p>Every story teaches valuable life lessons through Lord Ganesha.</p>
+      </div>
+
+      <div class="stories-grid">
+        @for (story of stories; track story.title) {
+          <div
+            class="story-item"
+            [class.active]="selectedStory === $index"
+            (click)="selectStory($index)"
+          >
+            <img [src]="story.image" [alt]="story.title" />
+
+            <div class="overlay">
+              <span>
+                {{ story.category }}
+              </span>
+
+              <h4>
+                {{ story.title }}
+              </h4>
+
+              <small>
+                {{ story.duration }}
+              </small>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+  <section class="story-videos">
+    <div class="container">
+      <div class="section-header">
+        <span>🎬 Watch Stories</span>
+
+        <h2>Animated Ganesha Stories</h2>
+
+        <p>Watch beautiful animated stories of Lord Ganesha and learn valuable life lessons.</p>
+      </div>
+
+      <div class="videos-grid">
+        @for (video of youtubeVideos; track video.videoId) {
+          <div class="video-card">
+            <iframe
+              [src]="getVideoUrl(video.videoId)"
+              title="{{ video.title }}"
+              loading="lazy"
+              allowfullscreen
+            >
+            </iframe>
+
+            <h4>{{ video.title }}</h4>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+  <!--=========================================
+              MORAL SECTION
+  ==========================================-->
+
+  <section class="moral-section">
+    <div class="container">
+      <div class="moral-card">
+        <div class="moral-icon">🌸</div>
+
+        <h2>Moral Of Today's Story</h2>
+
+        <h3>
+          {{ stories[selectedStory].moral }}
+        </h3>
+
+        <p>
+          Every Ganesha story teaches children kindness, respect, patience, wisdom and love towards
+          parents and society.
+        </p>
+      </div>
+    </div>
+  </section>
+</section>
+<!--=========================================
+            STORY BOOK POPUP
+==========================================-->
+
+@if (showStoryBook) {
+  <div class="story-book-overlay">
+    <div class="story-book-backdrop" (click)="closeStory()"></div>
+
+    <div class="story-book">
+      <button class="close-btn" (click)="closeStory()">✕</button>
+
+      <div class="book-header">
+        <span class="book-tag"> 📖 Story Book </span>
+
+        <h2>
+          {{ storyContent[selectedStory].title }}
+        </h2>
+      </div>
+
+      <div class="book-image">
+        <img [src]="stories[selectedStory].image" [alt]="stories[selectedStory].title" />
+      </div>
+
+      <div class="book-page">
+        <p>
+          {{ storyContent[selectedStory].pages[currentPage] }}
+        </p>
+      </div>
+
+      <div class="page-counter">
+        Page
+
+        {{ currentPage + 1 }}
+
+        /
+
+        {{ storyContent[selectedStory].pages.length }}
+      </div>
+
+      <div class="book-actions">
+        <button class="nav-btn" (click)="previousPage()" [disabled]="currentPage === 0">
+          ← Previous
+        </button>
+
+        @if (!isSpeaking) {
+          <button class="listen-btn" (click)="listenStory()">🔊 వినండి</button>
+        } @else {
+          <button class="listen-btn" (click)="stopStory()">⏹ ఆపండి</button>
+        }
+
+        <button class="download-btn" (click)="downloadStory()">📥 PDF డౌన్‌లోడ్</button>
+
+        <button
+          class="nav-btn"
+          (click)="nextPage()"
+          [disabled]="currentPage === storyContent[selectedStory].pages.length - 1"
+        >
+          Next →
+        </button>
+      </div>
+    </div>
+  </div>
+}

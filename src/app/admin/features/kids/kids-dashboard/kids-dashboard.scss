@@ -1,0 +1,178 @@
+:host {
+  display: block;
+}
+
+.kids-dashboard {
+  padding: 28px;
+  min-height: 100%;
+  background: linear-gradient(180deg, #fffdf8, #fff8ee);
+}
+
+.page-header {
+  margin-bottom: 25px;
+}
+
+.title-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  h1 {
+    margin: 5px 0;
+    color: #222;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #8a8f98;
+  font-size: 13px;
+
+  strong {
+    color: #f59e0b;
+  }
+}
+
+.title-icon,
+.stat-icon {
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.title-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  font-size: 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+  span {
+    color: #777;
+    font-size: 13px;
+  }
+  strong {
+    display: block;
+    margin-top: 3px;
+    color: #222;
+    font-size: 28px;
+  }
+}
+
+.stat-icon {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  border-radius: 14px;
+  font-size: 21px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.quick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 25px;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  text-align: left;
+  transition: 0.2s;
+
+  i {
+    color: #f59e0b;
+    font-size: 28px;
+  }
+
+  span {
+    color: #222;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  small {
+    color: #777;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.loading-state {
+  padding: 60px;
+  border-radius: 18px;
+  background: #fff;
+  text-align: center;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  border: 5px solid #eee;
+  border-top-color: #f59e0b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .quick-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .kids-dashboard {
+    padding: 18px;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .title-row h1 {
+    font-size: 24px;
+  }
+}

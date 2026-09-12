@@ -1,0 +1,132 @@
+<div class="quiz-list-page">
+  <div class="page-header">
+    <div>
+      <h2>Quizzes</h2>
+      <p>Manage kids quizzes and questions</p>
+    </div>
+
+    <button type="button" class="btn-primary" (click)="addQuiz()">
+      <i class="fa-solid fa-plus"></i>
+      Add Quiz
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      Loading quizzes...
+    </div>
+  } @else if (quizzes.length === 0) {
+    <div class="empty-state">
+      <i class="fa-solid fa-circle-question"></i>
+      <h3>No Quizzes Found</h3>
+      <p>Create your first quiz to get started.</p>
+
+      <button type="button" class="btn-primary" (click)="addQuiz()">
+        <i class="fa-solid fa-plus"></i>
+        Add Quiz
+      </button>
+    </div>
+  } @else {
+    <div class="table-card">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Level</th>
+              <th>Time Limit</th>
+              <th>Passing %</th>
+              <th>Certificate %</th>
+              <th>Order</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (quiz of quizzes; track quiz.id; let i = $index) {
+              <tr>
+                <td>{{ i + 1 }}</td>
+
+                <td>
+                  <div class="quiz-title">
+                    @if (quiz.thumbnailPath) {
+                      <img [src]="quiz.thumbnailPath" [alt]="quiz.title" />
+                    }
+
+                    <div>
+                      <strong>{{ quiz.title }}</strong>
+
+                      @if (quiz.description) {
+                        <small>{{ quiz.description }}</small>
+                      }
+                    </div>
+                  </div>
+                </td>
+
+                <td>
+                  <span class="level">
+                    {{ quiz.level || '-' }}
+                  </span>
+                </td>
+
+                <td>{{ quiz.timeLimitSeconds || 0 }} sec</td>
+
+                <td>{{ quiz.passingPercentage }}%</td>
+
+                <td>{{ quiz.certificatePercentage }}%</td>
+
+                <td>
+                  {{ quiz.displayOrder }}
+                </td>
+
+                <td>
+                  <span
+                    class="status"
+                    [class.active]="quiz.isActive"
+                    [class.inactive]="!quiz.isActive"
+                  >
+                    {{ getStatusText(quiz.isActive) }}
+                  </span>
+                </td>
+
+                <td>
+                  <div class="actions">
+                    <button
+                      type="button"
+                      class="btn-question"
+                      title="Manage Questions"
+                      (click)="manageQuestions(quiz.id)"
+                    >
+                      <i class="fa-solid fa-list-check"></i>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn-edit"
+                      title="Edit Quiz"
+                      (click)="editQuiz(quiz.id)"
+                    >
+                      <i class="fa-solid fa-pen"></i>
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn-delete"
+                      title="Delete Quiz"
+                      (click)="deleteQuiz(quiz)"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>

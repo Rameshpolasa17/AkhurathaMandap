@@ -1,0 +1,187 @@
+:host {
+  display: block;
+}
+
+.game-form-page {
+  padding: 28px;
+  min-height: 100%;
+  background: linear-gradient(180deg, #fffdf8, #fff8ee);
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.title-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  h1 {
+    margin: 0;
+    color: #222;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: #666;
+  }
+}
+
+.title-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  color: #fff;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  font-size: 24px;
+}
+
+.form-card {
+  max-width: 1000px;
+  padding: 28px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  label {
+    color: #444;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    font-family: inherit;
+
+    &:focus {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.toggle-label {
+  flex-direction: row !important;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+
+  input {
+    width: 18px;
+    height: 18px;
+    accent-color: #f59e0b;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.cancel-button,
+.save-button {
+  min-width: 110px;
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cancel-button {
+  color: #555;
+  background: #eee;
+}
+
+.save-button {
+  color: #fff;
+  background: #f59e0b;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.loading-state {
+  padding: 60px;
+  border-radius: 18px;
+  background: #fff;
+  text-align: center;
+}
+
+.loader {
+  width: 45px;
+  height: 45px;
+  margin: auto;
+  border: 5px solid #eee;
+  border-top-color: #f59e0b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .game-form-page {
+    padding: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .form-actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .title-row h1 {
+    font-size: 24px;
+  }
+}

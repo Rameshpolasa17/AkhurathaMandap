@@ -1,0 +1,73 @@
+<!-- ============================================================= INTRO -->
+<section class="fi akm-section akm-section--cream" aria-labelledby="fi-title">
+  <div class="akm-container fi__inner">
+    <div class="fi__visual" akmReveal>
+      <img src="/images/Ganesh.jpg" alt="Shree Ganesh installed at {{ mandapName }}" />
+      <div class="fi__frame" aria-hidden="true"></div>
+      <div class="fi__medal akm-float" aria-hidden="true">
+        <img src="/images/AKM-Round.png" alt="" />
+      </div>
+    </div>
+
+    <div class="fi__copy" akmReveal [revealDelay]="100">
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-om" aria-hidden="true"></i>
+        Welcome
+      </span>
+
+      <h2 id="fi-title">Eleven days of devotion, run entirely by the neighbourhood</h2>
+
+      <p>
+        {{ mandapName }} has no organising company and no paid staff. The pandal goes up
+        because neighbours build it, the mahaprasad is served because families cook
+        through the night, and the stage fills because local artists give their time.
+      </p>
+
+      <p>
+        Everyone is welcome — for a quiet darshan, a plate of prasad, or all eleven days
+        of it.
+      </p>
+
+      <div class="fi__cta">
+        <a class="akm-btn akm-btn--brand" routerLink="/about">
+          <i class="fa-solid fa-om" aria-hidden="true"></i>
+          About the mandap
+        </a>
+        <a class="akm-btn akm-btn--ghost" routerLink="/festival-schedule">
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          Aarti timings
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== HIGHLIGHTS -->
+@if (highlights.length) {
+  <section class="fh akm-section akm-section--tint" aria-labelledby="fh-title">
+    <div class="akm-container">
+      <div class="akm-section-head akm-section-head--center" akmReveal>
+        <span class="akm-eyebrow">
+          <i class="fa-solid fa-star" aria-hidden="true"></i>
+          Festival highlights
+        </span>
+        <h2 id="fh-title">What happens at the mandap</h2>
+        <p>Six things that make up the eleven days — tap any of them to see more.</p>
+        <div class="akm-rule"></div>
+      </div>
+
+      <div class="fh__grid">
+        @for (item of highlights; track item.title; let i = $index) {
+          <a class="fh__card" [routerLink]="item.route" akmReveal [revealDelay]="(i % 3) * 85">
+            <span class="fh__icon"><i [class]="item.icon" aria-hidden="true"></i></span>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+            <span class="fh__go" aria-hidden="true">
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+}

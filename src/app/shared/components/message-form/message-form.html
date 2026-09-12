@@ -1,0 +1,141 @@
+<section class="msg akm-section akm-section--tint" aria-labelledby="msg-title">
+  <div class="akm-container msg__inner">
+    <!-- Intro -->
+    <div class="msg__intro" akmReveal="left">
+      <span class="akm-eyebrow">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        Get in touch
+      </span>
+
+      <h2 id="msg-title">Send Us a Message</h2>
+
+      <p>
+        Questions about the festival, volunteering, sponsorship or a competition?
+        Fill in the form and we will open WhatsApp with your message ready to send —
+        the committee replies there.
+      </p>
+
+      <ul class="msg__points">
+        <li>
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Replies come from the mandap committee on WhatsApp
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Nothing is stored on this website
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          You can review and edit the message before sending
+        </li>
+      </ul>
+    </div>
+
+    <!-- Form -->
+    <form class="msg__form akm-card" akmReveal="right" [revealDelay]="120" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      @if (!whatsappAvailable) {
+        <p class="akm-note akm-note--warn">
+          <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          <span>
+            The WhatsApp number has not been configured yet. Add it to
+            <code>whatsappNumber</code> in <code>core/config/app.config.ts</code> to
+            enable this form.
+          </span>
+        </p>
+      }
+
+      <div class="msg__row">
+        <div class="akm-field">
+          <label for="msg-name">Name <span class="akm-req" aria-hidden="true">*</span></label>
+          <input
+            id="msg-name"
+            type="text"
+            class="akm-input"
+            formControlName="name"
+            autocomplete="name"
+            placeholder="Your full name"
+            [class.is-invalid]="invalid('name')"
+            [attr.aria-invalid]="invalid('name')"
+            [attr.aria-describedby]="invalid('name') ? 'msg-name-err' : null"
+          />
+          @if (invalid('name')) {
+            <span class="akm-error" id="msg-name-err">{{ errorFor('name') }}</span>
+          }
+        </div>
+
+        <div class="akm-field">
+          <label for="msg-mobile">Mobile Number <span class="akm-req" aria-hidden="true">*</span></label>
+          <input
+            id="msg-mobile"
+            type="tel"
+            class="akm-input"
+            formControlName="mobile"
+            autocomplete="tel"
+            inputmode="numeric"
+            maxlength="10"
+            placeholder="10-digit mobile number"
+            [class.is-invalid]="invalid('mobile')"
+            [attr.aria-invalid]="invalid('mobile')"
+            [attr.aria-describedby]="invalid('mobile') ? 'msg-mobile-err' : null"
+          />
+          @if (invalid('mobile')) {
+            <span class="akm-error" id="msg-mobile-err">{{ errorFor('mobile') }}</span>
+          }
+        </div>
+      </div>
+
+      <div class="akm-field">
+        <label for="msg-email">Email <span class="msg__optional">(optional)</span></label>
+        <input
+          id="msg-email"
+          type="email"
+          class="akm-input"
+          formControlName="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          [class.is-invalid]="invalid('email')"
+          [attr.aria-invalid]="invalid('email')"
+          [attr.aria-describedby]="invalid('email') ? 'msg-email-err' : null"
+        />
+        @if (invalid('email')) {
+          <span class="akm-error" id="msg-email-err">{{ errorFor('email') }}</span>
+        }
+      </div>
+
+      <div class="akm-field">
+        <label for="msg-message">Message <span class="akm-req" aria-hidden="true">*</span></label>
+        <textarea
+          id="msg-message"
+          class="akm-input"
+          formControlName="message"
+          rows="5"
+          placeholder="How can we help?"
+          [class.is-invalid]="invalid('message')"
+          [attr.aria-invalid]="invalid('message')"
+          [attr.aria-describedby]="invalid('message') ? 'msg-message-err' : null"
+        ></textarea>
+        @if (invalid('message')) {
+          <span class="akm-error" id="msg-message-err">{{ errorFor('message') }}</span>
+        }
+      </div>
+
+      <button
+        type="submit"
+        class="akm-btn akm-btn--brand akm-btn--block"
+        [disabled]="!whatsappAvailable"
+      >
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        Send via WhatsApp
+      </button>
+
+      <p class="msg__status" role="status" aria-live="polite">
+        @if (opening()) {
+          <span class="msg__status-ok">
+            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            Opening WhatsApp…
+          </span>
+        }
+      </p>
+    </form>
+  </div>
+</section>

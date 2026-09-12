@@ -1,0 +1,48 @@
+<div class="dashboard">
+  <div class="page-title">
+    <h1>Welcome, Administrator 👋</h1>
+    <p>Manage your Akhuratha Mandap website from one place.</p>
+  </div>
+
+  <div class="stats-grid">
+    @for (card of cards; track card.title) {
+      <div class="stat-card">
+        <div class="icon" [style.background]="card.color">
+          <i [class]="card.icon"></i>
+        </div>
+
+        <div>
+          <h2>{{ card.count }}</h2>
+
+          <span>{{ card.title }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="dashboard-content">
+    <div class="activity-card">
+      <h3>Recent Activity</h3>
+
+      @for (activity of recentActivities; track activity) {
+        <div class="activity-item">
+          <i class="fa-solid fa-circle-check"></i>
+
+          {{ activity }}
+        </div>
+      }
+    </div>
+
+    <div class="quick-actions">
+      <h3>Quick Actions</h3>
+
+      <button routerLink="/admin/announcements">Add Announcement</button>
+
+      <button routerLink="/admin/events">Create Event</button>
+
+      <button routerLink="/admin/gallery">Upload Photos</button>
+
+      <button routerLink="/admin/sponsors">Add Sponsor</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,259 @@
+<section class="bhajans-page">
+  <!--=========================================
+                    HERO
+  ==========================================-->
+
+  <section class="bhajans-hero">
+    <div class="hero-pattern"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag"> 🎵 Ganesh Bhakti </span>
+
+        <h1>
+          {{ heroTitle }}
+        </h1>
+
+        <p>
+          {{ heroSubtitle }}
+        </p>
+      </div>
+
+      <div class="hero-image">
+        <img src="images/bhajans/hero.png" alt="Ganesh Bhajans" />
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              FEATURED BHAJAN
+  ==========================================-->
+
+  <section class="featured-bhajan">
+    <div class="container">
+      <div class="featured-card">
+        <div class="featured-image">
+          <img [src]="bhajans[selectedBhajan].image" [alt]="bhajans[selectedBhajan].title" />
+        </div>
+
+        <div class="featured-content">
+          <span class="category"> 🎶 Featured Bhajan </span>
+
+          <h2>
+            {{ bhajans[selectedBhajan].title }}
+          </h2>
+
+          <h5>
+            {{ bhajans[selectedBhajan].english }}
+          </h5>
+
+          <div class="info">
+            <span> ⏱ {{ bhajans[selectedBhajan].duration }} </span>
+
+            <span> 🎤 {{ bhajans[selectedBhajan].singer }} </span>
+          </div>
+
+          <div class="buttons">
+            <button class="play-btn">▶ వినండి</button>
+
+            <button class="lyrics-btn">📜 Lyrics</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                  BHAJANS
+  ==========================================-->
+
+  <section class="bhajans-list">
+    <div class="container">
+      <div class="section-header">
+        <span>🎼 Popular Bhajans</span>
+
+        <h2>భక్తి గీతాలు</h2>
+      </div>
+
+      <div class="bhajans-grid">
+        @for (item of bhajans; track item.title) {
+          <div
+            class="bhajan-card"
+            [class.active]="selectedBhajan == $index"
+            (click)="selectBhajan($index)"
+          >
+            <img [src]="item.image" [alt]="item.title" />
+
+            <div class="content">
+              <h3>
+                {{ item.title }}
+              </h3>
+
+              <p>
+                {{ item.duration }}
+              </p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                  VIDEOS
+  ==========================================-->
+
+  <section class="bhajan-videos">
+    <div class="container">
+      <div class="section-header">
+        <span>🎬 Watch</span>
+
+        <h2>Ganesh Bhajan Videos</h2>
+      </div>
+
+      <div class="videos-grid">
+        @for (video of videos; track video.videoId) {
+          <div class="video-card">
+            <iframe [src]="getVideoUrl(video.videoId)" loading="lazy" allowfullscreen> </iframe>
+
+            <h4>
+              {{ video.title }}
+            </h4>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    LYRICS
+  ==========================================-->
+
+  <section class="lyrics-section">
+    <div class="container">
+      <div class="lyrics-card">
+        <div class="section-header">
+          <span>📜 Lyrics</span>
+
+          <h2>
+            {{ bhajans[selectedBhajan].title }}
+          </h2>
+        </div>
+
+        <pre>
+
+{{ bhajans[selectedBhajan].lyrics }}
+
+        </pre>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    MANTRAS
+  ==========================================-->
+
+  <section class="mantras-section">
+    <div class="container">
+      <div class="section-header">
+        <span>🪔 Ganesh Mantras</span>
+
+        <h2>పవిత్ర మంత్రాలు</h2>
+      </div>
+
+      <div class="mantras-grid">
+        @for (item of mantras; track item.title) {
+          <div class="mantra-card">
+            <h3>
+              {{ item.title }}
+            </h3>
+
+            <p>
+              {{ item.meaning }}
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              MORNING PRAYERS
+  ==========================================-->
+
+  <section class="morning-prayer">
+    <div class="container">
+      <div class="section-header">
+        <span>🌅 Morning Prayer</span>
+
+        <h2>ప్రతిరోజు ప్రార్థన</h2>
+      </div>
+
+      <div class="prayer-grid">
+        @for (item of morningPrayers; track item.title) {
+          <div class="prayer-card">
+            <h3>
+              {{ item.title }}
+            </h3>
+
+            <p>
+              {{ item.text }}
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                KIDS RHYMES
+  ==========================================-->
+
+  <section class="kids-rhymes">
+    <div class="container">
+      <div class="section-header">
+        <span>👦 Kids Rhymes</span>
+
+        <h2>చిన్నారుల పాటలు</h2>
+      </div>
+
+      <div class="rhymes-grid">
+        @for (item of rhymes; track item.title) {
+          <div class="rhyme-card">
+            <img [src]="item.image" [alt]="item.title" />
+
+            <div class="content">
+              <h4>
+                {{ item.title }}
+              </h4>
+
+              <span>
+                {{ item.duration }}
+              </span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                DOWNLOAD
+  ==========================================-->
+
+  <section class="downloads">
+    <div class="container">
+      <div class="download-card">
+        <h2>📥 Download Bhajans</h2>
+
+        <p>Download Telugu Lyrics, Prayer Book and Bhajan Collection.</p>
+
+        <div class="buttons">
+          <button>📄 Lyrics PDF</button>
+
+          <button>🎵 MP3 Collection</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

@@ -1,0 +1,148 @@
+<app-page-hero
+  titleId="ab-title"
+  eyebrow="About the mandap"
+  icon="fa-solid fa-om"
+  heading="A Neighbourhood Tradition"
+  lede="Akhuratha Mandap began as a handful of families on one street. It is still run entirely by volunteers, and it is still for everyone."
+/>
+
+<!-- ============================================================= STORY -->
+<section class="ab-story akm-section akm-section--cream" aria-labelledby="ab-story-title">
+  <div class="akm-container ab-story__inner">
+    <div class="ab-story__copy" akmReveal>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+        Our story
+      </span>
+      <h2 id="ab-story-title">Built by the people who celebrate here</h2>
+      <p>
+        There is no organising company behind {{ mandapName }} and no paid staff. Every
+        year the pandal goes up because neighbours take leave from work to build it,
+        the mahaprasad is served because families cook through the night, and the
+        cultural evenings happen because local artists give their time.
+      </p>
+      <p>
+        What began as a small street celebration has grown into eleven days that the
+        whole neighbourhood plans its year around — and the way it is run has not
+        changed at all.
+      </p>
+
+      <div class="ab-story__cta">
+        <a class="akm-btn akm-btn--brand" routerLink="/history">
+          <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+          Our history
+        </a>
+        <a class="akm-btn akm-btn--ghost" routerLink="/volunteers">
+          <i class="fa-solid fa-hands-holding-circle" aria-hidden="true"></i>
+          Meet the volunteers
+        </a>
+      </div>
+    </div>
+
+    <div class="ab-story__visual" akmReveal [revealDelay]="120">
+      <img src="/images/Ganesh.jpg" alt="Shree Ganesh installed at Akhuratha Mandap" />
+      <div class="ab-story__medal" aria-hidden="true">
+        <img src="/images/AKM-Round.png" alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== PILLARS -->
+<section class="ab-pillars akm-section akm-section--tint" aria-labelledby="ab-pillars-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <h2 id="ab-pillars-title">What the mandap stands for</h2>
+      <p>Four things we try to get right every single year.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    <div class="ab-pillars__grid">
+      @for (pillar of pillars; track pillar.title; let i = $index) {
+        <article class="ab-pillars__card" akmReveal [revealDelay]="i * 85">
+          <span class="ab-pillars__icon"><i [class]="pillar.icon" aria-hidden="true"></i></span>
+          <h3>{{ pillar.title }}</h3>
+          <p>{{ pillar.text }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= STATS -->
+@if (stats.length) {
+  <section class="ab-stats akm-section akm-section--brand" aria-labelledby="ab-stats-title">
+    <div class="akm-container">
+      <h2 id="ab-stats-title" class="akm-visually-hidden">The festival in numbers</h2>
+      <ul class="ab-stats__grid">
+        @for (stat of stats; track stat.label; let i = $index) {
+          <li akmReveal [revealDelay]="i * 80">
+            <strong>{{ stat.value }}</strong>
+            <span>{{ stat.label }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+}
+
+<!-- ========================================================= MILESTONES -->
+@if (milestones.length) {
+  <section class="ab-mile akm-section akm-section--cream" aria-labelledby="ab-mile-title">
+    <div class="akm-container">
+      <div class="akm-section-head akm-section-head--center" akmReveal>
+        <span class="akm-eyebrow">
+          <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+          Looking back
+        </span>
+        <h2 id="ab-mile-title">How we got here</h2>
+        <div class="akm-rule"></div>
+      </div>
+
+      <ol class="ab-mile__list">
+        @for (milestone of milestones; track milestone.title; let i = $index) {
+          <li akmReveal [revealDelay]="i * 90">
+            <span class="ab-mile__year">{{ milestone.year }}</span>
+            <h3>{{ milestone.title }}</h3>
+            <p>{{ milestone.description }}</p>
+          </li>
+        }
+      </ol>
+
+      <div class="ab-mile__cta" akmReveal>
+        <a class="akm-btn akm-btn--brand" routerLink="/history">
+          Read the full history
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+}
+
+<!-- ========================================================= COMMITTEE -->
+<section class="ab-com akm-section akm-section--tint" aria-labelledby="ab-com-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-people-group" aria-hidden="true"></i>
+        The committee
+      </span>
+      <h2 id="ab-com-title">Who runs the festival</h2>
+      <p>All volunteers. None of these roles is paid.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    <app-people-grid
+      [people]="committee"
+      icon="fa-solid fa-people-group"
+      emptyText="This year's committee is being confirmed."
+    />
+
+    <div class="ab-com__cta" akmReveal>
+      <a class="akm-btn akm-btn--ghost" routerLink="/committee">
+        See the full committee
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</section>

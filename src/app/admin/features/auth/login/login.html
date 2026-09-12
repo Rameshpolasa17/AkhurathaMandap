@@ -1,0 +1,17 @@
+<div class="login-container">
+  <h2>Admin Login</h2>
+
+  <input type="email" placeholder="Email" [(ngModel)]="request.email" />
+
+  <input type="password" placeholder="Password" [(ngModel)]="request.password" />
+
+  <button (click)="login()" [disabled]="loading">
+    {{ loading ? 'Logging in...' : 'Login' }}
+  </button>
+
+  @if (errorMessage) {
+    <p class="error">
+      {{ errorMessage }}
+    </p>
+  }
+</div>

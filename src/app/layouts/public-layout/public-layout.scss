@@ -1,0 +1,43 @@
+/* The header is fixed, so the page starts below it. */
+.page-container {
+  min-height: 60vh;
+  padding-top: 76px;
+  background: var(--akm-cream);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+/*
+ * Routed pages fade in. The routed component is destroyed and recreated on
+ * every navigation, so the animation replays on each route change without
+ * any router-animation wiring.
+ */
+.page-container > *:not(router-outlet) {
+  display: block;
+  animation: pageEnter 0.42s var(--akm-ease) both;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-container {
+    padding-top: 66px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-container > *:not(router-outlet) {
+    animation: none;
+  }
+}

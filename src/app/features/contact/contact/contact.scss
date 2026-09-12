@@ -1,0 +1,239 @@
+/* ================================================================= HERO */
+
+.ct-hero {
+  position: relative;
+  padding-block: 88px 76px;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--akm-grad-brand);
+}
+
+.ct-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(680px 320px at 78% 0%, rgba(255, 152, 0, 0.22), transparent 66%);
+}
+
+.ct-hero__orb {
+  width: 360px;
+  height: 360px;
+  bottom: -160px;
+  left: -60px;
+  background: rgba(255, 193, 7, 0.16);
+  z-index: -1;
+}
+
+.ct-hero__inner {
+  max-width: 660px;
+
+  .akm-eyebrow {
+    background: rgba(255, 255, 255, 0.13);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: var(--akm-accent-400);
+  }
+
+  h1 {
+    margin: 22px 0 16px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(2rem, 4.4vw, 3.1rem);
+    line-height: 1.14;
+    color: #fff;
+  }
+
+  p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.84);
+  }
+}
+
+/* ================================================================ CARDS */
+
+.ct__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.ct__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 28px 24px;
+  background: var(--akm-white);
+  transition:
+    transform var(--akm-t),
+    box-shadow var(--akm-t),
+    border-color var(--akm-t);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--akm-shadow-md);
+    border-color: rgba(255, 152, 0, 0.32);
+  }
+
+  h3 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.06rem;
+    color: var(--akm-maroon-800);
+  }
+
+  address {
+    display: grid;
+    gap: 3px;
+    font-style: normal;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--akm-ink-muted);
+  }
+
+  /* The action always sits at the bottom edge of the card. */
+  .akm-link {
+    margin-top: auto;
+    padding-top: 10px;
+  }
+}
+
+.ct__icon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 4px;
+  border-radius: var(--akm-r-md);
+  background: rgba(255, 152, 0, 0.12);
+  border: 1px solid rgba(255, 152, 0, 0.24);
+  color: var(--akm-accent-600);
+  font-size: 1.1rem;
+}
+
+.ct__icon--wa {
+  background: rgba(37, 211, 102, 0.13);
+  border-color: rgba(37, 211, 102, 0.3);
+  color: #1f9d53;
+}
+
+.ct__card--wa .akm-link {
+  color: #1f9d53;
+
+  &:hover {
+    color: #157a3e;
+  }
+}
+
+.ct__value {
+  margin: 0;
+  font-size: 0.94rem;
+  color: var(--akm-ink-muted);
+}
+
+.ct__value--break {
+  word-break: break-word;
+}
+
+/* ================================================================ HOURS */
+
+.ct__hours {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin-top: 26px;
+  padding: 24px 28px;
+  border-radius: var(--akm-r-lg);
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.14), rgba(255, 152, 0, 0.07));
+  border: 1px solid rgba(255, 152, 0, 0.26);
+
+  strong {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.14rem;
+    color: var(--akm-maroon-800);
+  }
+}
+
+.ct__hours-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--akm-accent-600);
+}
+
+/* =============================================================== SOCIAL */
+
+.ct__social {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 26px;
+
+  > span {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--akm-ink-soft);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 18px;
+    border-radius: var(--akm-r-pill);
+    border: 1px solid var(--akm-border-strong);
+    background: var(--akm-white);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--akm-maroon-800);
+    transition:
+      background var(--akm-t-fast),
+      color var(--akm-t-fast),
+      border-color var(--akm-t-fast);
+
+    &:hover {
+      background: var(--akm-grad-brand);
+      border-color: transparent;
+      color: #fff;
+    }
+  }
+}
+
+/* =========================================================== RESPONSIVE */
+
+@media (max-width: 640px) {
+  .ct-hero {
+    padding-block: 62px 52px;
+  }
+
+  .ct__card {
+    padding: 22px 18px;
+  }
+
+  .ct__hours {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+
+    .akm-btn {
+      width: 100%;
+    }
+  }
+}

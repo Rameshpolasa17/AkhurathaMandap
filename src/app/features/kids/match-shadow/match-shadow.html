@@ -1,0 +1,493 @@
+<section class="match-shadow-page">
+  <!--=========================================
+                      HERO
+  ==========================================-->
+
+  <section class="shadow-hero">
+    <div class="hero-decoration decoration-one"></div>
+    <div class="hero-decoration decoration-two"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag"> 🎯 Observation Challenge </span>
+
+        <h1>
+          Match The
+          <span>Correct Shadow</span>
+        </h1>
+
+        <p>
+          Look carefully at each Ganesh themed object and choose the shadow that matches its shape
+          perfectly.
+        </p>
+
+        <div class="hero-features">
+          <div class="feature">
+            <span>👀</span>
+            Observe
+          </div>
+
+          <div class="feature">
+            <span>🧠</span>
+            Think
+          </div>
+
+          <div class="feature">
+            <span>🎯</span>
+            Match
+          </div>
+
+          <div class="feature">
+            <span>🏆</span>
+            Win
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    GAME AREA
+  ==========================================-->
+
+  @if (!gameCompleted) {
+    <section class="game-section">
+      <div class="container">
+        <!--=====================================
+                      STATS
+        ======================================-->
+
+        <div class="game-stats">
+          <div class="stat-card">
+            <div class="stat-icon">🧩</div>
+
+            <div class="stat-content">
+              <span>Question</span>
+
+              <h3>{{ currentQuestionNumber }}/{{ questions.length }}</h3>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">⏱️</div>
+
+            <div class="stat-content">
+              <span>Time</span>
+
+              <h3>
+                {{ formattedTime }}
+              </h3>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+
+            <div class="stat-content">
+              <span>Score</span>
+
+              <h3>
+                {{ score }}
+              </h3>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+
+            <div class="stat-content">
+              <span>Correct</span>
+
+              <h3>
+                {{ correctAnswers }}
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <!--=====================================
+                    PROGRESS
+        ======================================-->
+
+        <div class="progress-panel">
+          <div class="progress-header">
+            <div>
+              <span> Challenge Progress </span>
+
+              <small> Question {{ currentQuestionNumber }} of {{ questions.length }} </small>
+            </div>
+
+            <strong> {{ progress }}% </strong>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="progress"></div>
+          </div>
+        </div>
+
+        <!--=====================================
+                  GAME WRAPPER
+        ======================================-->
+
+        <div class="game-wrapper">
+          <!--=================================
+                    OBJECT SIDE
+          ==================================-->
+
+          <div class="object-panel">
+            <div class="panel-heading">
+              <span class="panel-tag"> 👀 Look Carefully </span>
+
+              <h2>Find This Shadow</h2>
+
+              <p>Study the object and choose its matching shadow from the options.</p>
+            </div>
+
+            <!--=================================
+                    OBJECT CARD
+            ==================================-->
+
+            <div class="object-card">
+              <div class="object-glow"></div>
+
+              <div class="object-number">
+                {{ currentQuestionNumber }}
+              </div>
+
+              <div class="object-image">
+                <img [src]="currentQuestion.image" [alt]="currentQuestion.title" />
+              </div>
+
+              <div class="object-info">
+                <span> Find the shadow of </span>
+
+                <h3>
+                  {{ currentQuestion.title }}
+                </h3>
+
+                <p>
+                  {{ currentQuestion.description }}
+                </p>
+              </div>
+            </div>
+
+            <!--=================================
+                        TIP
+            ==================================-->
+
+            <div class="observation-tip">
+              <div class="tip-icon">💡</div>
+
+              <div>
+                <h4>Observation Tip</h4>
+
+                <p>Look at the outer shape, curves, corners and unique features of the object.</p>
+              </div>
+            </div>
+          </div>
+
+          <!--=================================
+                    SHADOW SIDE
+          ==================================-->
+
+          <div class="shadow-panel">
+            <div class="panel-heading">
+              <span class="panel-tag"> 🎯 Choose One </span>
+
+              <h2>Which Shadow Matches?</h2>
+
+              <p>Tap one of the shadows below and check your answer.</p>
+            </div>
+
+            <!--=================================
+                    SHADOW OPTIONS
+            ==================================-->
+
+            <div class="shadow-options">
+              @for (option of shuffledOptions; track option.id) {
+                <button
+                  type="button"
+                  class="shadow-option"
+                  [class.selected]="isSelected(option)"
+                  [class.correct]="isCorrectOption(option)"
+                  [class.wrong]="isWrongOption(option)"
+                  [disabled]="answerChecked"
+                  (click)="selectShadow(option)"
+                >
+                  <!-- OPTION BADGE -->
+
+                  <span class="option-badge">
+                    {{ $index + 1 }}
+                  </span>
+
+                  <!-- SHADOW IMAGE -->
+
+                  <div class="shadow-image">
+                    <img [src]="option.image" [alt]="option.name + ' shadow'" />
+                  </div>
+
+                  <!-- STATUS -->
+
+                  <div class="option-status">
+                    @if (!answerChecked) {
+                      @if (isSelected(option)) {
+                        <span class="selected-label"> ✓ Selected </span>
+                      } @else {
+                        <span> Select Shadow </span>
+                      }
+                    }
+
+                    @if (answerChecked && isCorrectOption(option)) {
+                      <span class="correct-label"> ✓ Correct Match </span>
+                    }
+
+                    @if (answerChecked && isWrongOption(option)) {
+                      <span class="wrong-label"> ✕ Wrong Match </span>
+                    }
+                  </div>
+
+                  <!-- CORRECT ICON -->
+
+                  @if (answerChecked && isCorrectOption(option)) {
+                    <div class="result-icon correct-icon">✓</div>
+                  }
+
+                  <!-- WRONG ICON -->
+
+                  @if (answerChecked && isWrongOption(option)) {
+                    <div class="result-icon wrong-icon">✕</div>
+                  }
+                </button>
+              }
+            </div>
+
+            <!--=================================
+                      MESSAGE
+            ==================================-->
+
+            @if (message) {
+              <div
+                class="game-message"
+                [class.success]="messageType === 'success'"
+                [class.error]="messageType === 'error'"
+              >
+                <div class="message-icon">
+                  @if (messageType === 'success') {
+                    🎉
+                  } @else {
+                    💡
+                  }
+                </div>
+
+                <div>
+                  {{ message }}
+                </div>
+              </div>
+            }
+
+            <!--=================================
+                    GAME ACTIONS
+            ==================================-->
+
+            <div class="game-actions">
+              @if (!answerChecked) {
+                <button
+                  type="button"
+                  class="check-btn"
+                  [disabled]="!selectedOption"
+                  (click)="checkAnswer()"
+                >
+                  ✓ Check My Answer
+                </button>
+              }
+
+              @if (answerChecked) {
+                <button type="button" class="next-btn" (click)="nextQuestion()">
+                  @if (currentQuestionIndex < questions.length - 1) {
+                    Next Challenge →
+                  } @else {
+                    View My Results 🏆
+                  }
+                </button>
+              }
+
+              <button type="button" class="restart-btn" (click)="restartGame()">🔄 Restart</button>
+            </div>
+          </div>
+        </div>
+
+        <!--=====================================
+                    MINI STATS
+        ======================================-->
+
+        <div class="mini-stats">
+          <div class="mini-stat">
+            <span class="mini-icon"> ✅ </span>
+
+            <div>
+              <small> Correct </small>
+
+              <strong>
+                {{ correctAnswers }}
+              </strong>
+            </div>
+          </div>
+
+          <div class="mini-stat">
+            <span class="mini-icon"> ❌ </span>
+
+            <div>
+              <small> Wrong </small>
+
+              <strong>
+                {{ wrongAnswers }}
+              </strong>
+            </div>
+          </div>
+
+          <div class="mini-stat">
+            <span class="mini-icon"> 🎯 </span>
+
+            <div>
+              <small> Accuracy </small>
+
+              <strong> {{ accuracy }}% </strong>
+            </div>
+          </div>
+
+          <div class="mini-stat">
+            <span class="mini-icon"> 🔄 </span>
+
+            <div>
+              <small> Attempts </small>
+
+              <strong>
+                {{ attempts }}
+              </strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!--=========================================
+                  GAME COMPLETED
+  ==========================================-->
+
+  @if (gameCompleted) {
+    <section class="result-section">
+      <div class="container">
+        <div class="result-card">
+          <!-- DECORATIONS -->
+
+          <div class="result-decoration result-decoration-one"></div>
+
+          <div class="result-decoration result-decoration-two"></div>
+
+          <!-- TROPHY -->
+
+          <div class="trophy-wrapper">
+            <div class="trophy-glow"></div>
+
+            <div class="trophy">🏆</div>
+          </div>
+
+          <span class="result-tag"> 🎉 Challenge Completed </span>
+
+          <h2>
+            {{ resultTitle }}
+          </h2>
+
+          <p>
+            {{ resultMessage }}
+          </p>
+
+          <!--=================================
+                    FINAL SCORE
+          ==================================-->
+
+          <div class="final-score">
+            <span> Your Score </span>
+
+            <strong>
+              {{ score }}
+            </strong>
+
+            <small> points </small>
+          </div>
+
+          <!--=================================
+                    RESULT STATS
+          ==================================-->
+
+          <div class="result-stats">
+            <div class="result-stat">
+              <div class="result-stat-icon">⏱️</div>
+
+              <span> Time </span>
+
+              <strong>
+                {{ formattedTime }}
+              </strong>
+            </div>
+
+            <div class="result-stat">
+              <div class="result-stat-icon">✅</div>
+
+              <span> Correct </span>
+
+              <strong> {{ correctAnswers }}/{{ questions.length }} </strong>
+            </div>
+
+            <div class="result-stat">
+              <div class="result-stat-icon">❌</div>
+
+              <span> Wrong </span>
+
+              <strong>
+                {{ wrongAnswers }}
+              </strong>
+            </div>
+
+            <div class="result-stat">
+              <div class="result-stat-icon">🎯</div>
+
+              <span> Accuracy </span>
+
+              <strong> {{ accuracy }}% </strong>
+            </div>
+          </div>
+
+          <!--=================================
+                    RESULT MESSAGE
+          ==================================-->
+
+          @if (correctAnswers === questions.length) {
+            <div class="perfect-result">
+              <span> 🌟 </span>
+
+              <div>
+                <h4>Perfect Score!</h4>
+
+                <p>You matched every object with its correct shadow.</p>
+              </div>
+            </div>
+          }
+
+          <!--=================================
+                    RESULT ACTIONS
+          ==================================-->
+
+          <div class="result-actions">
+            <button type="button" class="play-again-btn" (click)="restartGame()">
+              🔄 Play Again
+            </button>
+
+            <button type="button" class="certificate-btn">🏆 View Certificate</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+</section>

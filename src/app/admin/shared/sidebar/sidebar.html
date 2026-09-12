@@ -1,0 +1,81 @@
+<aside class="sidebar">
+  <!-- =====================================================
+                         LOGO
+  ====================================================== -->
+
+  <div class="logo">
+    <img src="/images/Logo-Round.jpg" alt="Logo" />
+
+    <h2>Akhuratha</h2>
+
+    <span>Admin Panel</span>
+  </div>
+
+  <!-- =====================================================
+                         NAVIGATION
+  ====================================================== -->
+
+  <nav>
+    @for (menu of menus; track menu.title) {
+      <!-- =================================================
+                     NORMAL MENU ITEM
+      ================================================== -->
+
+      @if (!menu.children) {
+        <a [routerLink]="menu.route" routerLinkActive="active">
+          <i [class]="menu.icon"></i>
+
+          <span>
+            {{ menu.title }}
+          </span>
+        </a>
+      }
+
+      <!-- =================================================
+                     MENU WITH CHILDREN
+      ================================================== -->
+
+      @if (menu.children) {
+        <div class="menu-group" [class.open]="isMenuOpen(menu.title)">
+          <!-- PARENT MENU -->
+
+          <button type="button" class="parent-menu" (click)="toggleMenu(menu.title)">
+            <i [class]="menu.icon"></i>
+
+            <span>
+              {{ menu.title }}
+            </span>
+
+            <i
+              class="fa-solid fa-chevron-down menu-arrow"
+              [class.rotate]="isMenuOpen(menu.title)"
+            ></i>
+          </button>
+
+          <!-- =============================================
+                           SUB MENU
+          ============================================== -->
+
+          <div class="submenu" [class.show]="isMenuOpen(menu.title)">
+            @for (child of menu.children; track child.title) {
+              <a
+                [routerLink]="child.route"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{
+                  exact: child.route === '/admin/kids',
+                }"
+                class="submenu-link"
+              >
+                <i [class]="child.icon"></i>
+
+                <span>
+                  {{ child.title }}
+                </span>
+              </a>
+            }
+          </div>
+        </div>
+      }
+    }
+  </nav>
+</aside>

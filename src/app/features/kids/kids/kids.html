@@ -1,0 +1,404 @@
+<!--=========================================
+                HERO
+==========================================-->
+
+<section class="kids-hero">
+  <div class="hero-bg">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="container">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-6">
+        <div class="hero-content">
+          <span class="section-tag"> 🌈 Kids Zone </span>
+
+          <h1>
+            Learn,
+            <span>Play & Celebrate</span>
+          </h1>
+
+          <p>
+            A dedicated fun-filled zone for children featuring exciting games, cultural activities,
+            drawing competitions, storytelling, devotional learning and lots of surprises.
+          </p>
+
+          <div class="hero-buttons">
+            <a routerLink="/competitions" class="btn btn-primary"> Join Activities </a>
+
+            <a routerLink="/gallery" class="btn btn-light"> View Gallery </a>
+          </div>
+
+          <div class="hero-stats">
+            @for (item of heroStats; track item.title) {
+              <div class="stat-card">
+                <h3>{{ item.number }}</h3>
+
+                <span>{{ item.title }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="hero-image">
+          <img src="images/kids/kids-hero.jpg" alt="Kids Zone" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="floating-elements">
+  <span class="balloon balloon-1">🎈</span>
+
+  <span class="balloon balloon-2">☁️</span>
+
+  <span class="balloon balloon-3">⭐</span>
+
+  <span class="balloon balloon-4">🪁</span>
+
+  <span class="balloon balloon-5">🌈</span>
+</div>
+<!--=========================================
+            ACTIVITIES
+==========================================-->
+
+<section class="kids-activities">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-tag"> 🎈 Fun Activities </span>
+
+      <h2>
+        Exciting Activities
+        <span>For Every Child</span>
+      </h2>
+
+      <p>
+        Our Kids Zone is designed to entertain, educate and inspire children through engaging
+        activities during the Ganesh Mahotsav.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      @for (activity of activities; track activity.title) {
+        <div class="col-lg-3 col-md-6">
+          <div class="activity-card" (click)="goToActivity(activity.route)">
+            <div class="icon">
+              {{ activity.icon }}
+            </div>
+
+            <h4>
+              {{ activity.title }}
+            </h4>
+
+            <p>
+              {{ activity.description }}
+            </p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+<!--=========================================
+            LEARNING CORNER
+==========================================-->
+
+<section class="learning-corner">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="learning-image">
+          <img src="images/kids/learning-corner.jpg" alt="Learning Corner" />
+
+          <div class="floating-card">
+            <h3>10+</h3>
+
+            <span>Learning Sessions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="learning-content">
+          <span class="section-tag"> 📚 Learning Corner </span>
+
+          <h2>
+            Learn Values
+            <span>Through Fun</span>
+          </h2>
+
+          <p>
+            Children can explore Indian culture, mythology and moral values through interactive
+            storytelling, devotional activities and educational games conducted by experienced
+            volunteers.
+          </p>
+
+          <div class="learning-list">
+            @for (item of learningItems; track item.title) {
+              <div class="learning-item">
+                <div class="icon">
+                  {{ item.icon }}
+                </div>
+
+                <div>
+                  <h5>
+                    {{ item.title }}
+                  </h5>
+
+                  <p>
+                    {{ item.description }}
+                  </p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--=========================================
+                FUN GAMES
+==========================================-->
+
+<section class="fun-games">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-tag"> 🎮 Fun Games </span>
+
+      <h2>
+        Play, Laugh &
+        <span>Enjoy Together</span>
+      </h2>
+
+      <p>
+        Exciting indoor and outdoor games specially designed for children to create joyful memories
+        during Akhuratha Ganesh Mahotsav.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      @for (game of games; track game.title) {
+        <div class="col-lg-3 col-md-6">
+          <div class="game-card">
+            <div class="game-image">
+              <img [src]="game.image" [alt]="game.title" />
+            </div>
+
+            <div class="game-content">
+              <div class="icon">
+                {{ game.icon }}
+              </div>
+
+              <h4>
+                {{ game.title }}
+              </h4>
+
+              <p>
+                {{ game.description }}
+              </p>
+
+              <span class="age-tag">
+                {{ game.age }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+<!--=========================================
+                KIDS GALLERY
+==========================================-->
+
+<section class="kids-gallery">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-tag"> 📸 Happy Moments </span>
+
+      <h2>
+        Kids
+        <span>Gallery</span>
+      </h2>
+
+      <p>
+        Smiles, laughter and unforgettable memories created during our Kids Zone activities every
+        Ganesh Mahotsav.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      @for (item of gallery; track item.title) {
+        <div class="gallery-item" [ngClass]="item.class">
+          <img [src]="item.image" [alt]="item.title" />
+
+          <div class="overlay">
+            <h4>
+              {{ item.title }}
+            </h4>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!--=========================================
+              PARENTS GUIDE
+==========================================-->
+
+<section class="parents-guide">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="guide-content">
+          <span class="section-tag"> 👨‍👩‍👧 Parents Guide </span>
+
+          <h2>
+            Safe, Fun &
+            <span>Educational Experience</span>
+          </h2>
+
+          <p>
+            Our Kids Zone is carefully designed to ensure every child enjoys a safe, engaging and
+            memorable experience while learning about culture, traditions and values.
+          </p>
+
+          <div class="guide-list">
+            @for (item of guideItems; track item.title) {
+              <div class="guide-item">
+                <div class="icon">
+                  {{ item.icon }}
+                </div>
+
+                <div>
+                  <h5>
+                    {{ item.title }}
+                  </h5>
+
+                  <p>
+                    {{ item.description }}
+                  </p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="guide-image">
+          <img src="images/kids/parents-guide.jpg" alt="Parents Guide" />
+
+          <div class="floating-card">
+            <h3>100%</h3>
+
+            <span> Child Friendly </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=========================================
+                FAQ
+==========================================-->
+
+<section class="faqs-kids">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-tag"> ❓ Parents Questions </span>
+
+      <h2>
+        Kids Zone
+        <span>FAQs</span>
+      </h2>
+
+      <p>
+        Everything you need to know before bringing your children to the Akhuratha Ganesh Mahotsav
+        Kids Zone.
+      </p>
+    </div>
+
+    <div class="accordion" id="kidsFaq">
+      @for (faq of faqs; track faq.question) {
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#faq' + $index"
+              [class.collapsed]="$index !== 0"
+            >
+              {{ faq.question }}
+            </button>
+          </h2>
+
+          <div
+            [id]="'faq' + $index"
+            class="accordion-collapse collapse"
+            [class.show]="$index === 0"
+            data-bs-parent="#kidsFaq"
+          >
+            <div class="accordion-body">
+              {{ faq.answer }}
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!--=========================================
+                CTA
+==========================================-->
+
+<section class="kids-cta">
+  <div class="container">
+    <div class="cta-wrapper">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <div class="cta-content">
+            <span class="section-tag"> 🎉 Join The Fun </span>
+
+            <h2>
+              Give Your Child An
+              <span>Unforgettable Festival Experience</span>
+            </h2>
+
+            <p>
+              Let your little ones learn, play, create memories and celebrate Ganesh Mahotsav
+              through exciting activities, competitions, workshops and cultural programs.
+            </p>
+
+            <div class="features">
+              <div class="feature">🎨 Creative Activities</div>
+
+              <div class="feature">🏆 Fun Competitions</div>
+
+              <div class="feature">📜 Participation Certificates</div>
+
+              <div class="feature">🎁 Exciting Gifts</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cta-buttons">
+            <a routerLink="/competitions" class="btn btn-register"> Register Now </a>
+
+            <a routerLink="/contact" class="btn btn-outline-custom"> Contact Us </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

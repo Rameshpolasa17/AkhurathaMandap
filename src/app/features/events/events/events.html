@@ -1,0 +1,183 @@
+<!-- ============================================================== HERO -->
+<section class="ev-hero" aria-labelledby="ev-title">
+  <div class="ev-hero__veil" aria-hidden="true"></div>
+  <div class="akm-orb ev-hero__orb" aria-hidden="true"></div>
+
+  <div class="akm-container ev-hero__inner">
+    <span class="akm-eyebrow">
+      <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+      Festival Programme
+    </span>
+    <h1 id="ev-title">Eleven Days, One Celebration</h1>
+    <p>
+      From the pran pratishtha on the first morning to the miravnuk on the final
+      evening — everything happening at the mandap this year.
+    </p>
+    <a class="akm-btn akm-btn--primary" routerLink="/festival-schedule">
+      <i class="fa-solid fa-clock" aria-hidden="true"></i>
+      See the daily schedule
+    </a>
+  </div>
+</section>
+
+<!-- ============================================================ EVENTS -->
+<section class="ev akm-section akm-section--tint" aria-labelledby="ev-list-title">
+  <div class="akm-container">
+    <div class="akm-section-head" akmReveal>
+      <h2 id="ev-list-title">Upcoming Events</h2>
+      <p>Tap an event for full details. Where registration is open, we will take your details over WhatsApp.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    @if (categories.length > 2) {
+      <div class="akm-filters" role="group" aria-label="Filter events by category">
+        @for (category of categories; track category) {
+          <button
+            type="button"
+            class="akm-filter"
+            [attr.aria-pressed]="activeCategory() === category"
+            (click)="selectCategory(category)"
+          >
+            {{ category }}
+          </button>
+        }
+      </div>
+    }
+
+    @if (loading()) {
+      <p class="ev__loading">Loading the festival programme…</p>
+    } @else if (filtered.length) {
+      <div class="ev__grid">
+        @for (event of filtered; track event.eventId; let i = $index) {
+          <article
+            class="ev__card akm-card akm-card--lift"
+            [class.is-open]="expandedId() === event.eventId"
+            akmReveal
+            [revealDelay]="(i % 3) * 90"
+          >
+            <div class="ev__media akm-media">
+              <app-safe-image
+                [src]="event.imageUrl"
+                [alt]="event.title"
+                icon="fa-solid fa-calendar-days"
+              />
+              <span class="ev__scrim akm-scrim" aria-hidden="true"></span>
+
+              <span class="ev__date" aria-hidden="true">
+                <strong>{{ event.startDate | date: 'd' }}</strong>
+                <small>{{ event.startDate | date: 'MMM' }}</small>
+              </span>
+
+              @if (event.category) {
+                <span class="ev__cat akm-chip akm-chip--on-dark">{{ event.category }}</span>
+              }
+
+              @if (event.featured) {
+                <span class="ev__star" aria-label="Featured event">
+                  <i class="fa-solid fa-star" aria-hidden="true"></i>
+                </span>
+              }
+            </div>
+
+            <div class="ev__body">
+              <h3>{{ event.title }}</h3>
+
+              <ul class="ev__facts">
+                <li>
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  <span>{{ event.startDate | date: 'EEEE, d MMMM y' }}</span>
+                </li>
+                @if (event.time) {
+                  <li>
+                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                    <span>{{ event.time }}</span>
+                  </li>
+                }
+                <li>
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  <span>{{ event.location }}</span>
+                </li>
+              </ul>
+
+              <p class="ev__desc">{{ event.description }}</p>
+
+              <div class="ev__actions">
+                <button
+                  type="button"
+                  class="akm-link"
+                  [attr.aria-expanded]="expandedId() === event.eventId"
+                  (click)="toggleDetails(event)"
+                >
+                  {{ expandedId() === event.eventId ? 'Hide details' : 'View details' }}
+                  <i
+                    class="fa-solid"
+                    [class.fa-chevron-down]="expandedId() !== event.eventId"
+                    [class.fa-chevron-up]="expandedId() === event.eventId"
+                    aria-hidden="true"
+                  ></i>
+                </button>
+
+                @if (event.registrationEnabled) {
+                  <button
+                    type="button"
+                    class="akm-btn akm-btn--brand akm-btn--sm"
+                    (click)="openRegistration(event)"
+                  >
+                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    Register
+                  </button>
+                }
+              </div>
+
+              @if (expandedId() === event.eventId) {
+                <div class="ev__details">
+                  <dl>
+                    <div>
+                      <dt>Starts</dt>
+                      <dd>{{ event.startDate | date: 'EEEE, d MMMM y, h:mm a' }}</dd>
+                    </div>
+                    <div>
+                      <dt>Ends</dt>
+                      <dd>{{ event.endDate | date: 'EEEE, d MMMM y, h:mm a' }}</dd>
+                    </div>
+                    <div>
+                      <dt>Venue</dt>
+                      <dd>{{ event.location }}</dd>
+                    </div>
+                    <div>
+                      <dt>Entry</dt>
+                      <dd>Free and open to all devotees</dd>
+                    </div>
+                  </dl>
+
+                  @if (event.registrationEnabled) {
+                    <p class="ev__hint">
+                      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                      Registration is handled over WhatsApp — the committee confirms your place directly.
+                    </p>
+                  }
+                </div>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-calendar-xmark" aria-hidden="true"></i>
+        <h3>No events in this category</h3>
+        <p>Try another category, or view the full festival schedule.</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ====================================================== REGISTRATION -->
+@if (registering(); as event) {
+  <app-registration-dialog
+    kind="event"
+    [subject]="event.title"
+    [subtitle]="subtitleFor(event)"
+    (closed)="closeRegistration()"
+  />
+}

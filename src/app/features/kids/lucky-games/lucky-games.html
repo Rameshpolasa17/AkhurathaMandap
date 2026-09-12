@@ -1,0 +1,964 @@
+<section class="lucky-games-page">
+  <!--=====================================================
+                          HERO
+  ======================================================-->
+
+  <section class="lucky-hero">
+    <div class="hero-decoration decoration-one"></div>
+    <div class="hero-decoration decoration-two"></div>
+    <div class="hero-decoration decoration-three"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="hero-tag"> 🎁 Akhuratha Kids Lucky Zone </span>
+
+          <h1>
+            Ganesh
+            <span>Lucky Games</span>
+          </h1>
+
+          <p>
+            {{ heroSubtitle }}
+          </p>
+
+          <div class="hero-actions">
+            <button type="button" class="primary-btn" (click)="selectGame(0)">
+              🎡 Start Playing
+            </button>
+
+            <button type="button" class="secondary-btn" (click)="goToKidsZone()">
+              ← Kids Zone
+            </button>
+          </div>
+
+          <!-- PLAYER STATS -->
+
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="stat-icon"> ⭐ </span>
+
+              <div>
+                <strong>
+                  {{ totalStars }}
+                </strong>
+
+                <span> Total Stars </span>
+              </div>
+            </div>
+
+            <div class="hero-stat">
+              <span class="stat-icon"> 🎮 </span>
+
+              <div>
+                <strong>
+                  {{ gamesPlayed }}
+                </strong>
+
+                <span> Games Played </span>
+              </div>
+            </div>
+
+            <div class="hero-stat">
+              <span class="stat-icon"> 🎁 </span>
+
+              <div>
+                <strong>
+                  {{ bestReward }}
+                </strong>
+
+                <span> Best Reward </span>
+              </div>
+            </div>
+
+            <div class="hero-stat">
+              <span class="stat-icon"> 🏅 </span>
+
+              <div>
+                <strong>
+                  {{ achievements }}
+                </strong>
+
+                <span> Achievements </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO IMAGE -->
+
+        <div class="hero-visual">
+          <div class="hero-image-wrapper">
+            <div class="hero-glow"></div>
+
+            <img src="images/lucky-games/lucky-hero.png" alt="Ganesh Lucky Games" />
+
+            <div class="floating-card floating-one">
+              <span>🎡</span>
+
+              <div>
+                <strong>Spin</strong>
+                <small>Win lucky stars</small>
+              </div>
+            </div>
+
+            <div class="floating-card floating-two">
+              <span>🎁</span>
+
+              <div>
+                <strong>Pick</strong>
+                <small>Find surprises</small>
+              </div>
+            </div>
+
+            <div class="floating-card floating-three">
+              <span>🏆</span>
+
+              <div>
+                <strong>Win</strong>
+                <small>Become champion</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                      DAILY CHALLENGE
+  ======================================================-->
+
+  <section class="daily-challenge-strip">
+    <div class="container">
+      <div class="daily-card" [class.completed]="dailyChallengeCompleted">
+        <div class="daily-icon">🏆</div>
+
+        <div class="daily-content">
+          <span> Today's Lucky Challenge </span>
+
+          <h3>Play {{ dailyGamesRequired }} Games</h3>
+
+          <div class="daily-progress">
+            <div class="daily-progress-info">
+              <span> {{ gamesPlayed }} / {{ dailyGamesRequired }} games </span>
+
+              <strong> {{ dailyProgress | number: '1.0-0' }}% </strong>
+            </div>
+
+            <div class="progress-track">
+              <div class="progress-fill" [style.width.%]="dailyProgress"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="daily-reward">
+          <span> Reward </span>
+
+          <strong> ⭐ 100 </strong>
+
+          @if (dailyChallengeCompleted && !championRewardClaimed) {
+            <button type="button" (click)="claimChampionReward()">Claim Reward</button>
+          }
+
+          @if (championRewardClaimed) {
+            <span class="claimed-badge"> ✓ Claimed </span>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                       GAME SELECTION
+  ======================================================-->
+
+  <section class="games-section">
+    <div class="container">
+      <div class="section-header">
+        <span> 🎮 Choose Your Game </span>
+
+        <h2>Pick A Lucky Game</h2>
+
+        <p>
+          Every game has a surprise waiting for you. Choose your favourite and discover your lucky
+          reward.
+        </p>
+      </div>
+
+      <div class="games-grid">
+        @for (game of games; track game.id) {
+          <article
+            class="game-card"
+            [class.active]="selectedGame === $index"
+            (click)="selectGame($index)"
+          >
+            <span class="game-tag">
+              {{ game.tag }}
+            </span>
+
+            <div class="game-icon">
+              {{ game.icon }}
+            </div>
+
+            <h3>
+              {{ game.title }}
+            </h3>
+
+            <p>
+              {{ game.description }}
+            </p>
+
+            <div class="game-footer">
+              <span>
+                {{ game.reward }}
+              </span>
+
+              <button type="button">Play →</button>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                      ACTIVE GAME AREA
+  ======================================================-->
+
+  <section class="active-game-section" id="activeLuckyGame">
+    <div class="container">
+      <!--=================================================
+                      SPIN THE WHEEL
+      ==================================================-->
+
+      @if (selectedGame === 0) {
+        <div class="game-panel wheel-panel">
+          <div class="game-panel-header">
+            <span> 🎡 Lucky Wheel </span>
+
+            <h2>Spin The Ganesh Lucky Wheel</h2>
+
+            <p>Spin the wheel and discover which lucky reward is waiting for you.</p>
+          </div>
+
+          <div class="wheel-game-layout">
+            <!-- WHEEL -->
+
+            <div class="wheel-area">
+              <div class="wheel-pointer">▼</div>
+
+              <div
+                class="lucky-wheel"
+                [style.transform]="'rotate(' + wheelRotation + 'deg)'"
+                [class.spinning]="isSpinning"
+              >
+                @for (item of wheelItems; track item.label) {
+                  <div class="wheel-label" [style.--index]="$index">
+                    <span>
+                      {{ item.icon }}
+                    </span>
+
+                    <small>
+                      {{ item.points }}
+                    </small>
+                  </div>
+                }
+
+                <div class="wheel-center">🐘</div>
+              </div>
+            </div>
+
+            <!-- WHEEL DETAILS -->
+
+            <div class="wheel-details">
+              <span class="game-mini-tag"> ⭐ Up To 50 Stars </span>
+
+              <h3>Ready For Your Lucky Spin?</h3>
+
+              <p>
+                Every section contains a special reward. Tap the button and let the lucky wheel
+                decide.
+              </p>
+
+              <div class="wheel-rewards">
+                @for (item of wheelItems; track item.label) {
+                  <div class="reward-chip">
+                    <span>
+                      {{ item.icon }}
+                    </span>
+
+                    <strong>
+                      {{ item.label }}
+                    </strong>
+                  </div>
+                }
+              </div>
+
+              <button
+                type="button"
+                class="play-game-btn"
+                [disabled]="isSpinning"
+                (click)="spinWheel()"
+              >
+                @if (isSpinning) {
+                  <span class="spinner"></span>
+                  Spinning...
+                } @else {
+                  🎡 Spin The Wheel
+                }
+              </button>
+
+              @if (wheelResult) {
+                <div class="mini-result">
+                  <span>
+                    {{ wheelResult.icon }}
+                  </span>
+
+                  <div>
+                    <small> You Won </small>
+
+                    <strong>
+                      {{ wheelResult.label }}
+                    </strong>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!--=================================================
+                       LUCKY NUMBER
+      ==================================================-->
+
+      @if (selectedGame === 1) {
+        <div class="game-panel number-panel">
+          <div class="game-panel-header">
+            <span> 🔢 Lucky Number </span>
+
+            <h2>Choose Your Lucky Number</h2>
+
+            <p>
+              Pick one number from 1 to 9 and discover whether you selected today's lucky number.
+            </p>
+          </div>
+
+          <div class="number-game">
+            <div class="number-grid">
+              @for (number of luckyNumbers; track number) {
+                <button
+                  type="button"
+                  class="number-card"
+                  [class.selected]="selectedNumber === number"
+                  [disabled]="numberPlayed"
+                  (click)="chooseLuckyNumber(number)"
+                >
+                  {{ number }}
+                </button>
+              }
+            </div>
+
+            @if (!numberPlayed) {
+              <button
+                type="button"
+                class="play-game-btn"
+                [disabled]="selectedNumber === null"
+                (click)="revealLuckyNumber()"
+              >
+                ✨ Reveal Lucky Number
+              </button>
+            }
+
+            @if (numberPlayed) {
+              <div class="number-result">
+                <div class="result-emoji">🎯</div>
+
+                <span> Your Number </span>
+
+                <strong>
+                  {{ selectedNumber }}
+                </strong>
+
+                <p>
+                  {{ luckyNumberResult }}
+                </p>
+
+                <div class="points-earned">⭐ +{{ luckyNumberPoints }} Stars</div>
+
+                <button type="button" class="play-again-btn" (click)="resetLuckyNumber()">
+                  🔄 Play Again
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!--=================================================
+                        MYSTERY BOX
+      ==================================================-->
+
+      @if (selectedGame === 2) {
+        <div class="game-panel mystery-panel">
+          <div class="game-panel-header">
+            <span> 🎁 Mystery Box </span>
+
+            <h2>Choose One Mystery Box</h2>
+
+            <p>One box, one surprise. Pick carefully and discover the reward hidden inside.</p>
+          </div>
+
+          <div class="mystery-grid">
+            @for (box of mysteryBoxes; track box.id) {
+              <button
+                type="button"
+                class="mystery-box"
+                [class.opened]="box.opened"
+                [class.disabled]="mysteryBoxSelected && !box.opened"
+                [disabled]="mysteryBoxSelected"
+                (click)="openMysteryBox(box)"
+              >
+                @if (!box.opened) {
+                  <span class="box-shine"> ✨ </span>
+
+                  <div class="box-icon">🎁</div>
+
+                  <strong> Mystery Box {{ box.id }} </strong>
+
+                  <small> Tap To Open </small>
+                } @else {
+                  <div class="opened-reward">
+                    <span> ⭐ </span>
+
+                    <strong> +{{ box.points }} </strong>
+
+                    <small>
+                      {{ box.reward }}
+                    </small>
+                  </div>
+                }
+              </button>
+            }
+          </div>
+
+          @if (selectedMysteryBox) {
+            <div class="selected-result-card">
+              <span> 🎉 </span>
+
+              <div>
+                <small> Mystery Revealed </small>
+
+                <h3>
+                  {{ selectedMysteryBox.reward }}
+                </h3>
+
+                <p>
+                  You earned
+                  {{ selectedMysteryBox.points }}
+                  lucky stars.
+                </p>
+              </div>
+
+              <button type="button" (click)="resetMysteryBoxes()">Play Again</button>
+            </div>
+          }
+        </div>
+      }
+
+      <!--=================================================
+                        PICK A MODAK
+      ==================================================-->
+
+      @if (selectedGame === 3) {
+        <div class="game-panel modak-panel">
+          <div class="game-panel-header">
+            <span> 🍬 Pick A Modak </span>
+
+            <h2>Which Modak Is Lucky?</h2>
+
+            <p>
+              Lord Ganesha loves modaks. Pick one and discover how many lucky stars are hidden
+              inside.
+            </p>
+          </div>
+
+          <div class="modak-grid">
+            @for (modak of modaks; track modak.id) {
+              <button
+                type="button"
+                class="modak-card"
+                [class.selected]="modak.selected"
+                [class.disabled]="modakSelected && !modak.selected"
+                [disabled]="modakSelected"
+                (click)="selectModak(modak)"
+              >
+                <span class="modak-number">
+                  {{ modak.id }}
+                </span>
+
+                <div class="modak-icon">🍬</div>
+
+                @if (!modak.selected) {
+                  <strong> Lucky Modak </strong>
+
+                  <small> Pick Me </small>
+                } @else {
+                  <strong>
+                    {{ modak.message }}
+                  </strong>
+
+                  <small> ⭐ +{{ modak.points }} </small>
+                }
+              </button>
+            }
+          </div>
+
+          @if (selectedModak) {
+            <div class="selected-result-card">
+              <span> 🍬 </span>
+
+              <div>
+                <small> Sweet Surprise </small>
+
+                <h3>
+                  {{ selectedModak.message }}
+                </h3>
+
+                <p>
+                  Your modak contained
+                  {{ selectedModak.points }}
+                  lucky stars.
+                </p>
+              </div>
+
+              <button type="button" (click)="resetModaks()">Pick Again</button>
+            </div>
+          }
+        </div>
+      }
+
+      <!--=================================================
+                       LUCKY REVEAL
+      ==================================================-->
+
+      @if (selectedGame === 4) {
+        <div class="game-panel scratch-panel">
+          <div class="game-panel-header">
+            <span> ✨ Lucky Reveal </span>
+
+            <h2>Reveal Your Lucky Card</h2>
+
+            <p>Pick one magical card and reveal the hidden Ganesh-themed reward.</p>
+          </div>
+
+          <div class="scratch-grid">
+            @for (card of scratchCards; track card.id) {
+              <button
+                type="button"
+                class="scratch-card"
+                [class.revealed]="card.revealed"
+                [class.disabled]="scratchCardSelected && !card.revealed"
+                [disabled]="scratchCardSelected"
+                (click)="revealScratchCard(card)"
+              >
+                @if (!card.revealed) {
+                  <div class="scratch-front">
+                    <span class="sparkle"> ✨ </span>
+
+                    <div class="scratch-symbol">ॐ</div>
+
+                    <strong> Lucky Card </strong>
+
+                    <small> Tap To Reveal </small>
+                  </div>
+                } @else {
+                  <div class="scratch-reward">
+                    <span>
+                      {{ card.icon }}
+                    </span>
+
+                    <strong>
+                      {{ card.title }}
+                    </strong>
+
+                    <small> +{{ card.points }} Stars </small>
+                  </div>
+                }
+              </button>
+            }
+          </div>
+
+          @if (selectedScratchCard) {
+            <div class="selected-result-card">
+              <span>
+                {{ selectedScratchCard.icon }}
+              </span>
+
+              <div>
+                <small> Lucky Card Revealed </small>
+
+                <h3>
+                  {{ selectedScratchCard.title }}
+                </h3>
+
+                <p>
+                  You earned
+                  {{ selectedScratchCard.points }}
+                  lucky stars.
+                </p>
+              </div>
+
+              <button type="button" (click)="resetScratchCards()">Reveal Again</button>
+            </div>
+          }
+        </div>
+      }
+
+      <!--=================================================
+                       DAILY CHALLENGE
+      ==================================================-->
+
+      @if (selectedGame === 5) {
+        <div class="game-panel challenge-panel">
+          <div class="game-panel-header">
+            <span> 🏆 Daily Challenge </span>
+
+            <h2>Become A Lucky Champion</h2>
+
+            <p>Play {{ dailyGamesRequired }} lucky games and unlock today's Champion Reward.</p>
+          </div>
+
+          <div class="challenge-content">
+            <div class="challenge-trophy" [class.unlocked]="dailyChallengeCompleted">
+              @if (dailyChallengeCompleted) {
+                🏆
+              } @else {
+                🔒
+              }
+            </div>
+
+            <span class="challenge-status">
+              @if (dailyChallengeCompleted) {
+                Challenge Completed
+              } @else {
+                Challenge In Progress
+              }
+            </span>
+
+            <h3>
+              @if (dailyChallengeCompleted) {
+                You Did It!
+              } @else {
+                Keep Playing!
+              }
+            </h3>
+
+            <p>
+              @if (dailyChallengeCompleted) {
+                You completed today's Lucky Games Challenge. Your Champion Reward is ready.
+              } @else {
+                You have played
+                {{ gamesPlayed }}
+                of
+                {{ dailyGamesRequired }}
+                required games.
+              }
+            </p>
+
+            <div class="challenge-progress-circle">
+              <div class="progress-number">
+                <strong>
+                  {{ gamesPlayed >= dailyGamesRequired ? dailyGamesRequired : gamesPlayed }}
+                </strong>
+
+                <span>
+                  /
+                  {{ dailyGamesRequired }}
+                </span>
+              </div>
+            </div>
+
+            <div class="challenge-progress-bar">
+              <div class="progress-track">
+                <div class="progress-fill" [style.width.%]="dailyProgress"></div>
+              </div>
+
+              <span> {{ dailyProgress | number: '1.0-0' }}% Complete </span>
+            </div>
+
+            <div class="challenge-reward-card">
+              <span> 🎁 </span>
+
+              <div>
+                <small> Champion Reward </small>
+
+                <strong> ⭐ 100 Bonus Stars </strong>
+              </div>
+            </div>
+
+            @if (dailyChallengeCompleted && !championRewardClaimed) {
+              <button type="button" class="claim-btn" (click)="claimChampionReward()">
+                🏆 Claim Champion Reward
+              </button>
+            }
+
+            @if (championRewardClaimed) {
+              <div class="reward-claimed">
+                <span> ✓ </span>
+
+                Champion Reward Claimed
+              </div>
+            }
+
+            @if (!dailyChallengeCompleted) {
+              <button type="button" class="play-game-btn" (click)="selectGame(0)">
+                🎡 Continue Playing
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!--=====================================================
+                      ACHIEVEMENTS
+  ======================================================-->
+
+  <section class="achievements-section">
+    <div class="container">
+      <div class="section-header">
+        <span> 🏅 Your Journey </span>
+
+        <h2>Lucky Achievements</h2>
+
+        <p>Keep playing, collect stars and unlock special Kids Zone achievements.</p>
+      </div>
+
+      <div class="achievements-grid">
+        <article class="achievement-card" [class.unlocked]="gamesPlayed >= 1">
+          <div class="achievement-icon">🎮</div>
+
+          <span> First Step </span>
+
+          <h3>Lucky Beginner</h3>
+
+          <p>Play your first lucky game.</p>
+
+          <div class="achievement-status">
+            @if (gamesPlayed >= 1) {
+              ✓ Unlocked
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+
+        <article class="achievement-card" [class.unlocked]="gamesPlayed >= 5">
+          <div class="achievement-icon">⭐</div>
+
+          <span> Game Explorer </span>
+
+          <h3>Lucky Explorer</h3>
+
+          <p>Complete at least five games.</p>
+
+          <div class="achievement-status">
+            @if (gamesPlayed >= 5) {
+              ✓ Unlocked
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+
+        <article class="achievement-card" [class.unlocked]="totalStars >= 100">
+          <div class="achievement-icon">🌟</div>
+
+          <span> Star Collector </span>
+
+          <h3>100 Stars</h3>
+
+          <p>Collect your first 100 lucky stars.</p>
+
+          <div class="achievement-status">
+            @if (totalStars >= 100) {
+              ✓ Unlocked
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+
+        <article class="achievement-card" [class.unlocked]="totalStars >= 250">
+          <div class="achievement-icon">✨</div>
+
+          <span> Super Collector </span>
+
+          <h3>250 Stars</h3>
+
+          <p>Collect 250 stars from lucky games.</p>
+
+          <div class="achievement-status">
+            @if (totalStars >= 250) {
+              ✓ Unlocked
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+
+        <article class="achievement-card" [class.unlocked]="bestReward >= 50">
+          <div class="achievement-icon">🎁</div>
+
+          <span> Big Winner </span>
+
+          <h3>Super Lucky</h3>
+
+          <p>Win a reward worth at least 50 stars.</p>
+
+          <div class="achievement-status">
+            @if (bestReward >= 50) {
+              ✓ Unlocked
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+
+        <article class="achievement-card champion" [class.unlocked]="championRewardClaimed">
+          <div class="achievement-icon">🏆</div>
+
+          <span> Final Achievement </span>
+
+          <h3>Lucky Champion</h3>
+
+          <p>Complete and claim the Daily Challenge.</p>
+
+          <div class="achievement-status">
+            @if (championRewardClaimed) {
+              ✓ Champion
+            } @else {
+              🔒 Locked
+            }
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                       PLAYER SUMMARY
+  ======================================================-->
+
+  <section class="player-summary">
+    <div class="container">
+      <div class="summary-card">
+        <div class="summary-icon">🐘</div>
+
+        <div class="summary-content">
+          <span> Your Lucky Journey </span>
+
+          <h2>Keep Playing & Keep Smiling</h2>
+
+          <p>
+            Play fun games, collect lucky stars and unlock every achievement in the Akhuratha Mandap
+            Kids Zone.
+          </p>
+        </div>
+
+        <div class="summary-stats">
+          <div>
+            <strong>
+              {{ totalStars }}
+            </strong>
+
+            <span> ⭐ Stars </span>
+          </div>
+
+          <div>
+            <strong>
+              {{ gamesPlayed }}
+            </strong>
+
+            <span> 🎮 Games </span>
+          </div>
+
+          <div>
+            <strong>
+              {{ achievements }}
+            </strong>
+
+            <span> 🏅 Awards </span>
+          </div>
+        </div>
+
+        <div class="summary-actions">
+          <button type="button" class="summary-primary" (click)="selectGame(0)">
+            🎡 Play Again
+          </button>
+
+          <button type="button" class="summary-secondary" (click)="goToKidsZone()">
+            ← Kids Zone
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                   CELEBRATION POPUP
+  ======================================================-->
+
+  @if (showCelebration) {
+    <div class="celebration-overlay" (click)="closeCelebration()">
+      <div class="celebration-card" (click)="$event.stopPropagation()">
+        <!-- CONFETTI -->
+
+        <span class="confetti confetti-1"> 🎉 </span>
+
+        <span class="confetti confetti-2"> ⭐ </span>
+
+        <span class="confetti confetti-3"> 🌸 </span>
+
+        <span class="confetti confetti-4"> ✨ </span>
+
+        <span class="confetti confetti-5"> 🎊 </span>
+
+        <span class="confetti confetti-6"> ⭐ </span>
+
+        <button type="button" class="celebration-close" (click)="closeCelebration()">×</button>
+
+        <div class="celebration-glow"></div>
+
+        <div class="celebration-icon">
+          {{ celebrationIcon }}
+        </div>
+
+        <span class="celebration-label"> Lucky Reward </span>
+
+        <h2>
+          {{ celebrationTitle }}
+        </h2>
+
+        <p>
+          {{ celebrationMessage }}
+        </p>
+
+        <div class="celebration-points">
+          <span> ⭐ </span>
+
+          <strong> +{{ celebrationPoints }} </strong>
+
+          <small> Lucky Stars </small>
+        </div>
+
+        <button type="button" class="celebration-btn" (click)="closeCelebration()">
+          🎉 Awesome!
+        </button>
+      </div>
+    </div>
+  }
+</section>

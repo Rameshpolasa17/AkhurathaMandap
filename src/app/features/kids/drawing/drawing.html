@@ -1,0 +1,113 @@
+<section class="drawing-page">
+  <!--=========================================
+                  HERO
+  ==========================================-->
+
+  <section class="drawing-hero">
+    <div class="hero-pattern"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag"> 🎨 Kids Drawing World </span>
+
+        <h1>
+          Draw,
+          <span>Create & Celebrate</span>
+        </h1>
+
+        <p>
+          Welcome to the Akhuratha Kids Drawing Zone. Children can color, draw, participate in
+          competitions and showcase their creativity while learning about Lord Ganesha.
+        </p>
+
+        <div class="hero-buttons">
+          <button class="primary-btn">Start Drawing</button>
+
+          <button class="outline-btn">View Gallery</button>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="images/kids/drawing-hero.png" alt="Kids Drawing" />
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              ACTIVITIES
+  ==========================================-->
+
+  <section class="drawing-activities">
+    <div class="container">
+      <div class="section-header">
+        <span> Explore </span>
+
+        <h2>Choose Your Activity</h2>
+
+        <p>Select your favorite activity and begin your creative journey.</p>
+      </div>
+
+      <div class="activities-grid">
+        @for (activity of activities; track activity.title) {
+          <div class="activity-card">
+            <div class="activity-icon">
+              {{ activity.icon }}
+            </div>
+
+            <h3>
+              {{ activity.title }}
+            </h3>
+
+            <p>
+              {{ activity.description }}
+            </p>
+
+            <a [routerLink]="activity.route" class="activity-btn"> Explore → </a>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              FEATURED SECTION
+  ==========================================-->
+
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <span> Featured </span>
+
+        <h2>Kids Creativity</h2>
+
+        <p>Inspire children with colorful drawings, competitions and fun learning.</p>
+      </div>
+
+      <div class="featured-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🖍️</div>
+
+          <h4>Coloring Book</h4>
+
+          <p>Beautiful Ganesha outline drawings ready for coloring.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+
+          <h4>Competitions</h4>
+
+          <p>Participate in exciting drawing contests and win prizes.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎁</div>
+
+          <h4>Rewards</h4>
+
+          <p>Every child receives appreciation and participation certificates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

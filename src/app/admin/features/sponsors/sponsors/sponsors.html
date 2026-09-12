@@ -1,0 +1,179 @@
+<div class="sponsors-page">
+  <!-- Header -->
+
+  <div class="page-header">
+    <div>
+      <h2>Sponsors</h2>
+
+      <p>Manage festival sponsors</p>
+    </div>
+
+    <button class="btn btn-primary" (click)="addSponsor()">
+      <i class="fa-solid fa-plus"></i>
+      Add Sponsor
+    </button>
+  </div>
+
+  <!-- Filters -->
+
+  <div class="filter-card">
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search Sponsor..."
+          [(ngModel)]="searchText"
+          (input)="filter()"
+        />
+      </div>
+
+      <div class="col-lg-3">
+        <select class="form-select" [(ngModel)]="selectedYear" (change)="filter()">
+          <option [ngValue]="0">All Years</option>
+
+          @for (year of years; track year) {
+            <option [ngValue]="year">
+              {{ year }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="col-lg-3">
+        <select class="form-select" [(ngModel)]="selectedType" (change)="filter()">
+          <option value="">All Sponsor Types</option>
+
+          @for (type of sponsorTypes; track type) {
+            <option [value]="type">
+              {{ type }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="col-lg-2">
+        <button class="btn btn-outline-secondary w-100" (click)="clearFilters()">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+
+  @if (loading) {
+    <div class="loading">
+      <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+
+      <p>Loading Sponsors...</p>
+    </div>
+  }
+
+  <!-- Table -->
+
+  @if (!loading) {
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>Logo</th>
+
+            <th>Sponsor</th>
+
+            <th>Company</th>
+
+            <th>Type</th>
+
+            <th>Year</th>
+
+            <th>Featured</th>
+
+            <th>Status</th>
+
+            <th width="180">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (item of filteredSponsors; track trackBySponsor($index, item)) {
+            <tr>
+              <td>
+                @if (item.logoUrl) {
+                  <img [src]="getLogo(item.logoUrl)" class="logo" (error)="imageError($event)" />
+                } @else {
+                  <div class="logo-placeholder">
+                    <i class="fa-solid fa-building"></i>
+                  </div>
+                }
+              </td>
+
+              <td>
+                <strong>
+                  {{ item.sponsorName }}
+                </strong>
+              </td>
+
+              <td>
+                {{ item.companyName }}
+              </td>
+
+              <td>
+                <span class="badge bg-primary">
+                  {{ item.sponsorTypeName }}
+                </span>
+              </td>
+
+              <td>
+                {{ item.festivalYear }}
+              </td>
+
+              <td>
+                @if (item.isFeatured) {
+                  <span class="badge bg-warning text-dark"> Featured </span>
+                } @else {
+                  <span class="badge bg-secondary"> No </span>
+                }
+              </td>
+
+              <td>
+                @if (item.isActive) {
+                  <span class="badge bg-success"> Active </span>
+                } @else {
+                  <span class="badge bg-danger"> Inactive </span>
+                }
+              </td>
+
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary" (click)="editSponsor(item)">
+                    <i class="fa-solid fa-pen"></i>
+                  </button>
+
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteSponsor(item)">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- Empty -->
+
+  @if (!loading && filteredSponsors.length === 0) {
+    <div class="empty-state">
+      <i class="fa-solid fa-building fa-4x"></i>
+
+      <h4>No Sponsors Found</h4>
+
+      <p>Try changing the search or filters.</p>
+    </div>
+  }
+  @if (showPopup) {
+    <div class="popup-overlay">
+      <app-sponsor-form [sponsor]="selectedSponsor" (close)="closePopup()"> </app-sponsor-form>
+    </div>
+  }
+</div>

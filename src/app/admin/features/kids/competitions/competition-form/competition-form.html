@@ -1,0 +1,308 @@
+<section class="competition-form-page">
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Competitions</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>
+          {{ id > 0 ? 'Edit Competition' : 'Add Competition' }}
+        </strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+
+        <div>
+          <h1>
+            {{ id > 0 ? 'Edit Competition' : 'Add Competition' }}
+          </h1>
+
+          <p>
+            {{ id > 0 ? 'Update competition details.' : 'Create a new kids competition.' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================
+       LOADING
+  ======================================================== -->
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+
+      <h3>Loading Competition...</h3>
+    </div>
+  }
+
+  <!-- =======================================================
+       FORM
+  ======================================================== -->
+
+  @if (!loading) {
+    <form class="competition-form" (ngSubmit)="save()">
+      <!-- ===================================================
+           BASIC INFORMATION
+      ==================================================== -->
+
+      <div class="form-card">
+        <div class="card-header">
+          <div class="header-icon">
+            <i class="fa-solid fa-circle-info"></i>
+          </div>
+
+          <div>
+            <h2>Basic Information</h2>
+            <p>Enter the main competition details.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- TITLE -->
+
+          <div class="form-group full-width">
+            <label>
+              Competition Title
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              name="title"
+              [(ngModel)]="form.title"
+              placeholder="Enter competition title"
+              maxlength="200"
+              required
+            />
+          </div>
+
+          <!-- DESCRIPTION -->
+
+          <div class="form-group full-width">
+            <label> Description </label>
+
+            <textarea
+              name="description"
+              [(ngModel)]="form.description"
+              placeholder="Enter competition description"
+              rows="4"
+              maxlength="2000"
+            ></textarea>
+          </div>
+
+          <!-- YEAR -->
+
+          <div class="form-group">
+            <label>
+              Year
+              <span>*</span>
+            </label>
+
+            <input
+              type="number"
+              name="year"
+              [(ngModel)]="form.year"
+              min="2000"
+              max="2100"
+              required
+            />
+          </div>
+
+          <!-- DISPLAY ORDER -->
+
+          <div class="form-group">
+            <label> Display Order </label>
+
+            <input type="number" name="displayOrder" [(ngModel)]="form.displayOrder" min="1" />
+          </div>
+
+          <!-- MAX PARTICIPANTS -->
+
+          <div class="form-group">
+            <label> Maximum Participants </label>
+
+            <input
+              type="number"
+              name="maxParticipants"
+              [(ngModel)]="form.maxParticipants"
+              min="1"
+              placeholder="Optional"
+            />
+          </div>
+
+          <!-- THUMBNAIL -->
+
+          <div class="form-group">
+            <label> Thumbnail Path </label>
+
+            <input
+              type="text"
+              name="thumbnailPath"
+              [(ngModel)]="form.thumbnailPath"
+              placeholder="Enter image path"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================
+           REGISTRATION
+      ==================================================== -->
+
+      <div class="form-card">
+        <div class="card-header">
+          <div class="header-icon">
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+
+          <div>
+            <h2>Registration</h2>
+            <p>Configure competition registration.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- REGISTRATION START -->
+
+          <div class="form-group">
+            <label> Registration Start </label>
+
+            <input
+              type="datetime-local"
+              name="registrationStartDate"
+              [(ngModel)]="form.registrationStartDate"
+            />
+          </div>
+
+          <!-- REGISTRATION END -->
+
+          <div class="form-group">
+            <label> Registration End </label>
+
+            <input
+              type="datetime-local"
+              name="registrationEndDate"
+              [(ngModel)]="form.registrationEndDate"
+            />
+          </div>
+
+          <!-- REGISTRATION OPEN -->
+
+          <div class="form-group full-width">
+            <label class="toggle-label">
+              <input
+                type="checkbox"
+                name="isRegistrationOpen"
+                [(ngModel)]="form.isRegistrationOpen"
+              />
+
+              <span class="toggle"></span>
+
+              <span class="toggle-text"> Registration Open </span>
+            </label>
+
+            <small> Enable this when participants can register. </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================
+           COMPETITION DATES
+      ==================================================== -->
+
+      <div class="form-card">
+        <div class="card-header">
+          <div class="header-icon">
+            <i class="fa-solid fa-calendar-days"></i>
+          </div>
+
+          <div>
+            <h2>Competition Schedule</h2>
+            <p>Set the competition start and end dates.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- START -->
+
+          <div class="form-group">
+            <label> Start Date </label>
+
+            <input type="datetime-local" name="startDate" [(ngModel)]="form.startDate" />
+          </div>
+
+          <!-- END -->
+
+          <div class="form-group">
+            <label> End Date </label>
+
+            <input type="datetime-local" name="endDate" [(ngModel)]="form.endDate" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================
+           STATUS
+      ==================================================== -->
+
+      <div class="form-card">
+        <div class="card-header">
+          <div class="header-icon">
+            <i class="fa-solid fa-toggle-on"></i>
+          </div>
+
+          <div>
+            <h2>Status</h2>
+            <p>Control competition visibility.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label class="toggle-label">
+              <input type="checkbox" name="isActive" [(ngModel)]="form.isActive" />
+
+              <span class="toggle"></span>
+
+              <span class="toggle-text"> Active Competition </span>
+            </label>
+
+            <small> Inactive competitions will not be displayed publicly. </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================
+           ACTIONS
+      ==================================================== -->
+
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="backToList()" [disabled]="saving">
+          <i class="fa-solid fa-arrow-left"></i>
+          Cancel
+        </button>
+
+        <button type="submit" class="save-button" [disabled]="saving">
+          @if (saving) {
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Saving...
+          } @else {
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            {{ id > 0 ? 'Update Competition' : 'Save Competition' }}
+          }
+        </button>
+      </div>
+    </form>
+  }
+</section>

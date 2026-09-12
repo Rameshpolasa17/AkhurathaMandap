@@ -1,0 +1,51 @@
+<div class="popup">
+  <div class="popup-header">
+    <h2>
+      {{ request.videoId === 0 ? 'Add Video' : 'Edit Video' }}
+    </h2>
+
+    <button (click)="cancel()">✕</button>
+  </div>
+
+  <div class="popup-body">
+    <label>Title *</label>
+
+    <input type="text" [(ngModel)]="request.title" />
+
+    <label>Description</label>
+
+    <textarea rows="4" [(ngModel)]="request.description"> </textarea>
+
+    <label>YouTube URL *</label>
+
+    <input type="text" [(ngModel)]="request.youtubeUrl" (blur)="generateThumbnail()" />
+
+    <label>Thumbnail URL</label>
+
+    <input type="text" [(ngModel)]="request.thumbnailUrl" />
+
+    @if (request.thumbnailUrl) {
+      <div class="preview">
+        <img [src]="request.thumbnailUrl" alt="Thumbnail" />
+      </div>
+    }
+
+    <label>Display Order</label>
+
+    <input type="number" [(ngModel)]="request.displayOrder" />
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="active" [(ngModel)]="request.isActive" />
+
+      <label for="active"> Active </label>
+    </div>
+  </div>
+
+  <div class="popup-footer">
+    <button class="cancel-btn" (click)="cancel()">Cancel</button>
+
+    <button class="save-btn" (click)="save()" [disabled]="loading">
+      {{ loading ? 'Saving...' : 'Save Video' }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<!-- ============================================================== HERO -->
+<section class="sp-hero" aria-labelledby="sp-title">
+  <div class="sp-hero__veil" aria-hidden="true"></div>
+
+  <div class="akm-container sp-hero__inner">
+    <span class="akm-eyebrow">
+      <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+      With gratitude
+    </span>
+    <h1 id="sp-title">Our Sponsors</h1>
+    <p>
+      The pandal, the harathi and every programme of the festival are made possible by
+      the families and businesses who support the mandap.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ TIERS -->
+<section class="sp akm-section akm-section--cream" aria-labelledby="sp-list-title">
+  <div class="akm-container">
+    <h2 id="sp-list-title" class="akm-visually-hidden">Sponsors by tier</h2>
+
+    @if (loading()) {
+      <p class="sp__loading">Loading sponsors…</p>
+    } @else if (tiers.length) {
+      @for (tier of tiers; track tier.name) {
+        <div class="sp__tier">
+          <div class="sp__tier-head" akmReveal>
+            <h3>{{ tier.name }}{{ tier.sponsors.length > 1 ? 's' : '' }}</h3>
+            <span class="sp__tier-rule" aria-hidden="true"></span>
+            <span class="sp__tier-count">{{ tier.sponsors.length }}</span>
+          </div>
+
+          <div class="sp__grid" [class.sp__grid--lead]="tier.sponsors.length <= 2">
+            @for (sponsor of tier.sponsors; track sponsor.sponsorId; let i = $index) {
+              <article class="sp__card akm-card akm-card--lift" akmReveal [revealDelay]="(i % 4) * 80">
+                @if (sponsor.isFeatured) {
+                  <span class="sp__badge">Featured</span>
+                }
+
+                <div class="sp__logo">
+                  @if (sponsor.logoUrl) {
+                    <app-safe-image
+                      [src]="sponsor.logoUrl"
+                      [alt]="sponsor.sponsorName + ' logo'"
+                      icon="fa-solid fa-building"
+                      fit="contain"
+                    />
+                  } @else {
+                    <span class="sp__initials" aria-hidden="true">{{ initials(sponsor) }}</span>
+                  }
+                </div>
+
+                <div class="sp__body">
+                  <h4>{{ sponsor.sponsorName }}</h4>
+
+                  @if (sponsor.companyName && sponsor.companyName !== sponsor.sponsorName) {
+                    <p class="sp__company">{{ sponsor.companyName }}</p>
+                  }
+
+                  @if (sponsor.description) {
+                    <p class="sp__desc">{{ sponsor.description }}</p>
+                  }
+
+                  <!-- Only rendered when a real URL is configured. -->
+                  @if (sponsor.website) {
+                    <a
+                      class="akm-link sp__site"
+                      [href]="sponsor.website"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Visit website
+                      <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                  }
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      }
+    } @else {
+      <div class="akm-empty sp__soon">
+        <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+        <h3>Official sponsors will be announced soon.</h3>
+        <p>
+          This year's partners are being confirmed. If your family or business would
+          like to support the mandap, the committee would love to hear from you.
+        </p>
+        <a class="akm-btn akm-btn--brand" routerLink="/contact">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          Become a sponsor
+        </a>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- =============================================================== CTA -->
+<section class="sp-cta akm-section akm-section--brand">
+  <div class="akm-container sp-cta__inner">
+    <div>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i>
+        Partner with us
+      </span>
+      <h2>Support this year's festival</h2>
+      <p>
+        Sponsorship keeps the annadanam kitchen running, the stage lit and the
+        competitions free for every child in the neighbourhood. Talk to the committee
+        about how you can help.
+      </p>
+    </div>
+
+    <div class="sp-cta__buttons">
+      <a class="akm-btn akm-btn--primary" routerLink="/contact">
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        Talk to the committee
+      </a>
+      <a class="akm-btn akm-btn--on-dark" routerLink="/support">
+        <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+        Support via UPI
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,130 @@
+<section class="game-items-page">
+  <div class="page-header">
+    <div class="title-row">
+      <div class="title-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+      <div>
+        <div class="breadcrumb">
+          <span>Kids Zone</span>
+          <i class="fa-solid fa-chevron-right"></i>
+          <strong>Game Items</strong>
+        </div>
+        <h1>Game Items</h1>
+        <p>Manage items for this game.</p>
+      </div>
+    </div>
+
+    <button class="add-button" (click)="addItem()">
+      <i class="fa-solid fa-plus"></i>
+      Add Item
+    </button>
+  </div>
+
+  @if (showForm) {
+    <div class="form-card">
+      <div class="form-header">
+        <h2>{{ editId ? 'Edit Item' : 'Add Item' }}</h2>
+        <button class="close-button" (click)="closeForm()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Title *</label>
+          <input type="text" [(ngModel)]="item.title" />
+        </div>
+
+        <div class="form-group">
+          <label>Item Type</label>
+          <input type="text" [(ngModel)]="item.itemType" />
+        </div>
+
+        <div class="form-group">
+          <label>Display Order</label>
+          <input type="number" [(ngModel)]="item.displayOrder" />
+        </div>
+
+        <div class="form-group">
+          <label>Image Path</label>
+          <input type="text" [(ngModel)]="item.imagePath" />
+        </div>
+
+        <div class="form-group full">
+          <label>Content</label>
+          <textarea rows="4" [(ngModel)]="item.content"></textarea>
+        </div>
+
+        <label class="active-toggle">
+          <input type="checkbox" [(ngModel)]="item.isActive" />
+          Active
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button class="cancel-button" (click)="closeForm()">Cancel</button>
+        <button class="save-button" [disabled]="saving" (click)="saveItem()">
+          {{ saving ? 'Saving...' : 'Save Item' }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+      <h3>Loading Items...</h3>
+    </div>
+  }
+
+  @if (!loading && items.length === 0) {
+    <div class="empty-state">
+      <i class="fa-solid fa-puzzle-piece"></i>
+      <h2>No Game Items</h2>
+      <p>Add the first item to this game.</p>
+    </div>
+  }
+
+  @if (!loading && items.length > 0) {
+    <div class="items-grid">
+      @for (item of items; track item.id) {
+        <article class="item-card">
+          <div class="item-icon">
+            <i class="fa-solid fa-puzzle-piece"></i>
+          </div>
+
+          <div class="item-content">
+            <span>#{{ item.displayOrder }}</span>
+            <h2>{{ item.title }}</h2>
+
+            @if (item.itemType) {
+              <small>{{ item.itemType }}</small>
+            }
+
+            @if (item.content) {
+              <p>{{ item.content }}</p>
+            }
+
+            <span class="status" [class.active]="item.isActive" [class.inactive]="!item.isActive">
+              {{ item.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div class="item-actions">
+            <button class="edit-button" (click)="editItem(item)">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+
+            <button class="delete-button" (click)="deleteItem(item)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  }
+
+  <button class="back-button" (click)="back()">
+    <i class="fa-solid fa-arrow-left"></i>
+    Back to Games
+  </button>
+</section>

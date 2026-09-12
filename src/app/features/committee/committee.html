@@ -1,0 +1,32 @@
+<app-page-hero
+  titleId="com-title"
+  eyebrow="The people in charge"
+  icon="fa-solid fa-people-group"
+  heading="Mandap Committee"
+  lede="The trustees and coordinators who plan the festival, hold the permissions and answer for every decision."
+/>
+
+<section class="com akm-section akm-section--cream" aria-labelledby="com-list-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <h2 id="com-list-title">Who runs the mandap</h2>
+      <p>Every one of them is a volunteer. None of these roles is paid.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    <app-people-grid
+      [people]="people"
+      icon="fa-solid fa-people-group"
+      emptyText="This year's committee is being confirmed."
+    />
+
+    <div class="com__note" akmReveal="fade">
+      <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+      <p>
+        Names and photographs are updated at the start of each festival year. To reach
+        any member of the committee, use the
+        <a routerLink="/contact">contact page</a>.
+      </p>
+    </div>
+  </div>
+</section>

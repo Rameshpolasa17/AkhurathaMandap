@@ -1,0 +1,50 @@
+.hm-people__block {
+  margin-bottom: 46px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.hm-people__bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+
+  h3 {
+    flex-shrink: 0;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.24rem;
+    color: var(--akm-maroon-800);
+  }
+
+  /* Gold rule filling the space between the title and the link. */
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(201, 154, 46, 0.5), transparent);
+    order: 1;
+  }
+
+  .akm-link {
+    order: 2;
+    flex-shrink: 0;
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hm-people__bar {
+    flex-wrap: wrap;
+
+    &::after {
+      display: none;
+    }
+
+    .akm-link {
+      margin-left: auto;
+    }
+  }
+}

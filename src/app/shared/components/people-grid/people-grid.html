@@ -1,0 +1,24 @@
+@if (people.length) {
+  <ul class="pg">
+    @for (person of people; track person.id; let i = $index) {
+      <li class="pg__card" akmReveal [revealDelay]="(i % 4) * 80">
+        <div class="pg__photo">
+          <app-safe-image [src]="person.imageUrl" [alt]="person.name" [icon]="icon" />
+          <span class="pg__initials" aria-hidden="true">{{ initials(person) }}</span>
+        </div>
+
+        <div class="pg__body">
+          <span class="pg__role">{{ person.role }}</span>
+          <h3>{{ person.name }}</h3>
+          <p>{{ person.description }}</p>
+        </div>
+      </li>
+    }
+  </ul>
+} @else {
+  <div class="akm-empty">
+    <i [class]="icon" aria-hidden="true"></i>
+    <h3>Coming soon</h3>
+    <p>{{ emptyText }}</p>
+  </div>
+}

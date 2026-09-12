@@ -1,0 +1,120 @@
+<section class="memory-page">
+  <!--=========================================
+                    HERO
+  ==========================================-->
+
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tag"> 🧠 Memory Challenge </span>
+
+      <h1>Flip, Match & Win</h1>
+
+      <p>Test your memory by matching all the Ganesh themed cards in the shortest time.</p>
+    </div>
+  </section>
+
+  <!--=========================================
+                  SCOREBOARD
+  ==========================================-->
+
+  <section class="scoreboard">
+    <div class="container">
+      <div class="stats">
+        <div class="stat-card">
+          <span>⏱ Time</span>
+
+          <h3>{{ formattedTime }}</h3>
+        </div>
+
+        <div class="stat-card">
+          <span>🔄 Moves</span>
+
+          <h3>{{ moves }}</h3>
+        </div>
+
+        <div class="stat-card">
+          <span>⭐ Score</span>
+
+          <h3>{{ score }}</h3>
+        </div>
+
+        <div class="stat-card">
+          <span>🎯 Matches</span>
+
+          <h3>{{ matches }}/8</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    GAME
+  ==========================================-->
+
+  <section class="game-board">
+    <div class="container">
+      <div class="memory-grid">
+        @for (card of cards; track card.id) {
+          <div
+            class="memory-card"
+            [class.flipped]="card.flipped || card.matched"
+            [class.matched]="card.matched"
+            (click)="flipCard(card)"
+          >
+            <div class="card-inner">
+              <div class="card-front">❓</div>
+
+              <div class="card-back">
+                {{ card.icon }}
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="actions">
+        <button class="restart-btn" (click)="restart()">🔄 Restart Game</button>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                  COMPLETED
+  ==========================================-->
+
+  @if (gameCompleted) {
+    <section class="completed">
+      <div class="container">
+        <div class="completed-card">
+          <div class="trophy">🏆</div>
+
+          <h2>Congratulations!</h2>
+
+          <p>You matched all cards successfully.</p>
+
+          <div class="summary">
+            <div>
+              <span>Time</span>
+
+              <h3>{{ formattedTime }}</h3>
+            </div>
+
+            <div>
+              <span>Moves</span>
+
+              <h3>{{ moves }}</h3>
+            </div>
+
+            <div>
+              <span>Score</span>
+
+              <h3>{{ score }}</h3>
+            </div>
+          </div>
+
+          <button class="restart-btn" (click)="restart()">Play Again</button>
+        </div>
+      </div>
+    </section>
+  }
+</section>

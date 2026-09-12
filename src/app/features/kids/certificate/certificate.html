@@ -1,0 +1,669 @@
+<section class="certificate-page">
+  <!--=========================================
+                      HERO
+  ==========================================-->
+
+  <section class="certificate-hero">
+    <div class="hero-decoration hero-decoration-one"></div>
+    <div class="hero-decoration hero-decoration-two"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag"> 🏆 Kids Achievement </span>
+
+        <h1>
+          Your Puzzle
+          <span>Champion Certificate</span>
+        </h1>
+
+        <p>
+          Celebrate your learning journey and achievements in the Akhuratha Mandap Kids Puzzle
+          World.
+        </p>
+
+        <div class="hero-features">
+          <div class="hero-feature">
+            <span>🧩</span>
+            Play
+          </div>
+
+          <div class="hero-feature">
+            <span>⭐</span>
+            Score
+          </div>
+
+          <div class="hero-feature">
+            <span>🏆</span>
+            Achieve
+          </div>
+
+          <div class="hero-feature">
+            <span>📜</span>
+            Celebrate
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                  MAIN SECTION
+  ==========================================-->
+
+  <section class="certificate-main">
+    <div class="container">
+      <div class="certificate-layout">
+        <!--=====================================
+                  CUSTOMIZATION PANEL
+        ======================================-->
+
+        <aside class="customization-panel">
+          <div class="panel-header">
+            <span class="panel-tag"> ✨ Customize </span>
+
+            <h2>Create Your Certificate</h2>
+
+            <p>Enter the child's name and preview the achievement certificate.</p>
+          </div>
+
+          <!--=================================
+                    CHILD NAME
+          ==================================-->
+
+          <div class="form-group">
+            <label for="childName"> Child's Name </label>
+
+            <div class="input-wrapper">
+              <span class="input-icon"> 👦 </span>
+
+              <input
+                id="childName"
+                type="text"
+                maxlength="50"
+                placeholder="Enter child's full name"
+                [(ngModel)]="childName"
+                (input)="onNameChange()"
+              />
+            </div>
+
+            <small> This name will appear on the certificate. </small>
+          </div>
+
+          <!--=================================
+                  ELIGIBILITY
+          ==================================-->
+
+          <div class="eligibility-card" [class.unlocked]="isEligible">
+            <div class="eligibility-icon">
+              @if (isEligible) {
+                🔓
+              } @else {
+                🔒
+              }
+            </div>
+
+            <div>
+              <span> Certificate Status </span>
+
+              <h4>
+                @if (isEligible) {
+                  Certificate Unlocked!
+                } @else {
+                  Keep Playing
+                }
+              </h4>
+
+              <p>
+                @if (isEligible) {
+                  Congratulations! You have completed enough games to receive your certificate.
+                } @else {
+                  Complete at least 3 puzzle games to unlock your certificate.
+                }
+              </p>
+            </div>
+          </div>
+
+          <!--=================================
+                    PROGRESS
+          ==================================-->
+
+          <div class="progress-card">
+            <div class="progress-heading">
+              <div>
+                <span> Game Progress </span>
+
+                <strong>
+                  {{ completedGames }}/{{ totalGames }}
+                  Completed
+                </strong>
+              </div>
+
+              <div class="progress-percentage">{{ completionPercentage }}%</div>
+            </div>
+
+            <div class="progress-track">
+              <div class="progress-fill" [style.width.%]="completionPercentage"></div>
+            </div>
+          </div>
+
+          <!--=================================
+                    GAME RESULTS
+          ==================================-->
+
+          <div class="games-section">
+            <div class="section-small-title">
+              <span> Your Games </span>
+
+              <small> {{ totalScore }} Points </small>
+            </div>
+
+            <div class="games-list">
+              @for (game of games; track game.name) {
+                <div class="game-item" [class.completed]="game.completed">
+                  <div class="game-icon">
+                    {{ game.icon }}
+                  </div>
+
+                  <div class="game-info">
+                    <strong>
+                      {{ game.name }}
+                    </strong>
+
+                    <small>
+                      @if (game.completed) {
+                        Completed • {{ game.score }} pts
+                      } @else {
+                        Not Completed
+                      }
+                    </small>
+                  </div>
+
+                  <div class="game-status">
+                    @if (game.completed) {
+                      ✓
+                    } @else {
+                      ○
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!--=================================
+                  ACHIEVEMENT LEVEL
+          ==================================-->
+
+          <div class="achievement-section">
+            <div class="section-small-title">
+              <span> Achievement Level </span>
+
+              <small> Based on Score </small>
+            </div>
+
+            <div class="achievement-options">
+              @for (achievement of achievementLevels; track achievement.id) {
+                <button
+                  type="button"
+                  class="achievement-option"
+                  [class.active]="selectedAchievement.id === achievement.id"
+                  (click)="selectAchievement(achievement)"
+                >
+                  <span class="achievement-option-icon">
+                    {{ achievement.icon }}
+                  </span>
+
+                  <span class="achievement-option-info">
+                    <strong>
+                      {{ achievement.title }}
+                    </strong>
+
+                    <small>
+                      {{ achievement.subtitle }}
+                    </small>
+                  </span>
+
+                  @if (selectedAchievement.id === achievement.id) {
+                    <span class="selected-check"> ✓ </span>
+                  }
+                </button>
+              }
+            </div>
+          </div>
+
+          <!--=================================
+                      ACTIONS
+          ==================================-->
+
+          <div class="panel-actions">
+            <button
+              type="button"
+              class="download-btn"
+              [disabled]="!isEligible"
+              (click)="downloadCertificate()"
+            >
+              📥 Download Certificate
+            </button>
+
+            <button
+              type="button"
+              class="print-btn"
+              [disabled]="!isEligible"
+              (click)="printCertificate()"
+            >
+              🖨️ Print Certificate
+            </button>
+
+            <button type="button" class="reset-btn" (click)="resetCertificate()">↻ Reset</button>
+          </div>
+        </aside>
+
+        <!--=====================================
+                  CERTIFICATE AREA
+        ======================================-->
+
+        <main class="certificate-preview-area">
+          <div class="preview-header">
+            <div>
+              <span> Live Preview </span>
+
+              <h2>Your Achievement Certificate</h2>
+            </div>
+
+            <div class="preview-status" [class.unlocked]="isEligible">
+              @if (isEligible) {
+                ✓ Unlocked
+              } @else {
+                🔒 Locked
+              }
+            </div>
+          </div>
+
+          <!--=================================
+                  CERTIFICATE
+          ==================================-->
+
+          <div id="certificatePrintArea" class="certificate-wrapper">
+            <div class="certificate-document">
+              <!-- CORNERS -->
+
+              <div class="corner corner-top-left"></div>
+              <div class="corner corner-top-right"></div>
+              <div class="corner corner-bottom-left"></div>
+              <div class="corner corner-bottom-right"></div>
+
+              <!-- DECORATIVE BORDER -->
+
+              <div class="certificate-border">
+                <div class="inner-border">
+                  <!--=============================
+                        CERTIFICATE HEADER
+                  ==============================-->
+
+                  <div class="certificate-header">
+                    <div class="mandap-symbol">ॐ</div>
+
+                    <span class="mandap-name"> AKHURATHA MANDAP </span>
+
+                    <small> Kids Learning & Activity Zone </small>
+                  </div>
+
+                  <!--=============================
+                            DIVIDER
+                  ==============================-->
+
+                  <div class="ornament-divider">
+                    <span></span>
+
+                    <div class="divider-symbol">✦</div>
+
+                    <span></span>
+                  </div>
+
+                  <!--=============================
+                        CERTIFICATE TITLE
+                  ==============================-->
+
+                  <div class="certificate-title">
+                    <span> Certificate </span>
+
+                    <h2>OF ACHIEVEMENT</h2>
+
+                    <p>This certificate is proudly presented to</p>
+                  </div>
+
+                  <!--=============================
+                          CHILD NAME
+                  ==============================-->
+
+                  <div class="student-name">
+                    <h1>
+                      {{ displayName }}
+                    </h1>
+
+                    <div class="name-line"></div>
+                  </div>
+
+                  <!--=============================
+                        DESCRIPTION
+                  ==============================-->
+
+                  <div class="certificate-description">
+                    <p>
+                      {{ certificateDescription }}
+                    </p>
+                  </div>
+
+                  <!--=============================
+                        ACHIEVEMENT
+                  ==============================-->
+
+                  <div class="certificate-achievement">
+                    <div class="achievement-medal">
+                      <div class="medal-glow"></div>
+
+                      <div class="medal-icon">
+                        {{ selectedAchievement.icon }}
+                      </div>
+                    </div>
+
+                    <div class="achievement-text">
+                      <span> Awarded As </span>
+
+                      <h3>
+                        {{ selectedAchievement.title }}
+                      </h3>
+
+                      <small>
+                        {{ selectedAchievement.subtitle }}
+                      </small>
+                    </div>
+                  </div>
+
+                  <!--=============================
+                        SCORE SUMMARY
+                  ==============================-->
+
+                  <div class="certificate-stats">
+                    <div class="certificate-stat">
+                      <strong>
+                        {{ completedGames }}
+                      </strong>
+
+                      <span> Games Completed </span>
+                    </div>
+
+                    <div class="certificate-stat">
+                      <strong>
+                        {{ totalScore }}
+                      </strong>
+
+                      <span> Total Points </span>
+                    </div>
+
+                    <div class="certificate-stat">
+                      <strong> {{ completionPercentage }}% </strong>
+
+                      <span> Completion </span>
+                    </div>
+                  </div>
+
+                  <!--=============================
+                        PERFECT BADGE
+                  ==============================-->
+
+                  @if (isPerfectCompletion) {
+                    <div class="perfect-badge">
+                      <span> ⭐ </span>
+
+                      <strong> All Puzzle Challenges Completed </strong>
+
+                      <span> ⭐ </span>
+                    </div>
+                  }
+
+                  <!--=============================
+                          FOOTER
+                  ==============================-->
+
+                  <div class="certificate-footer">
+                    <div class="footer-item">
+                      <strong>
+                        {{ formattedDate }}
+                      </strong>
+
+                      <span class="signature-line"></span>
+
+                      <small> Date </small>
+                    </div>
+
+                    <div class="certificate-seal">
+                      <div class="seal-outer">
+                        <div class="seal-inner">
+                          <span> 🏆 </span>
+
+                          <strong> KIDS </strong>
+
+                          <small> CHAMPION </small>
+                        </div>
+                      </div>
+
+                      <div class="ribbon ribbon-left"></div>
+                      <div class="ribbon ribbon-right"></div>
+                    </div>
+
+                    <div class="footer-item">
+                      <strong> Akhuratha Mandap </strong>
+
+                      <span class="signature-line"></span>
+
+                      <small> Organizing Committee </small>
+                    </div>
+                  </div>
+
+                  <!--=============================
+                      CERTIFICATE ID
+                  ==============================-->
+
+                  <div class="certificate-id">
+                    <span> Certificate ID: </span>
+
+                    <strong>
+                      {{ certificateId }}
+                    </strong>
+                  </div>
+
+                  <!--=============================
+                        BOTTOM MESSAGE
+                  ==============================-->
+
+                  <div class="certificate-message">
+                    <span> 🌸 </span>
+
+                    <p>Keep Learning • Keep Exploring • Keep Smiling</p>
+
+                    <span> 🌸 </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--=================================
+                    LOCK OVERLAY
+            ==================================-->
+
+            @if (!isEligible) {
+              <div class="certificate-lock">
+                <div class="lock-card">
+                  <div class="lock-icon">🔒</div>
+
+                  <h3>Certificate Locked</h3>
+
+                  <p>
+                    Complete at least 3 Kids Puzzle games to unlock your achievement certificate.
+                  </p>
+
+                  <button type="button" (click)="playMoreGames()">🧩 Play Puzzle Games</button>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!--=================================
+                  PREVIEW ACTIONS
+          ==================================-->
+
+          <div class="preview-actions">
+            <button type="button" class="secondary-action" (click)="goToKidsZone()">
+              ← Kids Zone
+            </button>
+
+            <button type="button" class="primary-action" (click)="playMoreGames()">
+              🧩 Play More Games
+            </button>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                ACHIEVEMENT JOURNEY
+  ==========================================-->
+
+  <section class="achievement-journey">
+    <div class="container">
+      <div class="section-header">
+        <span> 🌟 Your Journey </span>
+
+        <h2>Become A Puzzle Legend</h2>
+
+        <p>Complete every challenge, improve your score and unlock higher achievement levels.</p>
+      </div>
+
+      <div class="journey-grid">
+        @for (achievement of achievementLevels; track achievement.id) {
+          <div
+            class="journey-card"
+            [class.active]="selectedAchievement.id === achievement.id"
+            [class.earned]="totalScore >= achievement.minimumScore"
+          >
+            <div class="journey-icon">
+              {{ achievement.icon }}
+            </div>
+
+            <h3>
+              {{ achievement.title }}
+            </h3>
+
+            <p>
+              {{ achievement.subtitle }}
+            </p>
+
+            <span class="score-requirement">
+              @if (achievement.minimumScore === 0) {
+                Start Playing
+              } @else {
+                {{ achievement.minimumScore }}+ Points
+              }
+            </span>
+
+            @if (totalScore >= achievement.minimumScore) {
+              <div class="earned-badge">✓ Earned</div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    MORE GAMES
+  ==========================================-->
+
+  <section class="more-games">
+    <div class="container">
+      <div class="section-header">
+        <span> 🎮 Keep Playing </span>
+
+        <h2>Improve Your Achievement</h2>
+
+        <p>
+          Play more Kids Zone challenges and become the ultimate Akhuratha Mandap Puzzle Champion.
+        </p>
+      </div>
+
+      <div class="more-games-grid">
+        <!-- JIGSAW -->
+
+        <button type="button" class="more-game-card" (click)="playJigsaw()">
+          <div class="more-game-icon">🧩</div>
+
+          <div>
+            <h3>Jigsaw Puzzle</h3>
+
+            <p>Arrange the pieces and complete beautiful Ganesh pictures.</p>
+          </div>
+
+          <span class="play-arrow"> → </span>
+        </button>
+
+        <!-- WORD SEARCH -->
+
+        <button type="button" class="more-game-card" (click)="playWordSearch()">
+          <div class="more-game-icon">🔤</div>
+
+          <div>
+            <h3>Word Search</h3>
+
+            <p>Find hidden festival and Ganesha-related words.</p>
+          </div>
+
+          <span class="play-arrow"> → </span>
+        </button>
+
+        <!-- MEMORY -->
+
+        <button type="button" class="more-game-card" (click)="playMemoryGame()">
+          <div class="more-game-icon">🧠</div>
+
+          <div>
+            <h3>Memory Game</h3>
+
+            <p>Flip cards, find matching pairs and test your memory.</p>
+          </div>
+
+          <span class="play-arrow"> → </span>
+        </button>
+
+        <!-- MATCH SHADOW -->
+
+        <button type="button" class="more-game-card" (click)="playMatchShadow()">
+          <div class="more-game-icon">🎯</div>
+
+          <div>
+            <h3>Match The Shadow</h3>
+
+            <p>Observe carefully and find the correct shadow.</p>
+          </div>
+
+          <span class="play-arrow"> → </span>
+        </button>
+
+        <!-- GUESS PICTURE -->
+
+        <button type="button" class="more-game-card" (click)="playGuessPicture()">
+          <div class="more-game-icon">❓</div>
+
+          <div>
+            <h3>Guess The Picture</h3>
+
+            <p>Reveal hidden pictures and identify the correct answer.</p>
+          </div>
+
+          <span class="play-arrow"> → </span>
+        </button>
+      </div>
+    </div>
+  </section>
+</section>

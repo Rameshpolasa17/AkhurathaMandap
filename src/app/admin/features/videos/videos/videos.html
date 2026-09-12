@@ -1,0 +1,60 @@
+<div class="page-header">
+  <div>
+    <h2>Videos</h2>
+    <p>Manage Festival Videos</p>
+  </div>
+
+  <button class="add-btn" (click)="openForm()">
+    <i class="fa-solid fa-plus"></i>
+    Add Video
+  </button>
+</div>
+
+<div class="video-grid">
+  @for (item of videos; track item.videoId) {
+    <div class="video-card">
+      <img class="thumbnail" [src]="item.thumbnailUrl" alt="{{ item.title }}" />
+
+      <div class="card-body">
+        <h3>{{ item.title }}</h3>
+
+        <p>{{ item.description }}</p>
+
+        <div class="order">
+          Display Order :
+          {{ item.displayOrder }}
+        </div>
+
+        <span class="status" [class.active]="item.isActive" [class.inactive]="!item.isActive">
+          {{ item.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+
+      <div class="card-footer">
+        <a class="watch-btn" [href]="item.youtubeUrl" target="_blank">
+          <i class="fa-brands fa-youtube"></i>
+
+          Watch
+        </a>
+
+        <button class="edit-btn" (click)="edit(item)">Edit</button>
+
+        <button class="delete-btn" (click)="delete(item)">Delete</button>
+      </div>
+    </div>
+  } @empty {
+    <div class="empty-state">
+      <i class="fa-brands fa-youtube"></i>
+
+      <h3>No Videos Found</h3>
+
+      <p>Click <strong>Add Video</strong> to upload your first festival video.</p>
+    </div>
+  }
+</div>
+
+@if (showForm) {
+  <div class="popup-overlay">
+    <app-video-form [video]="selectedVideo" (close)="closeForm()"> </app-video-form>
+  </div>
+}

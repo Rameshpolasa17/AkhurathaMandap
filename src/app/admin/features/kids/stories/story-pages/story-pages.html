@@ -1,0 +1,139 @@
+<section class="story-pages-page">
+  <!-- =========================================
+                    HEADER
+  ========================================== -->
+
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <span>Stories</span>
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <strong>Story Pages</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+
+        <div>
+          <h1>{{ storyTitle }}</h1>
+
+          <p>Manage pages for this story.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="add-button" (click)="addPage()">
+      <i class="fa-solid fa-plus"></i>
+
+      Add Page
+    </button>
+  </div>
+
+  <!-- =========================================
+                    LOADING
+  ========================================== -->
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+
+      <h3>Loading Pages...</h3>
+    </div>
+  }
+
+  <!-- =========================================
+                    EMPTY
+  ========================================== -->
+
+  @if (!loading && pages.length === 0) {
+    <div class="empty-state">
+      <i class="fa-solid fa-book-open"></i>
+
+      <h2>No Pages Found</h2>
+
+      <p>Add your first story page.</p>
+
+      <button (click)="addPage()">
+        <i class="fa-solid fa-plus"></i>
+
+        Add First Page
+      </button>
+    </div>
+  }
+
+  <!-- =========================================
+                    TABLE
+  ========================================== -->
+
+  @if (!loading && pages.length > 0) {
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+
+            <th>Image</th>
+
+            <th>Title</th>
+
+            <th>Display Order</th>
+
+            <th>Status</th>
+
+            <th width="170">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (page of pages; track page.id) {
+            <tr>
+              <td>{{ page.pageNumber }}</td>
+
+              <td>
+                <img
+                  [src]="page.imagePath || 'images/defaults/no-image.png'"
+                  width="70"
+                  height="70"
+                />
+              </td>
+
+              <td>
+                <strong>{{ page.title }}</strong>
+              </td>
+
+              <td>{{ page.displayOrder }}</td>
+
+              <td>
+                <span
+                  class="status"
+                  [class.active]="page.isActive"
+                  [class.inactive]="!page.isActive"
+                >
+                  {{ page.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </td>
+
+              <!-- <td>
+                <button class="edit-btn" (click)="editPage(page)">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+
+                <button class="delete-btn" (click)="deletePage(page)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td> -->
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

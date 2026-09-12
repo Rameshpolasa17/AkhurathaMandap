@@ -1,0 +1,56 @@
+<section class="gp akm-section akm-section--cream" aria-labelledby="gp-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-camera-retro" aria-hidden="true"></i>
+        Festival Memories
+      </span>
+      <h2 id="gp-title">Moments of Devotion</h2>
+      <p>
+        The idol, the Ganga Harathi, the pandal and the nimarjanam procession — a
+        glimpse of the mandap through the years.
+      </p>
+      <div class="akm-rule"></div>
+    </div>
+
+    @if (photos.length) {
+      <div class="gp__grid">
+        @for (photo of photos; track photo.galleryId; let i = $index) {
+          <a
+            class="gp__tile"
+            [class.gp__tile--lead]="i === 0"
+            routerLink="/gallery"
+            akmReveal
+            [revealDelay]="i * 80"
+            [attr.aria-label]="photo.title + ' — open the full gallery'"
+          >
+            <app-safe-image
+              class="gp__img"
+              [src]="photo.imageUrl"
+              [alt]="photo.title"
+              icon="fa-solid fa-camera-retro"
+            />
+            <span class="gp__scrim" aria-hidden="true"></span>
+            <span class="gp__meta">
+              <span class="gp__cat">{{ photo.category }}</span>
+              <span class="gp__name">{{ photo.title }}</span>
+            </span>
+          </a>
+        }
+      </div>
+
+      <div class="gp__cta" akmReveal>
+        <a class="akm-btn akm-btn--brand" routerLink="/gallery">
+          <i class="fa-solid fa-images" aria-hidden="true"></i>
+          View Full Gallery
+        </a>
+      </div>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-images" aria-hidden="true"></i>
+        <h3>Photographs coming soon</h3>
+        <p>This year's festival gallery is being prepared.</p>
+      </div>
+    }
+  </div>
+</section>

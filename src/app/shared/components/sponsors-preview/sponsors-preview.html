@@ -1,0 +1,53 @@
+<section class="spo akm-section akm-section--cream" aria-labelledby="spo-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+        With gratitude
+      </span>
+      <h2 id="spo-title">Our Sponsors</h2>
+      <p>The families and businesses who make this festival possible.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    @if (sponsors.length) {
+      <ul class="spo__grid">
+        @for (sponsor of sponsors; track sponsor.sponsorId; let i = $index) {
+          <li class="spo__item" akmReveal [revealDelay]="(i % 4) * 70">
+            <div class="spo__logo">
+              @if (sponsor.logoUrl) {
+                <app-safe-image
+                  [src]="sponsor.logoUrl"
+                  [alt]="sponsor.sponsorName + ' logo'"
+                  icon="fa-solid fa-building"
+                  fit="contain"
+                />
+              } @else {
+                <span class="spo__initials" aria-hidden="true">{{ initials(sponsor) }}</span>
+              }
+            </div>
+            <span class="spo__name">{{ sponsor.sponsorName }}</span>
+            <span class="spo__tier">{{ sponsor.sponsorTypeName }}</span>
+          </li>
+        }
+      </ul>
+
+      <div class="spo__cta" akmReveal>
+        <a class="akm-btn akm-btn--brand" routerLink="/sponsors">
+          <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+          View All Sponsors
+        </a>
+      </div>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+        <h3>Official sponsors will be announced soon.</h3>
+        <p>This year's partners are being confirmed.</p>
+        <a class="akm-link spo__soon-link" routerLink="/sponsors">
+          Become a sponsor
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    }
+  </div>
+</section>

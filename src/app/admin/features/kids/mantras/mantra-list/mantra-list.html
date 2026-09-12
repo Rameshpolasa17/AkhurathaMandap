@@ -1,0 +1,152 @@
+<section class="bhajan-admin-page">
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>Mantras</strong>
+      </div>
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-om"></i>
+        </div>
+        <div>
+          <h1>Mantras</h1>
+          <p>Manage Ganesh mantras and slokas.</p>
+        </div>
+      </div>
+    </div>
+    <button class="add-button" (click)="addMantra()">
+      <i class="fa-solid fa-plus"></i>
+      <span>Add Mantra</span>
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-om"></i></div>
+      <div>
+        <span>Total</span><strong>{{ mantras.length }}</strong>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <div>
+        <span>Active</span><strong>{{ activeCount }}</strong>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+      <div>
+        <span>Featured</span><strong>{{ featuredCount }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search..." [value]="searchText" (input)="onSearch($event)" />
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-filter"></i>
+      <select [value]="statusFilter" (change)="onStatusChange($event)">
+        <option value="all">All</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+        <option value="featured">Featured</option>
+      </select>
+    </div>
+
+    <button class="refresh-button" (click)="loadMantras()">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+      <h3>Loading...</h3>
+    </div>
+  }
+
+  @if (!loading && filteredMantras.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-om"></i>
+      </div>
+      <h2>No Mantras Found</h2>
+      <button (click)="addMantra()">
+        <i class="fa-solid fa-plus"></i>
+        Add Mantra
+      </button>
+    </div>
+  }
+
+  @if (!loading && filteredMantras.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing <strong>{{ filteredMantras.length }}</strong> mantra(s)
+      </p>
+    </div>
+
+    <div class="bhajan-grid">
+      @for (item of filteredMantras; track item.id) {
+        <article class="bhajan-card">
+          <div class="image-area">
+            <img
+              [src]="item.thumbnailPath || 'images/defaults/no-image.png'"
+              [alt]="item.title"
+              (error)="imageError($event)"
+            />
+
+            @if (item.isFeatured) {
+              <span class="featured-badge"> <i class="fa-solid fa-star"></i> Featured </span>
+            }
+
+            <span
+              class="status-badge"
+              [class.active]="item.isActive"
+              [class.inactive]="!item.isActive"
+            >
+              {{ item.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div class="card-body">
+            <div class="card-top">
+              <span>#{{ item.displayOrder }}</span>
+              <span>Mantra</span>
+            </div>
+
+            <h2>{{ item.title }}</h2>
+
+            @if (item.shortDescription) {
+              <p class="english-title">{{ item.shortDescription }}</p>
+            }
+
+            <div class="content-features">
+              @if (item.description) {
+                <span><i class="fa-solid fa-scroll"></i> Meaning</span>
+              }
+              @if (item.videoUrl) {
+                <span><i class="fa-solid fa-video"></i> Video</span>
+              }
+            </div>
+
+            <div class="card-actions">
+              <button class="edit-button" (click)="editMantra(item)">
+                <i class="fa-solid fa-pen"></i> Edit
+              </button>
+
+              <button class="delete-button" (click)="deleteMantra(item)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

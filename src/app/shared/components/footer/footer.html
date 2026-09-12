@@ -1,0 +1,115 @@
+<footer class="ftr">
+  <div class="ftr__glow" aria-hidden="true"></div>
+
+  <div class="akm-container">
+    <div class="ftr__grid">
+      <!-- Identity -->
+      <div class="ftr__about" akmReveal>
+        <div class="ftr__brand">
+          <img src="/images/Logo-Round.jpg" alt="" aria-hidden="true" />
+          <div>
+            <strong>{{ config.mandapName }}</strong>
+            <small>{{ config.festivalName }}</small>
+          </div>
+        </div>
+
+        <p>
+          {{ config.tagline }}. Akhuratha Mandap has celebrated Lord Ganesha with the
+          neighbourhood for decades — through daily aarti, annadanam seva, cultural
+          programmes and the community that makes it all possible.
+        </p>
+
+        @if (social.length) {
+          <ul class="ftr__social" aria-label="Social media">
+            @for (link of social; track link.label) {
+              <li>
+                <a
+                  [href]="link.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="link.label"
+                >
+                  <i [class]="link.icon" aria-hidden="true"></i>
+                </a>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      <!-- Explore -->
+      <nav class="ftr__col" aria-label="Explore" akmReveal [revealDelay]="90">
+        <h3>Explore</h3>
+        <ul>
+          @for (link of explore; track link.route) {
+            <li><a [routerLink]="link.route">{{ link.label }}</a></li>
+          }
+        </ul>
+      </nav>
+
+      <!-- The Mandap -->
+      <nav class="ftr__col" aria-label="About the mandap" akmReveal [revealDelay]="180">
+        <h3>The Mandap</h3>
+        <ul>
+          @for (link of mandap; track link.route) {
+            <li><a [routerLink]="link.route">{{ link.label }}</a></li>
+          }
+        </ul>
+      </nav>
+
+      <!-- Reach us -->
+      <div class="ftr__col ftr__contact" akmReveal [revealDelay]="270">
+        <h3>Reach Us</h3>
+
+        <address>
+          <p>
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <span>
+              @for (line of config.contact.addressLines; track line) {
+                {{ line }}<br />
+              }
+            </span>
+          </p>
+
+          <p>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <a [href]="telHref">{{ config.contact.phone }}</a>
+          </p>
+
+          <p>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <a [href]="mailHref">{{ config.contact.email }}</a>
+          </p>
+
+          <p>
+            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+            <span>{{ config.contact.officeHours }}</span>
+          </p>
+        </address>
+
+        <div class="ftr__cta">
+          <a class="akm-btn akm-btn--primary akm-btn--sm" routerLink="/support">
+            <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+            Support Us
+          </a>
+
+          @if (whatsappAvailable) {
+            <button type="button" class="akm-btn akm-btn--on-dark akm-btn--sm" (click)="openWhatsapp()">
+              <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+              WhatsApp
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="ftr__bottom">
+      <p>© {{ year }} {{ config.mandapName }}. Ganpati Bappa Morya.</p>
+      <nav class="ftr__bottom-links" aria-label="Secondary">
+        <a routerLink="/faq">FAQ</a>
+        <a routerLink="/contact">Contact</a>
+        <a routerLink="/support">Support</a>
+      </nav>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,732 @@
+<section class="quiz-page">
+  <!--=====================================================
+                          HERO
+  ======================================================-->
+
+  <section class="quiz-hero">
+    <div class="hero-decoration decoration-one"></div>
+    <div class="hero-decoration decoration-two"></div>
+    <div class="hero-decoration decoration-three"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <!-- HERO CONTENT -->
+
+        <div class="hero-content">
+          <span class="hero-tag"> 🧠 Kids Knowledge Zone </span>
+
+          <h1>
+            Ganesh
+            <span>Quiz Challenge</span>
+          </h1>
+
+          <p>
+            {{ heroSubtitle }}
+          </p>
+
+          <div class="hero-actions">
+            <button type="button" class="primary-btn" (click)="startQuiz()">🚀 Start Quiz</button>
+
+            <button type="button" class="secondary-btn" (click)="goToKidsZone()">
+              ← Kids Zone
+            </button>
+          </div>
+
+          <!-- HERO STATS -->
+
+          <div class="hero-stats">
+            @for (stat of heroStats; track stat.label) {
+              <div class="hero-stat">
+                <strong>
+                  {{ stat.number }}
+                </strong>
+
+                <span>
+                  {{ stat.label }}
+                </span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+          <div class="hero-image-wrapper">
+            <div class="hero-glow"></div>
+
+            <img src="images/quiz/quiz-hero.png" alt="Ganesh Quiz Challenge" />
+
+            <div class="floating-card floating-one">
+              <span>🧠</span>
+
+              <div>
+                <strong>Learn</strong>
+                <small>Discover new facts</small>
+              </div>
+            </div>
+
+            <div class="floating-card floating-two">
+              <span>⭐</span>
+
+              <div>
+                <strong>Score</strong>
+                <small>Answer correctly</small>
+              </div>
+            </div>
+
+            <div class="floating-card floating-three">
+              <span>🏆</span>
+
+              <div>
+                <strong>Win</strong>
+                <small>Become a champion</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=====================================================
+                      LEVEL SELECTION
+  ======================================================-->
+
+  @if (!quizStarted && !quizCompleted) {
+    <section class="levels-section">
+      <div class="container">
+        <div class="section-header">
+          <span> 🎯 Choose Your Challenge </span>
+
+          <h2>Select Quiz Level</h2>
+
+          <p>Start easy, challenge yourself and become the ultimate Ganesh Quiz Champion.</p>
+        </div>
+
+        <div class="levels-grid">
+          @for (level of levels; track level.name) {
+            <article
+              class="level-card"
+              [class.active]="selectedLevel === level.name"
+              (click)="selectLevel(level.name)"
+            >
+              <div class="level-icon" [style.background]="level.color">
+                {{ level.icon }}
+              </div>
+
+              <span class="level-name" [style.color]="level.color">
+                {{ level.name }}
+              </span>
+
+              <h3>
+                {{ level.title }}
+              </h3>
+
+              <p>
+                {{ level.description }}
+              </p>
+
+              <div class="level-details">
+                <div>
+                  <span> ❓ </span>
+
+                  <strong>
+                    {{ level.questions }}
+                  </strong>
+
+                  <small> Questions </small>
+                </div>
+
+                <div>
+                  <span> ⏱️ </span>
+
+                  <strong> {{ level.time }}s </strong>
+
+                  <small> Per Question </small>
+                </div>
+              </div>
+
+              <div class="level-selection">
+                @if (selectedLevel === level.name) {
+                  <span class="selected-badge"> ✓ Selected </span>
+                } @else {
+                  <span> Select Level </span>
+                }
+              </div>
+            </article>
+          }
+        </div>
+
+        <!-- START SELECTED LEVEL -->
+
+        <div class="start-challenge">
+          <div class="start-content">
+            <span> Ready To Play? </span>
+
+            <h3>{{ selectedLevel }} Challenge</h3>
+
+            <p>You will answer 10 questions. Try to answer before the timer ends.</p>
+          </div>
+
+          <button type="button" class="start-btn" (click)="startQuiz()">
+            🚀 Start {{ selectedLevel }} Quiz
+          </button>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!--=====================================================
+                         QUIZ AREA
+  ======================================================-->
+
+  @if (quizStarted && !quizCompleted && currentQuestion) {
+    <section class="quiz-section">
+      <div class="container">
+        <div class="quiz-layout">
+          <!--=================================================
+                          QUIZ TOP BAR
+          ==================================================-->
+
+          <div class="quiz-topbar">
+            <div class="quiz-level-info">
+              <span class="level-mini-icon">
+                @if (selectedLevel === 'Easy') {
+                  🌱
+                }
+
+                @if (selectedLevel === 'Medium') {
+                  ⭐
+                }
+
+                @if (selectedLevel === 'Hard') {
+                  🏆
+                }
+              </span>
+
+              <div>
+                <small> Current Level </small>
+
+                <strong>
+                  {{ selectedLevel }}
+                </strong>
+              </div>
+            </div>
+
+            <div class="quiz-score-info">
+              <div>
+                <small> Score </small>
+
+                <strong> ⭐ {{ score }} </strong>
+              </div>
+
+              <div>
+                <small> High Score </small>
+
+                <strong> 🏆 {{ highScore }} </strong>
+              </div>
+            </div>
+          </div>
+
+          <!--=================================================
+                           PROGRESS
+          ==================================================-->
+
+          <div class="quiz-progress-card">
+            <div class="progress-header">
+              <div>
+                <span> Question </span>
+
+                <strong>
+                  {{ currentQuestionIndex + 1 }}
+                  /
+                  {{ currentQuestions.length }}
+                </strong>
+              </div>
+
+              <div class="timer-box" [class.warning]="timeLeft <= 5">
+                <span> ⏱️ </span>
+
+                <strong>
+                  {{ timeLeft }}
+                </strong>
+
+                <small> sec </small>
+              </div>
+            </div>
+
+            <div class="progress-track">
+              <div class="progress-fill" [style.width.%]="progressPercentage"></div>
+            </div>
+          </div>
+
+          <!--=================================================
+                        QUESTION CARD
+          ==================================================-->
+
+          <article class="question-card">
+            <div class="question-meta">
+              <span class="question-category">
+                {{ currentQuestion.icon }}
+                {{ currentQuestion.category }}
+              </span>
+
+              <span
+                class="question-difficulty"
+                [class.easy]="currentQuestion.difficulty === 'Easy'"
+                [class.medium]="currentQuestion.difficulty === 'Medium'"
+                [class.hard]="currentQuestion.difficulty === 'Hard'"
+              >
+                {{ currentQuestion.difficulty }}
+              </span>
+            </div>
+
+            <div class="question-number">Question {{ currentQuestionIndex + 1 }}</div>
+
+            <h2>
+              {{ currentQuestion.question }}
+            </h2>
+
+            <!--=============================================
+                         ANSWER OPTIONS
+            ==============================================-->
+
+            <div class="answers-grid">
+              @for (option of currentQuestion.options; track $index) {
+                <button
+                  type="button"
+                  class="answer-option"
+                  [class.selected]="isSelectedOption($index)"
+                  [class.correct]="isCorrectOption($index)"
+                  [class.wrong]="isWrongOption($index)"
+                  [disabled]="answerSubmitted"
+                  (click)="selectAnswer($index)"
+                >
+                  <span class="option-letter">
+                    @switch ($index) {
+                      @case (0) {
+                        A
+                      }
+
+                      @case (1) {
+                        B
+                      }
+
+                      @case (2) {
+                        C
+                      }
+
+                      @case (3) {
+                        D
+                      }
+                    }
+                  </span>
+
+                  <span class="option-text">
+                    {{ option }}
+                  </span>
+
+                  <span class="option-status">
+                    @if (answerSubmitted && isCorrectOption($index)) {
+                      ✓
+                    }
+
+                    @if (answerSubmitted && isWrongOption($index)) {
+                      ✕
+                    }
+                  </span>
+                </button>
+              }
+            </div>
+
+            <!--=============================================
+                      BEFORE SUBMISSION
+            ==============================================-->
+
+            @if (!answerSubmitted) {
+              <div class="question-actions">
+                <div class="selection-message">
+                  @if (selectedAnswer === null) {
+                    <span> 💡 </span>
+
+                    <p>Select an answer to continue.</p>
+                  } @else {
+                    <span> ✓ </span>
+
+                    <p>Answer selected. Ready to submit!</p>
+                  }
+                </div>
+
+                <button
+                  type="button"
+                  class="submit-btn"
+                  [disabled]="selectedAnswer === null"
+                  (click)="submitAnswer()"
+                >
+                  Submit Answer →
+                </button>
+              </div>
+            }
+
+            <!--=============================================
+                         ANSWER RESULT
+            ==============================================-->
+
+            @if (answerSubmitted) {
+              <div
+                class="answer-feedback"
+                [class.correct-feedback]="isCorrect"
+                [class.wrong-feedback]="!isCorrect"
+              >
+                <div class="feedback-icon">
+                  @if (isCorrect) {
+                    🎉
+                  } @else {
+                    💡
+                  }
+                </div>
+
+                <div class="feedback-content">
+                  @if (isCorrect) {
+                    <span> Correct Answer! </span>
+
+                    <h3>Excellent Work!</h3>
+                  } @else {
+                    <span> Keep Learning! </span>
+
+                    <h3>Nice Try!</h3>
+                  }
+
+                  <p>
+                    {{ currentQuestion.explanation }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="next-question-area">
+                <div class="answer-score">
+                  @if (isCorrect) {
+                    <span> ⭐ +10 Points </span>
+                  } @else {
+                    <span> 📖 Learn & Continue </span>
+                  }
+                </div>
+
+                <button type="button" class="next-btn" (click)="nextQuestion()">
+                  @if (currentQuestionIndex < currentQuestions.length - 1) {
+                    Next Question →
+                  } @else {
+                    🏆 View Results
+                  }
+                </button>
+              </div>
+            }
+          </article>
+
+          <!--=================================================
+                       QUIZ MINI STATS
+          ==================================================-->
+
+          <div class="quiz-mini-stats">
+            <div>
+              <span> ✓ </span>
+
+              <strong>
+                {{ correctAnswers }}
+              </strong>
+
+              <small> Correct </small>
+            </div>
+
+            <div>
+              <span> ✕ </span>
+
+              <strong>
+                {{ wrongAnswers }}
+              </strong>
+
+              <small> Wrong </small>
+            </div>
+
+            <div>
+              <span> ⭐ </span>
+
+              <strong>
+                {{ score }}
+              </strong>
+
+              <small> Score </small>
+            </div>
+
+            <div>
+              <span> ❓ </span>
+
+              <strong>
+                {{ currentQuestions.length - currentQuestionIndex - 1 }}
+              </strong>
+
+              <small> Remaining </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!--=====================================================
+                       QUIZ RESULTS
+  ======================================================-->
+
+  @if (quizCompleted) {
+    <section class="results-section">
+      <div class="container">
+        <div class="result-card">
+          <!-- DECORATIONS -->
+
+          <span class="result-decoration result-one"> ⭐ </span>
+
+          <span class="result-decoration result-two"> 🎉 </span>
+
+          <span class="result-decoration result-three"> 🌸 </span>
+
+          <span class="result-decoration result-four"> ✨ </span>
+
+          <!-- RESULT ICON -->
+
+          <div class="result-icon">
+            @if (resultPercentage >= 90) {
+              🏆
+            } @else if (resultPercentage >= 70) {
+              🌟
+            } @else if (resultPercentage >= 50) {
+              👏
+            } @else {
+              📚
+            }
+          </div>
+
+          <span class="result-label"> Quiz Complete </span>
+
+          <h2>
+            {{ resultTitle }}
+          </h2>
+
+          <p class="result-message">
+            {{ resultMessage }}
+          </p>
+
+          <!--=============================================
+                        SCORE CIRCLE
+          ==============================================-->
+
+          <div class="score-circle">
+            <div class="score-circle-inner">
+              <strong> {{ resultPercentage }}% </strong>
+
+              <span> Final Result </span>
+            </div>
+          </div>
+
+          <!--=============================================
+                        RESULT STATS
+          ==============================================-->
+
+          <div class="result-stats">
+            <div class="result-stat">
+              <span> ⭐ </span>
+
+              <strong>
+                {{ score }}
+              </strong>
+
+              <small> Score </small>
+            </div>
+
+            <div class="result-stat">
+              <span> ✓ </span>
+
+              <strong>
+                {{ correctAnswers }}
+              </strong>
+
+              <small> Correct </small>
+            </div>
+
+            <div class="result-stat">
+              <span> ✕ </span>
+
+              <strong>
+                {{ wrongAnswers }}
+              </strong>
+
+              <small> Wrong </small>
+            </div>
+
+            <div class="result-stat">
+              <span> 🏆 </span>
+
+              <strong>
+                {{ highScore }}
+              </strong>
+
+              <small> High Score </small>
+            </div>
+          </div>
+
+          <!--=============================================
+                        RESULT LEVEL
+          ==============================================-->
+
+          <div class="result-level">
+            <span> Completed Level </span>
+
+            <strong>
+              @if (selectedLevel === 'Easy') {
+                🌱
+              }
+
+              @if (selectedLevel === 'Medium') {
+                ⭐
+              }
+
+              @if (selectedLevel === 'Hard') {
+                🏆
+              }
+
+              {{ selectedLevel }}
+            </strong>
+          </div>
+
+          <!--=============================================
+                         CERTIFICATE
+          ==============================================-->
+
+          @if (canDownloadCertificate()) {
+            <div class="certificate-unlocked">
+              <div class="certificate-icon">🏅</div>
+
+              <div class="certificate-content">
+                <span> Achievement Unlocked </span>
+
+                <h3>Quiz Champion Certificate</h3>
+
+                <p>You scored 70% or higher and unlocked your achievement certificate.</p>
+              </div>
+
+              <button type="button" (click)="downloadCertificate()">🏆 Get Certificate</button>
+            </div>
+          } @else {
+            <div class="certificate-locked">
+              <span> 🔒 </span>
+
+              <div>
+                <strong> Certificate Locked </strong>
+
+                <p>Score at least 70% to unlock your Quiz Champion Certificate.</p>
+              </div>
+            </div>
+          }
+
+          <!--=============================================
+                        RESULT ACTIONS
+          ==============================================-->
+
+          <div class="result-actions">
+            <button type="button" class="retry-btn" (click)="restartQuiz()">🔄 Play Again</button>
+
+            <button type="button" class="kids-btn" (click)="goToKidsZone()">← Kids Zone</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!--=====================================================
+                    HOW TO PLAY SECTION
+  ======================================================-->
+
+  @if (!quizStarted && !quizCompleted) {
+    <section class="how-to-play">
+      <div class="container">
+        <div class="section-header">
+          <span> 💡 Simple & Fun </span>
+
+          <h2>How To Play</h2>
+
+          <p>Four simple steps to become a Ganesh Quiz Champion.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-number"> 01 </span>
+
+            <div class="step-icon">🎯</div>
+
+            <h3>Choose Level</h3>
+
+            <p>Select Easy, Medium or Hard based on your knowledge.</p>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number"> 02 </span>
+
+            <div class="step-icon">🧠</div>
+
+            <h3>Read Question</h3>
+
+            <p>Read each question carefully before choosing your answer.</p>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number"> 03 </span>
+
+            <div class="step-icon">⏱️</div>
+
+            <h3>Beat The Timer</h3>
+
+            <p>Select your answer before the countdown reaches zero.</p>
+          </article>
+
+          <article class="step-card">
+            <span class="step-number"> 04 </span>
+
+            <div class="step-icon">🏆</div>
+
+            <h3>Earn Rewards</h3>
+
+            <p>Score 70% or more to unlock your achievement certificate.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!--=====================================================
+                       BOTTOM CTA
+  ======================================================-->
+
+  @if (!quizStarted && !quizCompleted) {
+    <section class="quiz-cta">
+      <div class="container">
+        <div class="cta-card">
+          <span class="cta-decoration cta-one"> 🌸 </span>
+
+          <span class="cta-decoration cta-two"> ⭐ </span>
+
+          <span class="cta-decoration cta-three"> ✨ </span>
+
+          <div class="cta-icon">🐘</div>
+
+          <span class="cta-tag"> Ready For The Challenge? </span>
+
+          <h2>Become A Ganesh Quiz Champion</h2>
+
+          <p>Learn about Lord Ganesha, traditions, festivals and values while having fun.</p>
+
+          <button type="button" (click)="startQuiz()">🧠 Start {{ selectedLevel }} Quiz</button>
+        </div>
+      </div>
+    </section>
+  }
+</section>

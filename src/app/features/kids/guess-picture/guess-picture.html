@@ -1,0 +1,600 @@
+<section class="guess-picture-page">
+  <!--=========================================
+                      HERO
+  ==========================================-->
+
+  <section class="guess-hero">
+    <div class="hero-decoration decoration-one"></div>
+    <div class="hero-decoration decoration-two"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag"> ❓ Kids Picture Challenge </span>
+
+        <h1>
+          Guess The
+          <span>Hidden Picture</span>
+        </h1>
+
+        <p>
+          Look carefully at the hidden picture, use clues when you need them and choose the correct
+          answer.
+        </p>
+
+        <div class="hero-features">
+          <div class="feature">
+            <span>👀</span>
+            Observe
+          </div>
+
+          <div class="feature">
+            <span>💡</span>
+            Get Hints
+          </div>
+
+          <div class="feature">
+            <span>🧠</span>
+            Guess
+          </div>
+
+          <div class="feature">
+            <span>⭐</span>
+            Score
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    GAME AREA
+  ==========================================-->
+
+  @if (!gameCompleted) {
+    <section class="game-section">
+      <div class="container">
+        <!--=====================================
+                      GAME STATS
+        ======================================-->
+
+        <div class="game-stats">
+          <div class="stat-card">
+            <div class="stat-icon">❓</div>
+
+            <div class="stat-content">
+              <span> Question </span>
+
+              <h3>{{ currentQuestionNumber }}/{{ questions.length }}</h3>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">⏱️</div>
+
+            <div class="stat-content">
+              <span> Time </span>
+
+              <h3>
+                {{ formattedTime }}
+              </h3>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+
+            <div class="stat-content">
+              <span> Score </span>
+
+              <h3>
+                {{ score }}
+              </h3>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">🔥</div>
+
+            <div class="stat-content">
+              <span> Streak </span>
+
+              <h3>
+                {{ streak }}
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <!--=====================================
+                    PROGRESS
+        ======================================-->
+
+        <div class="progress-panel">
+          <div class="progress-header">
+            <div>
+              <span> Picture Challenge Progress </span>
+
+              <small> Question {{ currentQuestionNumber }} of {{ questions.length }} </small>
+            </div>
+
+            <strong> {{ progress }}% </strong>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="progress"></div>
+          </div>
+        </div>
+
+        <!--=====================================
+                    GAME WRAPPER
+        ======================================-->
+
+        <div class="game-wrapper">
+          <!--=================================
+                    PICTURE PANEL
+          ==================================-->
+
+          <div class="picture-panel">
+            <div class="panel-heading">
+              <span class="panel-tag"> 👀 Look Carefully </span>
+
+              <h2>
+                {{ currentQuestion.title }}
+              </h2>
+
+              <p>Try to identify the picture before revealing too much.</p>
+            </div>
+
+            <!--=================================
+                    PICTURE CARD
+            ==================================-->
+
+            <div class="picture-card">
+              <div class="picture-glow"></div>
+
+              <div class="question-number">
+                {{ currentQuestionNumber }}
+              </div>
+
+              <span class="category-badge">
+                {{ currentQuestion.category }}
+              </span>
+
+              <div class="hidden-picture">
+                <img
+                  [src]="currentQuestion.image"
+                  [alt]="currentQuestion.title"
+                  [style.filter]="'blur(' + imageBlur + 'px)'"
+                  [style.transform]="'scale(' + imageScale + ')'"
+                />
+
+                @if (revealLevel === 0 && !answerChecked) {
+                  <div class="mystery-overlay">
+                    <div class="mystery-icon">?</div>
+                  </div>
+                }
+              </div>
+
+              <!--=================================
+                      REVEAL STATUS
+              ==================================-->
+
+              <div class="reveal-status">
+                <div class="reveal-info">
+                  <span> Image Visibility </span>
+
+                  <strong>
+                    {{ revealText }}
+                  </strong>
+                </div>
+
+                <div class="reveal-dots">
+                  @for (level of [0, 1, 2, 3]; track level) {
+                    <span [class.active]="revealLevel >= level"> </span>
+                  }
+                </div>
+              </div>
+
+              <!--=================================
+                    PICTURE ACTIONS
+              ==================================-->
+
+              @if (!answerChecked) {
+                <div class="picture-actions">
+                  <button
+                    type="button"
+                    class="reveal-btn"
+                    [disabled]="revealLevel >= maxRevealLevel"
+                    (click)="revealMore()"
+                  >
+                    👁️ Reveal More
+                  </button>
+
+                  <button
+                    type="button"
+                    class="hint-btn"
+                    [disabled]="hintVisible"
+                    (click)="showHint()"
+                  >
+                    💡 Give Me A Hint
+                  </button>
+                </div>
+              }
+            </div>
+
+            <!--=================================
+                        HINT
+            ==================================-->
+
+            @if (hintVisible && !answerChecked) {
+              <div class="hint-card">
+                <div class="hint-icon">💡</div>
+
+                <div>
+                  <span> Your Hint </span>
+
+                  <p>
+                    {{ currentQuestion.hint }}
+                  </p>
+
+                  <small> Using a hint reduces your score slightly. </small>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!--=================================
+                    ANSWER PANEL
+          ==================================-->
+
+          <div class="answer-panel">
+            <div class="panel-heading">
+              <span class="panel-tag"> 🎯 Choose Your Answer </span>
+
+              <h2>What Do You Think?</h2>
+
+              <p>Choose one answer from the options below.</p>
+            </div>
+
+            <!--=================================
+                    ANSWER OPTIONS
+            ==================================-->
+
+            <div class="answer-options">
+              @for (option of shuffledOptions; track option.id) {
+                <button
+                  type="button"
+                  class="answer-option"
+                  [class.selected]="isSelected(option)"
+                  [class.correct]="isCorrectOption(option)"
+                  [class.wrong]="isWrongOption(option)"
+                  [disabled]="answerChecked"
+                  (click)="selectOption(option)"
+                >
+                  <span class="option-letter">
+                    @switch ($index) {
+                      @case (0) {
+                        A
+                      }
+
+                      @case (1) {
+                        B
+                      }
+
+                      @case (2) {
+                        C
+                      }
+
+                      @case (3) {
+                        D
+                      }
+                    }
+                  </span>
+
+                  <span class="option-name">
+                    {{ option.name }}
+                  </span>
+
+                  @if (!answerChecked && isSelected(option)) {
+                    <span class="selected-icon"> ✓ </span>
+                  }
+
+                  @if (answerChecked && isCorrectOption(option)) {
+                    <span class="answer-result-icon correct-icon"> ✓ </span>
+                  }
+
+                  @if (answerChecked && isWrongOption(option)) {
+                    <span class="answer-result-icon wrong-icon"> ✕ </span>
+                  }
+                </button>
+              }
+            </div>
+
+            <!--=================================
+                        MESSAGE
+            ==================================-->
+
+            @if (message) {
+              <div
+                class="game-message"
+                [class.success]="messageType === 'success'"
+                [class.error]="messageType === 'error'"
+              >
+                <div class="message-icon">
+                  @if (messageType === 'success') {
+                    🎉
+                  } @else {
+                    💡
+                  }
+                </div>
+
+                <div>
+                  <strong>
+                    @if (messageType === 'success') {
+                      Great Job!
+                    } @else {
+                      Nice Try!
+                    }
+                  </strong>
+
+                  <p>
+                    {{ message }}
+                  </p>
+                </div>
+              </div>
+            }
+
+            <!--=================================
+                      FUN FACT
+            ==================================-->
+
+            @if (answerChecked) {
+              <div class="fun-fact">
+                <div class="fact-icon">🌟</div>
+
+                <div>
+                  <span> Did You Know? </span>
+
+                  <p>
+                    {{ currentQuestion.funFact }}
+                  </p>
+                </div>
+              </div>
+            }
+
+            <!--=================================
+                    GAME ACTIONS
+            ==================================-->
+
+            <div class="game-actions">
+              @if (!answerChecked) {
+                <button
+                  type="button"
+                  class="check-btn"
+                  [disabled]="!selectedOption"
+                  (click)="checkAnswer()"
+                >
+                  ✓ Check My Answer
+                </button>
+              }
+
+              @if (answerChecked) {
+                <button type="button" class="next-btn" (click)="nextQuestion()">
+                  @if (currentQuestionIndex < questions.length - 1) {
+                    Next Picture →
+                  } @else {
+                    View My Results 🏆
+                  }
+                </button>
+              }
+
+              <button type="button" class="restart-btn" (click)="restartGame()">🔄 Restart</button>
+            </div>
+
+            <!--=================================
+                      SCORE TIP
+            ==================================-->
+
+            @if (!answerChecked) {
+              <div class="score-tip">
+                <span> ⭐ </span>
+
+                <p>Guess with less revealing and without hints to earn more points.</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!--=====================================
+                      MINI STATS
+        ======================================-->
+
+        <div class="mini-stats">
+          <div class="mini-stat">
+            <span class="mini-icon"> ✅ </span>
+
+            <div>
+              <small> Correct </small>
+
+              <strong>
+                {{ correctAnswers }}
+              </strong>
+            </div>
+          </div>
+
+          <div class="mini-stat">
+            <span class="mini-icon"> ❌ </span>
+
+            <div>
+              <small> Wrong </small>
+
+              <strong>
+                {{ wrongAnswers }}
+              </strong>
+            </div>
+          </div>
+
+          <div class="mini-stat">
+            <span class="mini-icon"> 🎯 </span>
+
+            <div>
+              <small> Accuracy </small>
+
+              <strong> {{ accuracy }}% </strong>
+            </div>
+          </div>
+
+          <div class="mini-stat">
+            <span class="mini-icon"> 🔥 </span>
+
+            <div>
+              <small> Best Streak </small>
+
+              <strong>
+                {{ bestStreak }}
+              </strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!--=========================================
+                    RESULTS
+  ==========================================-->
+
+  @if (gameCompleted) {
+    <section class="result-section">
+      <div class="container">
+        <div class="result-card">
+          <div class="result-decoration result-decoration-one"></div>
+
+          <div class="result-decoration result-decoration-two"></div>
+
+          <!--=================================
+                        TROPHY
+          ==================================-->
+
+          <div class="trophy-wrapper">
+            <div class="trophy-glow"></div>
+
+            <div class="trophy">🏆</div>
+          </div>
+
+          <span class="result-tag"> 🎉 Picture Challenge Completed </span>
+
+          <h2>
+            {{ resultTitle }}
+          </h2>
+
+          <p>
+            {{ resultMessage }}
+          </p>
+
+          <!--=================================
+                    FINAL SCORE
+          ==================================-->
+
+          <div class="final-score">
+            <span> Your Score </span>
+
+            <strong>
+              {{ score }}
+            </strong>
+
+            <small> points </small>
+          </div>
+
+          <!--=================================
+                    RESULT STATS
+          ==================================-->
+
+          <div class="result-stats">
+            <div class="result-stat">
+              <div class="result-stat-icon">⏱️</div>
+
+              <span> Time </span>
+
+              <strong>
+                {{ formattedTime }}
+              </strong>
+            </div>
+
+            <div class="result-stat">
+              <div class="result-stat-icon">✅</div>
+
+              <span> Correct </span>
+
+              <strong> {{ correctAnswers }}/{{ questions.length }} </strong>
+            </div>
+
+            <div class="result-stat">
+              <div class="result-stat-icon">🎯</div>
+
+              <span> Accuracy </span>
+
+              <strong> {{ accuracy }}% </strong>
+            </div>
+
+            <div class="result-stat">
+              <div class="result-stat-icon">🔥</div>
+
+              <span> Best Streak </span>
+
+              <strong>
+                {{ bestStreak }}
+              </strong>
+            </div>
+          </div>
+
+          <!--=================================
+                  PERFECT SCORE
+          ==================================-->
+
+          @if (correctAnswers === questions.length) {
+            <div class="perfect-result">
+              <span> 🌟 </span>
+
+              <div>
+                <h4>Perfect Picture Master!</h4>
+
+                <p>You identified every hidden picture correctly.</p>
+              </div>
+            </div>
+          }
+
+          <!--=================================
+                    ACHIEVEMENT
+          ==================================-->
+
+          @if (correctAnswers >= 6) {
+            <div class="achievement-card">
+              <div class="achievement-icon">🥇</div>
+
+              <div>
+                <span> Achievement Unlocked </span>
+
+                <h4>Picture Detective</h4>
+
+                <p>You correctly identified at least six hidden pictures.</p>
+              </div>
+            </div>
+          }
+
+          <!--=================================
+                    RESULT ACTIONS
+          ==================================-->
+
+          <div class="result-actions">
+            <button type="button" class="play-again-btn" (click)="restartGame()">
+              🔄 Play Again
+            </button>
+
+            <button type="button" class="certificate-btn">🏆 View Certificate</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+</section>

@@ -1,0 +1,58 @@
+import { Video } from '../models/video';
+
+const iso = (daysAgo: number) => new Date(Date.now() - daysAgo * 86400000).toISOString();
+
+export const MOCK_VIDEOS: Video[] = [
+  {
+    videoId: 1,
+    title: 'Ganesh Sthapana Highlights',
+    description: 'Highlights from the idol installation and first mahaaarti.',
+    youtubeUrl: '',
+    thumbnailUrl: '',
+    displayOrder: 1,
+    isActive: true,
+    createdBy: 1,
+    createdOn: iso(15),
+    updatedBy: 1,
+    updatedOn: iso(10),
+  },
+  {
+    videoId: 2,
+    title: 'Cultural Evening – Full Performance',
+    description: 'Recording of the children cultural programme.',
+    youtubeUrl: '',
+    thumbnailUrl: '',
+    displayOrder: 2,
+    isActive: true,
+    createdBy: 1,
+    createdOn: iso(12),
+    updatedBy: 1,
+    updatedOn: iso(8),
+  },
+  {
+    videoId: 3,
+    title: 'Visarjan Procession',
+    description: 'The farewell procession with dhol-tasha pathak.',
+    youtubeUrl: '',
+    thumbnailUrl: '',
+    displayOrder: 3,
+    isActive: true,
+    createdBy: 1,
+    createdOn: iso(5),
+    updatedBy: 1,
+    updatedOn: iso(3),
+  },
+  {
+    videoId: 4,
+    title: 'Bhajan Sandhya',
+    description: 'Devotional bhajans performed at the mandap.',
+    youtubeUrl: '',
+    thumbnailUrl: '',
+    displayOrder: 4,
+    isActive: true,
+    createdBy: 1,
+    createdOn: iso(4),
+    updatedBy: 1,
+    updatedOn: iso(2),
+  },
+];

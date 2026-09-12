@@ -1,0 +1,74 @@
+<section class="epv akm-section akm-section--tint" aria-labelledby="epv-title">
+  <div class="akm-container">
+    <div class="epv__head" akmReveal>
+      <div class="akm-section-head">
+        <span class="akm-eyebrow">
+          <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+          What's on
+        </span>
+        <h2 id="epv-title">Upcoming Events</h2>
+        <p>The moments the whole neighbourhood gathers for.</p>
+        <div class="akm-rule"></div>
+      </div>
+
+      <a class="akm-btn akm-btn--ghost epv__all" routerLink="/events">
+        See all events
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    @if (events.length) {
+      <div class="epv__grid">
+        @for (event of events; track event.eventId; let i = $index) {
+          <a
+            class="epv__card akm-card akm-card--lift"
+            routerLink="/events"
+            akmReveal
+            [revealDelay]="i * 100"
+            [attr.aria-label]="event.title + ' — see all events'"
+          >
+            <div class="epv__media">
+              <app-safe-image
+                [src]="event.imageUrl"
+                [alt]="event.title"
+                icon="fa-solid fa-calendar-days"
+              />
+              <span class="epv__scrim" aria-hidden="true"></span>
+              <span class="epv__date">
+                <strong>{{ event.startDate | date: 'd' }}</strong>
+                <small>{{ event.startDate | date: 'MMM' }}</small>
+              </span>
+            </div>
+
+            <div class="epv__body">
+              @if (event.category) {
+                <span class="akm-chip">{{ event.category }}</span>
+              }
+              <h3>{{ event.title }}</h3>
+              <p>{{ event.description }}</p>
+
+              <ul class="epv__facts">
+                @if (event.time) {
+                  <li>
+                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                    {{ event.time }}
+                  </li>
+                }
+                <li>
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  {{ event.location }}
+                </li>
+              </ul>
+            </div>
+          </a>
+        }
+      </div>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+        <h3>The programme is being finalised</h3>
+        <p>This year's event list will be published shortly.</p>
+      </div>
+    }
+  </div>
+</section>

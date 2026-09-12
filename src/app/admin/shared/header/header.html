@@ -1,0 +1,35 @@
+<header class="admin-header">
+  <div class="left">
+    <h2>Dashboard</h2>
+  </div>
+
+  <div class="right">
+    <div class="search-box">
+      <i class="fa-solid fa-search"></i>
+
+      <input type="text" placeholder="Search..." />
+    </div>
+
+    <button class="icon-btn">
+      <i class="fa-regular fa-bell"></i>
+
+      <span class="badge">3</span>
+    </button>
+
+    <button class="icon-btn" (click)="toggleDarkMode()">
+      <i class="fa-solid" [ngClass]="darkMode ? 'fa-sun' : 'fa-moon'"> </i>
+    </button>
+
+    <div class="profile">
+      <img src="/images/Logo-Round.jpg" />
+
+      <div>
+        <h4>Administrator</h4>
+
+        <span>Super Admin</span>
+      </div>
+    </div>
+
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</header>

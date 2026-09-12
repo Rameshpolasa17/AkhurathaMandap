@@ -1,0 +1,460 @@
+/*==========================================================
+                    JIGSAW PAGE
+==========================================================*/
+
+.jigsaw-page {
+  min-height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fffdf8 0%, #fff7ef 100%);
+}
+
+/*==========================================================
+                        HERO
+==========================================================*/
+
+.hero {
+  position: relative;
+  padding: 110px 0 80px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+
+  position: absolute;
+
+  width: 550px;
+  height: 550px;
+
+  top: -220px;
+  left: -180px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 193, 7, 0.15);
+
+  filter: blur(90px);
+}
+
+.hero::after {
+  content: '';
+
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  right: -150px;
+  bottom: -150px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 152, 0, 0.12);
+
+  filter: blur(80px);
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.hero-tag {
+  display: inline-flex;
+
+  padding: 12px 28px;
+
+  border-radius: 40px;
+
+  background: white;
+
+  color: #ef6c00;
+
+  font-weight: 700;
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.hero h1 {
+  margin: 25px 0 18px;
+
+  font-size: clamp(3rem, 5vw, 4.6rem);
+
+  font-weight: 900;
+
+  color: #32251b;
+}
+
+.hero p {
+  max-width: 760px;
+
+  margin: auto;
+
+  color: #666;
+
+  font-size: 18px;
+
+  line-height: 1.9;
+}
+
+/*==========================================================
+                    GAME SECTION
+==========================================================*/
+
+.game-section {
+  padding-bottom: 100px;
+}
+
+.game-header {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+
+  margin-bottom: 30px;
+}
+
+.info-card {
+  padding: 28px;
+
+  text-align: center;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.85);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.info-card span {
+  color: #888;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+.info-card h3 {
+  margin-top: 12px;
+
+  font-size: 34px;
+
+  color: #ff9800;
+
+  font-weight: 800;
+}
+
+/*==========================================================
+                PROGRESS BAR
+==========================================================*/
+
+.progress-wrapper {
+  width: 100%;
+
+  height: 14px;
+
+  overflow: hidden;
+
+  margin-bottom: 35px;
+
+  border-radius: 30px;
+
+  background: #ececec;
+}
+
+.progress-fill {
+  height: 100%;
+
+  border-radius: 30px;
+
+  background: linear-gradient(90deg, #ff9800, #ffc107);
+
+  transition: width 0.4s ease;
+}
+
+/*==========================================================
+                    ACTIONS
+==========================================================*/
+
+.actions {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 18px;
+
+  flex-wrap: wrap;
+
+  margin-bottom: 45px;
+}
+
+.btn-orange,
+.btn-light {
+  height: 56px;
+
+  padding: 0 34px;
+
+  border: none;
+
+  border-radius: 40px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  transition: 0.35s;
+}
+
+.btn-orange {
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+
+  color: white;
+
+  box-shadow: 0 20px 45px rgba(255, 152, 0, 0.25);
+}
+
+.btn-light {
+  background: white;
+
+  color: #ef6c00;
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.btn-orange:hover,
+.btn-light:hover {
+  transform: translateY(-6px);
+}
+
+/*==========================================================
+                    PREVIEW
+==========================================================*/
+
+.preview-card {
+  width: 420px;
+
+  margin: auto auto 45px;
+
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  background: white;
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.preview-card img {
+  width: 100%;
+
+  display: block;
+}
+
+/*==========================================================
+                    PUZZLE GRID
+==========================================================*/
+
+.puzzle-grid {
+  display: grid;
+
+  gap: 6px;
+
+  max-width: 720px;
+
+  margin: auto;
+}
+
+.piece {
+  position: relative;
+
+  overflow: hidden;
+
+  aspect-ratio: 1;
+
+  cursor: pointer;
+
+  border-radius: 10px;
+
+  background: white;
+
+  transition: 0.25s;
+
+  border: 2px solid transparent;
+
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.06);
+}
+
+.piece:hover {
+  transform: scale(1.03);
+
+  z-index: 2;
+}
+
+.piece.selected {
+  border-color: #ff9800;
+
+  transform: scale(1.05);
+
+  box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.18);
+}
+
+.piece img {
+  width: 300%;
+
+  height: 300%;
+
+  object-fit: cover;
+
+  user-select: none;
+
+  pointer-events: none;
+}
+
+/*==========================================================
+                COMPLETED CARD
+==========================================================*/
+
+.completed-section {
+  padding: 0 0 120px;
+}
+
+.completed-card {
+  max-width: 760px;
+
+  margin: auto;
+
+  text-align: center;
+
+  padding: 60px;
+
+  border-radius: 35px;
+
+  background: white;
+
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08);
+}
+
+.completed-card .icon {
+  font-size: 70px;
+
+  margin-bottom: 20px;
+}
+
+.completed-card h2 {
+  font-size: 42px;
+
+  color: #32251b;
+
+  margin-bottom: 18px;
+}
+
+.completed-card p {
+  color: #666;
+
+  line-height: 1.8;
+
+  margin-bottom: 40px;
+}
+
+.result-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+
+  margin-bottom: 40px;
+}
+
+.result-grid div {
+  padding: 25px;
+
+  border-radius: 22px;
+
+  background: #fff8ef;
+}
+
+.result-grid span {
+  color: #777;
+}
+
+.result-grid h3 {
+  margin-top: 12px;
+
+  font-size: 30px;
+
+  color: #ff9800;
+}
+
+.completed-buttons {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 18px;
+
+  flex-wrap: wrap;
+}
+
+/*==========================================================
+                    RESPONSIVE
+==========================================================*/
+
+@media (max-width: 992px) {
+  .game-header,
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-card {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 90px 0 60px;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .btn-orange,
+  .btn-light {
+    width: 100%;
+  }
+
+  .completed-card {
+    padding: 35px 20px;
+  }
+
+  .completed-card h2 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .info-card h3 {
+    font-size: 28px;
+  }
+
+  .piece {
+    border-radius: 6px;
+  }
+
+  .completed-card .icon {
+    font-size: 55px;
+  }
+}

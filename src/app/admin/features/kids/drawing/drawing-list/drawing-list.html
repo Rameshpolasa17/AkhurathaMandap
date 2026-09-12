@@ -1,0 +1,319 @@
+<section class="drawing-admin-page">
+  <!-- =========================================
+                      HEADER
+  ========================================== -->
+
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <strong>Drawing</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-palette"></i>
+        </div>
+
+        <div>
+          <h1>Drawing</h1>
+
+          <p>Manage Ganesh drawing activities, coloring exercises and creative content.</p>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="add-button" (click)="addDrawing()">
+      <i class="fa-solid fa-plus"></i>
+
+      <span> Add Drawing </span>
+    </button>
+  </div>
+
+  <!-- =========================================
+                    STAT CARDS
+  ========================================== -->
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon total">
+        <i class="fa-solid fa-palette"></i>
+      </div>
+
+      <div>
+        <span> Total Drawings </span>
+
+        <strong>
+          {{ drawings.length }}
+        </strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon active">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <span> Active </span>
+
+        <strong>
+          {{ activeCount }}
+        </strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon featured">
+        <i class="fa-solid fa-star"></i>
+      </div>
+
+      <div>
+        <span> Featured </span>
+
+        <strong>
+          {{ featuredCount }}
+        </strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+                      FILTERS
+  ========================================== -->
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        placeholder="Search drawing activities..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-filter"></i>
+
+      <select [value]="statusFilter" (change)="onStatusChange($event)">
+        <option value="all">All Drawings</option>
+
+        <option value="active">Active</option>
+
+        <option value="inactive">Inactive</option>
+
+        <option value="featured">Featured</option>
+      </select>
+    </div>
+
+    <button type="button" class="refresh-button" (click)="loadDrawings()" title="Refresh">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  <!-- =========================================
+                      LOADING
+  ========================================== -->
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+
+      <h3>Loading Drawings</h3>
+
+      <p>Please wait while we load drawing activities.</p>
+    </div>
+  }
+
+  <!-- =========================================
+                       EMPTY
+  ========================================== -->
+
+  @if (!loading && filteredDrawings.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-palette"></i>
+      </div>
+
+      <h2>No Drawings Found</h2>
+
+      <p>
+        @if (searchText || statusFilter !== 'all') {
+          Try changing your search or filter.
+        } @else {
+          Add your first drawing activity to the Kids Zone.
+        }
+      </p>
+
+      @if (!searchText && statusFilter === 'all') {
+        <button type="button" (click)="addDrawing()">
+          <i class="fa-solid fa-plus"></i>
+
+          Add First Drawing
+        </button>
+      }
+    </div>
+  }
+
+  <!-- =========================================
+                    RESULT HEADER
+  ========================================== -->
+
+  @if (!loading && filteredDrawings.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing
+
+        <strong>
+          {{ filteredDrawings.length }}
+        </strong>
+
+        drawing activity(s)
+      </p>
+    </div>
+
+    <!-- =========================================
+                      DRAWING GRID
+    ========================================== -->
+
+    <div class="drawing-grid">
+      @for (item of filteredDrawings; track item.id) {
+        <article class="drawing-card">
+          <!-- IMAGE -->
+
+          <div class="image-area">
+            <img
+              [src]="item.thumbnailPath || 'images/defaults/no-image.png'"
+              [alt]="item.title"
+              (error)="imageError($event)"
+            />
+
+            <div class="image-overlay"></div>
+
+            @if (item.isFeatured) {
+              <span class="featured-badge">
+                <i class="fa-solid fa-star"></i>
+
+                Featured
+              </span>
+            }
+
+            <span
+              class="status-badge"
+              [class.active]="item.isActive"
+              [class.inactive]="!item.isActive"
+            >
+              <span class="status-dot"></span>
+
+              {{ item.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <!-- CARD BODY -->
+
+          <div class="card-body">
+            <div class="card-top">
+              <span class="display-order"> #{{ item.displayOrder }} </span>
+
+              <span class="content-type"> Drawing </span>
+            </div>
+
+            <h2>
+              {{ item.title }}
+            </h2>
+
+            @if (item.shortDescription) {
+              <p class="description">
+                {{ item.shortDescription }}
+              </p>
+            }
+
+            <!-- META -->
+
+            <div class="meta-list">
+              @if (item.ageGroup) {
+                <div class="meta-item">
+                  <i class="fa-solid fa-child-reaching"></i>
+
+                  <span>
+                    {{ item.ageGroup }}
+                  </span>
+                </div>
+              }
+
+              @if (item.duration) {
+                <div class="meta-item">
+                  <i class="fa-regular fa-clock"></i>
+
+                  <span>
+                    {{ item.duration }}
+                  </span>
+                </div>
+              }
+            </div>
+
+            <!-- FEATURES -->
+
+            <div class="content-features">
+              @if (item.description) {
+                <span>
+                  <i class="fa-solid fa-list-check"></i>
+
+                  Instructions
+                </span>
+              }
+
+              @if (item.thumbnailPath) {
+                <span>
+                  <i class="fa-regular fa-image"></i>
+
+                  Image
+                </span>
+              }
+
+              @if (item.mediaPath) {
+                <span>
+                  <i class="fa-solid fa-file-arrow-down"></i>
+
+                  Download
+                </span>
+              }
+
+              @if (item.videoUrl) {
+                <span>
+                  <i class="fa-solid fa-video"></i>
+
+                  Video
+                </span>
+              }
+            </div>
+
+            <!-- ACTIONS -->
+
+            <div class="card-actions">
+              <button type="button" class="edit-button" (click)="editDrawing(item)">
+                <i class="fa-solid fa-pen"></i>
+
+                Edit
+              </button>
+
+              <button
+                type="button"
+                class="delete-button"
+                (click)="deleteDrawing(item)"
+                title="Delete Drawing"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

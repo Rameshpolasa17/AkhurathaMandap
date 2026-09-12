@@ -1,0 +1,653 @@
+<section class="dance-page">
+  <!--=========================================
+                      HERO
+  ==========================================-->
+
+  <section class="dance-hero">
+    <div class="hero-decoration decoration-one"></div>
+    <div class="hero-decoration decoration-two"></div>
+    <div class="hero-decoration decoration-three"></div>
+
+    <div class="container">
+      <div class="hero-grid">
+        <!-- HERO CONTENT -->
+
+        <div class="hero-content">
+          <span class="hero-tag"> 💃 Akhuratha Kids Dance </span>
+
+          <h1>
+            Dance With
+            <span>Devotion & Joy</span>
+          </h1>
+
+          <p>
+            {{ heroSubtitle }}
+          </p>
+
+          <div class="hero-actions">
+            <button type="button" class="primary-btn" (click)="registerForDance()">
+              <span>💃</span>
+              Register To Perform
+            </button>
+
+            <button type="button" class="secondary-btn" (click)="exploreCategories()">
+              Explore Categories
+              <span>↓</span>
+            </button>
+          </div>
+
+          <!-- HERO STATS -->
+
+          <div class="hero-stats">
+            @for (stat of heroStats; track stat.label) {
+              <div class="hero-stat">
+                <strong>
+                  {{ stat.number }}
+                </strong>
+
+                <span>
+                  {{ stat.label }}
+                </span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+          <div class="hero-image-wrapper">
+            <div class="hero-glow"></div>
+
+            <img src="images/dance/dance-hero.png" alt="Kids Dance at Akhuratha Mandap" />
+
+            <div class="floating-card floating-card-one">
+              <span>🎵</span>
+
+              <div>
+                <strong>Music</strong>
+                <small>Feel the rhythm</small>
+              </div>
+            </div>
+
+            <div class="floating-card floating-card-two">
+              <span>🪔</span>
+
+              <div>
+                <strong>Devotion</strong>
+                <small>Celebrate tradition</small>
+              </div>
+            </div>
+
+            <div class="floating-card floating-card-three">
+              <span>🏆</span>
+
+              <div>
+                <strong>Perform</strong>
+                <small>Show your talent</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                  DANCE CATEGORIES
+  ==========================================-->
+
+  <section class="dance-categories" id="danceCategories">
+    <div class="container">
+      <div class="section-header">
+        <span> 💃 Choose Your Style </span>
+
+        <h2>Dance Categories</h2>
+
+        <p>
+          Every child gets an opportunity to celebrate culture, devotion and creativity through
+          dance.
+        </p>
+      </div>
+
+      <div class="categories-grid">
+        @for (category of danceCategories; track category.title) {
+          <article
+            class="category-card"
+            [class.active]="selectedCategory === $index"
+            (click)="selectCategory($index)"
+          >
+            <div class="category-top">
+              <div class="category-icon">
+                {{ category.icon }}
+              </div>
+
+              <span class="category-number"> 0{{ $index + 1 }} </span>
+            </div>
+
+            <h3>
+              {{ category.title }}
+            </h3>
+
+            <p>
+              {{ category.description }}
+            </p>
+
+            <div class="category-meta">
+              <span> 👦 {{ category.age }} </span>
+
+              <span> ⏱ {{ category.duration }} </span>
+            </div>
+
+            <div class="category-action">
+              <span> Explore Category </span>
+
+              <strong> → </strong>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              SELECTED CATEGORY FEATURE
+  ==========================================-->
+
+  <section class="selected-category-section">
+    <div class="container">
+      <div class="selected-category-card">
+        <div class="selected-category-icon">
+          {{ danceCategories[selectedCategory].icon }}
+        </div>
+
+        <div class="selected-category-content">
+          <span> Selected Dance Category </span>
+
+          <h2>
+            {{ danceCategories[selectedCategory].title }}
+          </h2>
+
+          <p>
+            {{ danceCategories[selectedCategory].description }}
+          </p>
+
+          <div class="selected-category-meta">
+            <div>
+              <small>Age Group</small>
+
+              <strong>
+                {{ danceCategories[selectedCategory].age }}
+              </strong>
+            </div>
+
+            <div>
+              <small>Performance Time</small>
+
+              <strong>
+                {{ danceCategories[selectedCategory].duration }}
+              </strong>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="category-register-btn" (click)="registerForDance()">
+          Register Now
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                UPCOMING PERFORMANCES
+  ==========================================-->
+
+  <section class="performances-section">
+    <div class="container">
+      <div class="section-header">
+        <span> 🎭 Festival Stage </span>
+
+        <h2>Upcoming Performances</h2>
+
+        <p>Enjoy beautiful devotional, classical and cultural performances by our young artists.</p>
+      </div>
+
+      <div class="performances-grid">
+        @for (performance of performances; track performance.title) {
+          <article class="performance-card">
+            <div class="performance-image">
+              <img [src]="performance.image" [alt]="performance.title" />
+
+              <div class="performance-overlay"></div>
+
+              <span class="performance-category">
+                {{ performance.category }}
+              </span>
+
+              <div class="performance-time">🕐 {{ performance.time }}</div>
+            </div>
+
+            <div class="performance-content">
+              <h3>
+                {{ performance.title }}
+              </h3>
+
+              <p>
+                {{ performance.performer }}
+              </p>
+
+              <div class="performance-footer">
+                <span> 👦 {{ performance.ageGroup }} </span>
+
+                <button type="button">
+                  View
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    AGE GROUPS
+  ==========================================-->
+
+  <section class="age-groups-section">
+    <div class="container">
+      <div class="section-header">
+        <span> 🌟 Every Child Can Shine </span>
+
+        <h2>Dance Age Groups</h2>
+
+        <p>
+          Children can participate in categories suitable for their age and performance experience.
+        </p>
+      </div>
+
+      <div class="age-groups-grid">
+        @for (group of ageGroups; track group.age) {
+          <article class="age-card">
+            <div class="age-icon">
+              {{ group.icon }}
+            </div>
+
+            <span class="age-range">
+              {{ group.age }}
+            </span>
+
+            <h3>
+              {{ group.title }}
+            </h3>
+
+            <p>
+              {{ group.description }}
+            </p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                HOW TO PARTICIPATE
+  ==========================================-->
+
+  <section class="participation-section">
+    <div class="container">
+      <div class="section-header">
+        <span> 📝 Join The Celebration </span>
+
+        <h2>How To Participate</h2>
+
+        <p>From registration to the festival stage, participating is simple and exciting.</p>
+      </div>
+
+      <div class="participation-timeline">
+        @for (step of participationSteps; track step.number) {
+          <div class="participation-step">
+            <div class="step-number">
+              {{ step.number }}
+            </div>
+
+            <div class="step-icon">
+              {{ step.icon }}
+            </div>
+
+            <h3>
+              {{ step.title }}
+            </h3>
+
+            <p>
+              {{ step.description }}
+            </p>
+          </div>
+        }
+      </div>
+
+      <div class="participation-action">
+        <button type="button" (click)="registerForDance()">
+          <span>💃</span>
+          Register For Dance
+          <strong>→</strong>
+        </button>
+
+        <p>Registration details and final event schedule will be announced by Akhuratha Mandap.</p>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    GUIDELINES
+  ==========================================-->
+
+  <section class="guidelines-section">
+    <div class="container">
+      <div class="guidelines-layout">
+        <div class="guidelines-intro">
+          <span> 📋 Performance Guide </span>
+
+          <h2>Dance Guidelines</h2>
+
+          <p>
+            A few simple guidelines help us provide a safe, organized and enjoyable stage experience
+            for every child.
+          </p>
+
+          <div class="guideline-highlight">
+            <div>🪔</div>
+
+            <p>
+              We encourage performances that celebrate Indian culture, devotion, tradition and
+              positive family values.
+            </p>
+          </div>
+        </div>
+
+        <div class="guidelines-grid">
+          @for (guideline of guidelines; track guideline.title) {
+            <article class="guideline-card">
+              <div class="guideline-icon">
+                {{ guideline.icon }}
+              </div>
+
+              <div>
+                <h3>
+                  {{ guideline.title }}
+                </h3>
+
+                <p>
+                  {{ guideline.description }}
+                </p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                  WATCH VIDEOS
+  ==========================================-->
+
+  <section class="dance-videos" id="danceVideos">
+    <div class="container">
+      <div class="section-header">
+        <span> 🎬 Watch & Learn </span>
+
+        <h2>Dance Inspiration</h2>
+
+        <p>
+          Watch devotional and cultural dance performances and get inspired for your festival
+          performance.
+        </p>
+      </div>
+
+      <div class="videos-grid">
+        @for (video of youtubeVideos; track video.videoId) {
+          <article class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                [src]="getVideoUrl(video.videoId)"
+                [title]="video.title"
+                loading="lazy"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
+                allowfullscreen
+              >
+              </iframe>
+            </div>
+
+            <div class="video-content">
+              <span>
+                {{ video.category }}
+              </span>
+
+              <h3>
+                {{ video.title }}
+              </h3>
+
+              <p>
+                {{ video.description }}
+              </p>
+            </div>
+          </article>
+        }
+      </div>
+
+      <div class="videos-action">
+        <button type="button" (click)="watchPerformances()">🎬 Watch Dance Performances</button>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                      GALLERY
+  ==========================================-->
+
+  <section class="dance-gallery">
+    <div class="container">
+      <div class="section-header">
+        <span> 📸 Festival Memories </span>
+
+        <h2>Dance Gallery</h2>
+
+        <p>
+          Beautiful moments of confidence, devotion, creativity and happiness from our young
+          performers.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        @for (item of gallery; track item.image) {
+          <div
+            class="gallery-item"
+            [class.large]="item.class === 'large'"
+            [class.tall]="item.class === 'tall'"
+            [class.wide]="item.class === 'wide'"
+          >
+            <img [src]="item.image" [alt]="item.title" />
+
+            <div class="gallery-overlay">
+              <div class="gallery-icon">📸</div>
+
+              <h3>
+                {{ item.title }}
+              </h3>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                      PRIZES
+  ==========================================-->
+
+  <section class="prizes-section">
+    <div class="container">
+      <div class="section-header">
+        <span> 🏆 Celebrate Achievement </span>
+
+        <h2>Awards & Recognition</h2>
+
+        <p>
+          Celebrate talent, creativity, confidence and participation with memorable recognition.
+        </p>
+      </div>
+
+      <div class="prizes-grid">
+        @for (prize of prizes; track prize.position) {
+          <article class="prize-card" [class.first-prize]="prize.position === '1st'">
+            @if (prize.position === '1st') {
+              <span class="winner-label"> Dance Champion </span>
+            }
+
+            <div class="prize-icon">
+              {{ prize.icon }}
+            </div>
+
+            <span class="prize-position">
+              {{ prize.position }}
+            </span>
+
+            <h3>
+              {{ prize.title }}
+            </h3>
+
+            <strong>
+              {{ prize.prize }}
+            </strong>
+
+            <p>
+              {{ prize.description }}
+            </p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              PARTICIPATION BENEFITS
+  ==========================================-->
+
+  <section class="benefits-section">
+    <div class="container">
+      <div class="section-header">
+        <span> ❤️ More Than A Competition </span>
+
+        <h2>Every Child Is A Winner</h2>
+
+        <p>
+          The goal of our Kids Dance event is to encourage participation, confidence and happy
+          memories.
+        </p>
+      </div>
+
+      <div class="benefits-grid">
+        @for (benefit of participationBenefits; track benefit.title) {
+          <article class="benefit-card">
+            <div class="benefit-icon">
+              {{ benefit.icon }}
+            </div>
+
+            <h3>
+              {{ benefit.title }}
+            </h3>
+
+            <p>
+              {{ benefit.description }}
+            </p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                        FAQ
+  ==========================================-->
+
+  <section class="dance-faq">
+    <div class="container">
+      <div class="section-header">
+        <span> ❓ Need Help? </span>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <p>Everything parents and young performers need to know before participating.</p>
+      </div>
+
+      <div class="faq-grid">
+        @for (faq of faqs; track faq.question) {
+          <details class="faq-item">
+            <summary>
+              <span>
+                {{ faq.question }}
+              </span>
+
+              <div class="faq-plus">+</div>
+            </summary>
+
+            <div class="faq-answer">
+              <p>
+                {{ faq.answer }}
+              </p>
+            </div>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    FINAL CTA
+  ==========================================-->
+
+  <section class="dance-cta">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-decoration cta-one">🌸</div>
+
+        <div class="cta-decoration cta-two">🪔</div>
+
+        <div class="cta-icon">💃</div>
+
+        <span> Akhuratha Mandap Kids Zone </span>
+
+        <h2>
+          Ready To Dance On
+          <strong>The Festival Stage?</strong>
+        </h2>
+
+        <p>
+          Bring your talent, your smile and your devotion. Create a beautiful festival memory with
+          us.
+        </p>
+
+        <div class="cta-actions">
+          <button type="button" class="cta-primary" (click)="registerForDance()">
+            💃 Register To Perform
+          </button>
+
+          <button type="button" class="cta-secondary" (click)="goToKidsZone()">
+            ← Back To Kids Zone
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

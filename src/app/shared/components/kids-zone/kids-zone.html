@@ -1,0 +1,116 @@
+<section class="kids">
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+
+  <div class="container">
+    <!--==============================
+            HEADER
+    ==============================-->
+
+    <div class="section-header">
+      <span>Kids Zone</span>
+
+      <h2>Learn • Play • Celebrate</h2>
+
+      <p>
+        A special place where children can learn about Lord Ganesha through fun activities,
+        creativity, stories, music and games.
+      </p>
+    </div>
+
+    <!--==============================
+          FEATURE BANNER
+    ==============================-->
+
+    <div class="activity-banner">
+      <div class="activity-left">
+        <span>✨ Special Kids Activities</span>
+
+        <h2>Fun Learning With Lord Ganesha</h2>
+
+        <p>
+          Drawing Competition • Colouring • Sloka Learning • Ganesha Stories • Quiz • Puzzle Games •
+          DIY Crafts and many more exciting activities.
+        </p>
+
+        <button type="button" routerLink="/kids">Explore Activities</button>
+      </div>
+
+      <div class="activity-right">
+        <img src="/images/AKM-Round.png" alt="" aria-hidden="true" />
+      </div>
+    </div>
+
+    <!--==============================
+            ACTIVITIES
+    ==============================-->
+
+    <div class="grid">
+      @for (item of activities; track item.title) {
+        <div class="card">
+          <div class="icon">
+            <mat-icon>
+              {{ item.icon }}
+            </mat-icon>
+          </div>
+
+          <h3>
+            {{ item.title }}
+          </h3>
+
+          <p>
+            {{ item.description }}
+          </p>
+
+          <button type="button" [routerLink]="item.route" [attr.aria-label]="'Explore ' + item.title">
+            Explore
+
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      }
+    </div>
+
+    <!--==============================
+            ACHIEVEMENTS
+    ==============================-->
+
+    <div class="kids-stats">
+      <div class="stat-card">
+        <h2>20+</h2>
+
+        <span>Activities</span>
+      </div>
+
+      <div class="stat-card">
+        <h2>500+</h2>
+
+        <span>Kids Joined</span>
+      </div>
+
+      <div class="stat-card">
+        <h2>15+</h2>
+
+        <span>Competitions</span>
+      </div>
+
+      <div class="stat-card">
+        <h2>100%</h2>
+
+        <span>Fun Learning</span>
+      </div>
+    </div>
+
+    <!--==============================
+            CTA
+    ==============================-->
+
+    <div class="kids-footer">
+      <button type="button" class="view-btn" routerLink="/kids">
+        Explore Kids World
+
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</section>

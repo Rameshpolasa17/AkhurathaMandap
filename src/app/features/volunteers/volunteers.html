@@ -1,0 +1,37 @@
+<app-page-hero
+  titleId="vol-title"
+  eyebrow="Seva teams"
+  icon="fa-solid fa-hands-holding-circle"
+  heading="Our Volunteers"
+  lede="The festival runs on the hours these teams give it — decoration, prasad, darshan, culture, procession and cleanliness."
+/>
+
+<section class="vol akm-section akm-section--cream" aria-labelledby="vol-list-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <h2 id="vol-list-title">The teams behind the mandap</h2>
+      <p>Every team is open to new hands. Tell us where you would like to help.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    <app-people-grid
+      [people]="people"
+      icon="fa-solid fa-hands-holding-circle"
+      emptyText="This year's seva teams are being formed."
+    />
+
+    <div class="vol__join" akmReveal="scale">
+      <div>
+        <h3>Want to join a seva team?</h3>
+        <p>
+          No experience needed — just a few hours during the festival. Send us a message
+          telling us which team interests you.
+        </p>
+      </div>
+      <a class="akm-btn akm-btn--brand" routerLink="/contact">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        Volunteer with us
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,132 @@
+<section class="game-admin-page">
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>Games</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-gamepad"></i>
+        </div>
+        <div>
+          <h1>Games</h1>
+          <p>Manage kids games and activities.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="add-button" (click)="addGame()">
+      <i class="fa-solid fa-plus"></i>
+      Add Game
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-gamepad"></i></div>
+      <div>
+        <span>Total Games</span>
+        <strong>{{ games.length }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <div>
+        <span>Active</span>
+        <strong>{{ activeCount }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        type="text"
+        placeholder="Search games..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <select [value]="typeFilter" (change)="onTypeChange($event)">
+      <option value="all">All Types</option>
+      <option value="Puzzle">Puzzle</option>
+      <option value="Memory">Memory</option>
+      <option value="Jigsaw">Jigsaw</option>
+      <option value="WordSearch">Word Search</option>
+    </select>
+
+    <select [value]="difficultyFilter" (change)="onDifficultyChange($event)">
+      <option value="all">All Difficulty</option>
+      <option value="Easy">Easy</option>
+      <option value="Medium">Medium</option>
+      <option value="Hard">Hard</option>
+    </select>
+
+    <button class="refresh-button" (click)="loadGames()">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+      <h3>Loading Games...</h3>
+    </div>
+  }
+
+  @if (!loading && filteredGames.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-gamepad"></i>
+      </div>
+      <h2>No Games Found</h2>
+      <p>Try changing your search or filters.</p>
+    </div>
+  }
+
+  @if (!loading && filteredGames.length > 0) {
+    <div class="game-grid">
+      @for (game of filteredGames; track game.id) {
+        <article class="game-card">
+          <div class="image-area">
+            <img [src]="game.thumbnailPath || 'images/defaults/no-image.png'" [alt]="game.title" />
+
+            <span class="status-badge">
+              {{ game.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div class="card-body">
+            <div class="card-top">
+              <span>{{ game.gameType }}</span>
+              <span>{{ game.difficulty }}</span>
+            </div>
+
+            <h2>{{ game.title }}</h2>
+
+            @if (game.description) {
+              <p>{{ game.description }}</p>
+            }
+
+            <div class="card-actions">
+              <button class="edit-button" (click)="editGame(game)">
+                <i class="fa-solid fa-pen"></i>
+                Edit
+              </button>
+
+              <button class="delete-button" (click)="deleteGame(game)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

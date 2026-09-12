@@ -1,0 +1,78 @@
+<section class="game-form-page">
+  <div class="page-header">
+    <div class="title-row">
+      <div class="title-icon"><i class="fa-solid fa-gamepad"></i></div>
+      <div>
+        <h1>{{ id ? 'Edit Game' : 'Add Game' }}</h1>
+        <p>Manage kids games.</p>
+      </div>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+    </div>
+  } @else {
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Game Title *</label>
+          <input type="text" [(ngModel)]="game.title" />
+        </div>
+
+        <div class="form-group">
+          <label>Game Type</label>
+          <select [(ngModel)]="game.gameType">
+            <option>Puzzle</option>
+            <option>Memory</option>
+            <option>Jigsaw</option>
+            <option>WordSearch</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Difficulty</label>
+          <select [(ngModel)]="game.difficulty">
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Display Order</label>
+          <input type="number" [(ngModel)]="game.displayOrder" />
+        </div>
+
+        <div class="form-group full">
+          <label>Thumbnail URL</label>
+          <input type="text" [(ngModel)]="game.thumbnailPath" />
+        </div>
+
+        <div class="form-group full">
+          <label>Description</label>
+          <textarea rows="4" [(ngModel)]="game.description"></textarea>
+        </div>
+
+        <div class="form-group full">
+          <label class="toggle-label">
+            <input type="checkbox" [(ngModel)]="game.isActive" />
+            <span>Active Game</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="cancel-button" (click)="back()">Cancel</button>
+        <button class="save-button" (click)="save()" [disabled]="saving">
+          @if (saving) {
+            Saving...
+          } @else {
+            Save Game
+          }
+        </button>
+      </div>
+    </div>
+  }
+</section>

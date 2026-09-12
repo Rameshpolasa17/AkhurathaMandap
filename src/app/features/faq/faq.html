@@ -1,0 +1,83 @@
+<section class="faq-hero" aria-labelledby="faq-title">
+  <div class="faq-hero__veil" aria-hidden="true"></div>
+
+  <div class="akm-container faq-hero__inner">
+    <span class="akm-eyebrow">
+      <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+      Good to know
+    </span>
+    <h1 id="faq-title">Frequently Asked Questions</h1>
+    <p>Darshan timings, registrations, seva and everything else devotees ask us most.</p>
+  </div>
+</section>
+
+<section class="faq akm-section akm-section--cream" aria-labelledby="faq-list-title">
+  <div class="akm-container faq__inner">
+    <h2 id="faq-list-title" class="akm-visually-hidden">Questions and answers</h2>
+
+    <div class="akm-filters" role="group" aria-label="Filter questions by topic" akmReveal="fade">
+      @for (category of categories; track category) {
+        <button
+          type="button"
+          class="akm-filter"
+          [attr.aria-pressed]="activeCategory() === category"
+          (click)="selectCategory(category)"
+        >
+          {{ category }}
+        </button>
+      }
+    </div>
+
+    @if (filtered.length) {
+      <div class="faq__list">
+        @for (faq of filtered; track faq.faqId; let i = $index) {
+          <article class="faq__item" [class.is-open]="openId() === faq.faqId" akmReveal [revealDelay]="i * 55">
+            <h3>
+              <button
+                type="button"
+                class="faq__q"
+                [attr.aria-expanded]="openId() === faq.faqId"
+                [attr.aria-controls]="'faq-a-' + faq.faqId"
+                [id]="'faq-q-' + faq.faqId"
+                (click)="toggle(faq)"
+              >
+                <span>{{ faq.question }}</span>
+                <span class="faq__icon" aria-hidden="true">
+                  <i class="fa-solid fa-plus"></i>
+                </span>
+              </button>
+            </h3>
+
+            @if (openId() === faq.faqId) {
+              <div
+                class="faq__a"
+                role="region"
+                [id]="'faq-a-' + faq.faqId"
+                [attr.aria-labelledby]="'faq-q-' + faq.faqId"
+              >
+                <p>{{ faq.answer }}</p>
+              </div>
+            }
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+        <h3>Nothing here yet</h3>
+        <p>Try another topic.</p>
+      </div>
+    }
+
+    <div class="faq__more" akmReveal>
+      <div>
+        <h3>Still have a question?</h3>
+        <p>Send the committee a message and we will get back to you on WhatsApp.</p>
+      </div>
+      <a class="akm-btn akm-btn--brand" routerLink="/contact">
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        Contact the mandap
+      </a>
+    </div>
+  </div>
+</section>

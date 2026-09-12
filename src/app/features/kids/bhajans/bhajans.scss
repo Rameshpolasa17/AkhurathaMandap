@@ -1,0 +1,603 @@
+/*==========================================================
+                    BHAJANS PAGE
+==========================================================*/
+
+.bhajans-page {
+  overflow: hidden;
+  background: linear-gradient(180deg, #fffdf8 0%, #fff7ee 100%);
+}
+
+/*==========================================================
+                        HERO
+==========================================================*/
+
+.bhajans-hero {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255, 193, 7, 0.18), transparent 30%),
+    radial-gradient(circle at 80% 25%, rgba(255, 152, 0, 0.12), transparent 25%),
+    radial-gradient(circle at 60% 90%, rgba(255, 87, 34, 0.1), transparent 22%);
+}
+
+.bhajans-hero .container {
+  display: grid;
+  grid-template-columns: 1fr 500px;
+  gap: 70px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag {
+  display: inline-flex;
+  padding: 12px 28px;
+  border-radius: 50px;
+  background: #fff;
+  color: #ef6c00;
+  font-weight: 700;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.hero-content h1 {
+  margin: 25px 0;
+  font-size: clamp(3rem, 5vw, 4.8rem);
+  line-height: 1.15;
+  font-weight: 900;
+  color: #32251b;
+}
+
+.hero-content p {
+  max-width: 650px;
+  color: #666;
+  font-size: 18px;
+  line-height: 1.9;
+}
+
+.hero-image {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 470px;
+  animation: floatImage 6s ease-in-out infinite;
+}
+
+/*==========================================================
+                    FEATURED
+==========================================================*/
+
+.featured-bhajan {
+  padding: 90px 0;
+}
+
+.featured-card {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 45px;
+  align-items: center;
+
+  padding: 40px;
+
+  border-radius: 35px;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08);
+}
+
+.featured-image {
+  overflow: hidden;
+  border-radius: 25px;
+}
+
+.featured-image img {
+  width: 100%;
+  transition: 0.5s;
+}
+
+.featured-card:hover img {
+  transform: scale(1.05);
+}
+
+.category {
+  display: inline-flex;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background: #fff3e0;
+  color: #ef6c00;
+  font-weight: 700;
+}
+
+.featured-content h2 {
+  margin: 20px 0 8px;
+  font-size: 42px;
+  font-weight: 800;
+  color: #32251b;
+}
+
+.featured-content h5 {
+  color: #777;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.info {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.info span {
+  padding: 12px 22px;
+  border-radius: 40px;
+  background: #fff8ef;
+  font-weight: 600;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.play-btn,
+.lyrics-btn {
+  border: none;
+  cursor: pointer;
+  height: 54px;
+  padding: 0 30px;
+  border-radius: 40px;
+  transition: 0.35s;
+  font-weight: 700;
+}
+
+.play-btn {
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+  color: white;
+  box-shadow: 0 18px 35px rgba(255, 152, 0, 0.25);
+}
+
+.play-btn:hover {
+  transform: translateY(-5px);
+}
+
+.lyrics-btn {
+  background: #f3f3f3;
+}
+
+.lyrics-btn:hover {
+  transform: translateY(-5px);
+}
+
+/*==========================================================
+                    BHAJAN LIST
+==========================================================*/
+
+.bhajans-list {
+  padding-bottom: 110px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header span {
+  display: inline-flex;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background: #fff;
+  color: #ef6c00;
+  font-weight: 700;
+}
+
+.section-header h2 {
+  margin-top: 22px;
+  font-size: 42px;
+  font-weight: 800;
+  color: #32251b;
+}
+
+.bhajans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.bhajan-card {
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 25px;
+  background: #fff;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  transition: 0.35s;
+}
+
+.bhajan-card:hover {
+  transform: translateY(-10px);
+}
+
+.bhajan-card.active {
+  outline: 3px solid #ff9800;
+}
+
+.bhajan-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.bhajan-card .content {
+  padding: 22px;
+}
+
+.bhajan-card h3 {
+  font-size: 22px;
+  color: #32251b;
+  margin-bottom: 10px;
+}
+
+.bhajan-card p {
+  color: #777;
+}
+
+/*==========================================================
+                    ANIMATION
+==========================================================*/
+
+@keyframes floatImage {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-18px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/*==========================================================
+                    RESPONSIVE
+==========================================================*/
+
+@media (max-width: 1100px) {
+  .bhajans-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featured-card,
+  .bhajans-hero .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .buttons,
+  .info {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .bhajans-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-content h2 {
+    font-size: 32px;
+  }
+
+  .hero-content h1 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 576px) {
+  .featured-card {
+    padding: 25px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .play-btn,
+  .lyrics-btn {
+    width: 100%;
+  }
+}
+/*==========================================================
+                    VIDEO SECTION
+==========================================================*/
+
+.bhajan-videos {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.video-card {
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  transition: 0.35s;
+}
+
+.video-card:hover {
+  transform: translateY(-8px);
+}
+
+.video-card iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+}
+
+.video-card h4 {
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: #32251b;
+}
+
+/*==========================================================
+                    LYRICS
+==========================================================*/
+
+.lyrics-section {
+  padding: 100px 0;
+  background: linear-gradient(180deg, #fffdf8, #fff7ef);
+}
+
+.lyrics-card {
+  max-width: 900px;
+  margin: auto;
+  padding: 45px;
+  border-radius: 30px;
+  background: white;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+}
+
+.lyrics-card pre {
+  margin-top: 30px;
+  white-space: pre-wrap;
+  font-size: 22px;
+  line-height: 2;
+  color: #333;
+  font-family: inherit;
+}
+
+/*==========================================================
+                    MANTRAS
+==========================================================*/
+
+.mantras-section {
+  padding: 100px 0;
+}
+
+.mantras-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.mantra-card {
+  padding: 35px;
+  border-radius: 24px;
+  background: white;
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+  transition: 0.35s;
+}
+
+.mantra-card:hover {
+  transform: translateY(-8px);
+}
+
+.mantra-card h3 {
+  color: #ef6c00;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.mantra-card p {
+  color: #666;
+  line-height: 1.8;
+}
+
+/*==========================================================
+                MORNING PRAYER
+==========================================================*/
+
+.morning-prayer {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.prayer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.prayer-card {
+  padding: 35px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #fff9ec, #ffffff);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
+}
+
+.prayer-card h3 {
+  color: #ff9800;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.prayer-card p {
+  line-height: 1.9;
+  color: #666;
+}
+
+/*==========================================================
+                KIDS RHYMES
+==========================================================*/
+
+.kids-rhymes {
+  padding: 100px 0;
+}
+
+.rhymes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.rhyme-card {
+  overflow: hidden;
+  border-radius: 25px;
+  background: white;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  transition: 0.35s;
+}
+
+.rhyme-card:hover {
+  transform: translateY(-10px);
+}
+
+.rhyme-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.rhyme-card .content {
+  padding: 20px;
+}
+
+.rhyme-card h4 {
+  font-size: 22px;
+  color: #32251b;
+  margin-bottom: 10px;
+}
+
+.rhyme-card span {
+  color: #777;
+}
+
+/*==========================================================
+                    DOWNLOAD
+==========================================================*/
+
+.downloads {
+  padding: 100px 0 120px;
+}
+
+.download-card {
+  text-align: center;
+  padding: 60px;
+  border-radius: 35px;
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+  color: white;
+  box-shadow: 0 30px 70px rgba(255, 152, 0, 0.25);
+}
+
+.download-card h2 {
+  font-size: 42px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.download-card p {
+  font-size: 18px;
+  margin-bottom: 35px;
+}
+
+.download-card .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.download-card button {
+  border: none;
+  cursor: pointer;
+  height: 55px;
+  padding: 0 35px;
+  border-radius: 40px;
+  background: white;
+  color: #ef6c00;
+  font-size: 16px;
+  font-weight: 700;
+  transition: 0.35s;
+}
+
+.download-card button:hover {
+  transform: translateY(-5px);
+}
+
+/*==========================================================
+                    RESPONSIVE
+==========================================================*/
+
+@media (max-width: 992px) {
+  .videos-grid,
+  .rhymes-grid,
+  .mantras-grid,
+  .prayer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .download-card .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .download-card button {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .lyrics-card {
+    padding: 30px;
+  }
+
+  .lyrics-card pre {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .download-card {
+    padding: 35px 20px;
+  }
+
+  .download-card h2 {
+    font-size: 30px;
+  }
+
+  .section-header h2 {
+    font-size: 32px;
+  }
+}

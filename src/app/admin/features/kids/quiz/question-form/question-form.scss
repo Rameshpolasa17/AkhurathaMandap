@@ -1,0 +1,296 @@
+.question-form-page {
+  padding: 24px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h2 {
+    margin: 0 0 5px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+  }
+}
+
+.form-card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: 600;
+
+    span {
+      color: #dc3545;
+    }
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+
+    &:focus {
+      border-color: #777;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.checkbox-label {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  input {
+    width: auto;
+  }
+
+  span {
+    color: inherit !important;
+  }
+}
+
+.options-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 30px;
+  margin-bottom: 16px;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+
+  h3 {
+    margin: 0 0 4px;
+    font-size: 18px;
+  }
+
+  p {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+  }
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 7px;
+
+  &.correct {
+    border-color: #a8d8b8;
+    background: #f4fbf6;
+  }
+}
+
+.option-number {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f1f1f1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.option-input {
+  flex: 1;
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+
+    span {
+      color: #dc3545;
+    }
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    padding: 9px 11px;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+      border-color: #777;
+    }
+  }
+}
+
+.correct-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 13px;
+
+  input {
+    margin: 0;
+  }
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-delete {
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  i {
+    margin-right: 6px;
+  }
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 16px;
+}
+
+.btn-primary {
+  background: #333;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.btn-delete {
+  width: 34px;
+  height: 34px;
+  background: #ffecec;
+  color: #dc3545;
+
+  i {
+    margin: 0;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.loading {
+  padding: 50px;
+  text-align: center;
+  color: #777;
+
+  i {
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .question-form-page {
+    padding: 16px;
+  }
+
+  .form-card {
+    padding: 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .page-header,
+  .options-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .option-card {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .option-input {
+    min-width: calc(100% - 48px);
+  }
+
+  .correct-checkbox {
+    margin-left: 46px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+    }
+  }
+}

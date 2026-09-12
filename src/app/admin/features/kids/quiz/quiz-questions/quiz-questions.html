@@ -1,0 +1,149 @@
+<div class="quiz-questions-page">
+  <div class="page-header">
+    <div>
+      <h2>Quiz Questions</h2>
+      <p>Manage questions and options for this quiz</p>
+    </div>
+
+    <div class="header-actions">
+      <button type="button" class="btn-secondary" (click)="backToQuizzes()">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back
+      </button>
+
+      <button type="button" class="btn-primary" (click)="addQuestion()">
+        <i class="fa-solid fa-plus"></i>
+        Add Question
+      </button>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      Loading questions...
+    </div>
+  } @else if (questions.length === 0) {
+    <div class="empty-state">
+      <i class="fa-solid fa-circle-question"></i>
+
+      <h3>No Questions Found</h3>
+
+      <p>This quiz does not have any questions yet.</p>
+
+      <button type="button" class="btn-primary" (click)="addQuestion()">
+        <i class="fa-solid fa-plus"></i>
+        Add Question
+      </button>
+    </div>
+  } @else {
+    <div class="questions-list">
+      @for (question of questions; track question.id; let i = $index) {
+        <div class="question-card">
+          <div class="question-header">
+            <div class="question-number">
+              {{ i + 1 }}
+            </div>
+
+            <div class="question-content">
+              <h3>
+                {{ question.question }}
+              </h3>
+
+              <div class="question-meta">
+                <span>
+                  <i class="fa-solid fa-star"></i>
+                  {{ question.points }} Points
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-sort"></i>
+                  Order: {{ question.displayOrder }}
+                </span>
+
+                <span
+                  class="status"
+                  [class.active]="question.isActive"
+                  [class.inactive]="!question.isActive"
+                >
+                  {{ question.isActive ? 'Active' : 'Inactive' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="question-actions">
+              <button
+                type="button"
+                class="btn-edit"
+                title="Edit Question"
+                (click)="editQuestion(question.id)"
+              >
+                <i class="fa-solid fa-pen"></i>
+              </button>
+
+              <button
+                type="button"
+                class="btn-delete"
+                title="Delete Question"
+                (click)="deleteQuestion(question)"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+
+          @if (question.imagePath) {
+            <div class="question-image">
+              <img [src]="question.imagePath" [alt]="question.question" />
+            </div>
+          }
+
+          @if (question.options?.length) {
+            <div class="options-section">
+              <h4>Options</h4>
+
+              <div class="options-grid">
+                @for (option of question.options; track option.id; let optionIndex = $index) {
+                  <div class="option-item" [class.correct]="option.isCorrect">
+                    <div class="option-letter">
+                      {{ ['A', 'B', 'C', 'D'][optionIndex] }}
+                    </div>
+
+                    <div class="option-text">
+                      {{ option.optionText }}
+                    </div>
+
+                    @if (option.isCorrect) {
+                      <div class="correct-answer">
+                        <i class="fa-solid fa-check"></i>
+                        Correct
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
+          } @else {
+            <div class="no-options">
+              <i class="fa-solid fa-circle-info"></i>
+              No options added for this question.
+            </div>
+          }
+
+          @if (question.explanation) {
+            <div class="explanation">
+              <strong>
+                <i class="fa-solid fa-lightbulb"></i>
+                Explanation
+              </strong>
+
+              <p>
+                {{ question.explanation }}
+              </p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

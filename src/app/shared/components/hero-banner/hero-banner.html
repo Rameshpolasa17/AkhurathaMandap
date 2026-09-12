@@ -1,0 +1,63 @@
+<section class="hero" aria-labelledby="hero-title">
+  <!-- Background photograph + readability scrim -->
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__veil" aria-hidden="true"></div>
+  <div class="akm-orb hero__orb hero__orb--1" aria-hidden="true"></div>
+  <div class="akm-orb hero__orb hero__orb--2" aria-hidden="true"></div>
+
+  <div class="akm-container hero__inner">
+    <div class="hero__copy">
+      <span class="hero__badge akm-enter" style="--i: 0">
+        <i class="fa-solid fa-om" aria-hidden="true"></i>
+        {{ festivalName }} {{ festivalYear }}
+      </span>
+
+      <h1 id="hero-title">
+        <span class="hero__welcome akm-enter" style="--i: 1">Welcome to</span>
+        <span class="hero__name akm-enter" style="--i: 2">{{ mandapName }}</span>
+      </h1>
+
+      <p class="hero__lede akm-enter" style="--i: 3">
+        Eleven days of devotion, culture and community — the Ganga Harathi every
+        evening, the Laddu Velam and Lucky Draw, and the nimarjanam that brings the
+        whole neighbourhood together.
+      </p>
+
+      <div class="hero__cta akm-enter" style="--i: 4">
+        <a class="akm-btn akm-btn--primary" routerLink="/events">
+          <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+          Explore Festival
+        </a>
+        <a class="akm-btn akm-btn--on-dark" routerLink="/gallery">
+          <i class="fa-solid fa-images" aria-hidden="true"></i>
+          View Gallery
+        </a>
+      </div>
+
+      @if (hasCountdown) {
+        <div class="hero__countdown akm-enter" style="--i: 5">
+          <span class="hero__countdown-label">Festival begins in</span>
+          <div class="hero__units" role="timer" aria-live="off">
+            @for (unit of units; track unit.label; let i = $index) {
+              <div class="hero__unit">
+                <strong>{{ unit.value }}</strong>
+                <small>{{ unit.label }}</small>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="hero__visual" aria-hidden="true">
+      <div class="hero__halo"></div>
+      <div class="hero__medallion">
+        <img src="/images/AKM-Round.png" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span></span>
+  </div>
+</section>

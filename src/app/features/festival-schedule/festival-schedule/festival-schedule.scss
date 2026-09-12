@@ -1,0 +1,421 @@
+/* ================================================================= HERO */
+
+.sch-hero {
+  position: relative;
+  padding-block: 92px 80px;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--akm-grad-brand);
+}
+
+.sch-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(720px 340px at 78% 4%, rgba(255, 152, 0, 0.22), transparent 66%);
+}
+
+.sch-hero__orb {
+  width: 380px;
+  height: 380px;
+  bottom: -170px;
+  left: -70px;
+  background: rgba(255, 193, 7, 0.16);
+  z-index: -1;
+}
+
+.sch-hero__inner {
+  max-width: 690px;
+
+  .akm-eyebrow {
+    background: rgba(255, 255, 255, 0.13);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: var(--akm-accent-400);
+  }
+
+  h1 {
+    margin: 22px 0 16px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(2rem, 4.6vw, 3.2rem);
+    line-height: 1.14;
+    color: #fff;
+  }
+
+  p {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.84);
+  }
+}
+
+/* =============================================================== AARTI */
+
+.sch-aarti__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* A single standing entry reads better centred than stretched full width. */
+.sch-aarti__grid--single {
+  grid-template-columns: minmax(0, 420px);
+  justify-content: center;
+}
+
+.sch-aarti__card {
+  position: relative;
+  padding: 30px 26px;
+  border-radius: var(--akm-r-lg);
+  background: var(--akm-white);
+  border: 1px solid var(--akm-border);
+  box-shadow: var(--akm-shadow-sm);
+  text-align: center;
+  overflow: hidden;
+  transition:
+    transform var(--akm-t),
+    box-shadow var(--akm-t);
+
+  /* Gold cap across the top edge. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: var(--akm-grad-accent);
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--akm-shadow-md);
+  }
+
+  h3 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.12rem;
+    color: var(--akm-maroon-800);
+    margin-bottom: 7px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--akm-ink-muted);
+  }
+}
+
+.sch-aarti__time {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 6px 18px;
+  border-radius: var(--akm-r-pill);
+  background: rgba(255, 152, 0, 0.13);
+  border: 1px solid rgba(255, 152, 0, 0.28);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--akm-accent-600);
+}
+
+/* ============================================================ TIMELINE */
+
+.sch__loading {
+  color: var(--akm-ink-soft);
+  font-size: 0.95rem;
+}
+
+.sch__timeline {
+  position: relative;
+  list-style: none;
+  padding-left: 40px;
+
+  /* The vertical spine. */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 152, 0, 0.7) 0%,
+      rgba(139, 30, 36, 0.35) 60%,
+      transparent 100%
+    );
+  }
+}
+
+.sch__day {
+  position: relative;
+  margin-bottom: 26px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.sch__marker {
+  position: absolute;
+  left: -40px;
+  top: 26px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--akm-cream);
+  border: 2px solid rgba(139, 30, 36, 0.28);
+
+  span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--akm-maroon-700);
+  }
+}
+
+.sch__day.is-highlight .sch__marker {
+  border-color: var(--akm-accent-500);
+  box-shadow: 0 0 0 5px rgba(255, 152, 0, 0.16);
+
+  span {
+    background: var(--akm-grad-accent);
+  }
+}
+
+.sch__card {
+  padding: 24px 26px;
+  background: var(--akm-white);
+}
+
+.sch__day.is-highlight .sch__card {
+  border-color: rgba(255, 152, 0, 0.34);
+  box-shadow: var(--akm-shadow-md);
+}
+
+.sch__card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--akm-border);
+
+  h3 {
+    margin: 7px 0 6px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.3rem;
+    line-height: 1.26;
+    color: var(--akm-maroon-800);
+  }
+}
+
+.sch__label {
+  display: inline-block;
+  padding: 4px 13px;
+  border-radius: var(--akm-r-pill);
+  background: var(--akm-grad-brand);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.sch__summary {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--akm-ink-muted);
+}
+
+.sch__date {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  padding: 9px 0;
+  border-radius: var(--akm-r-md);
+  background: var(--akm-surface-tint);
+  border: 1px solid var(--akm-border);
+  line-height: 1;
+
+  strong {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.42rem;
+    color: var(--akm-maroon-800);
+  }
+
+  small {
+    margin-top: 4px;
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--akm-accent-600);
+  }
+}
+
+/* --------------------------------------------------------------- items */
+
+.sch__items {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+
+  > li {
+    display: flex;
+    gap: 14px;
+  }
+}
+
+.sch__item-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 152, 0, 0.12);
+  border: 1px solid rgba(255, 152, 0, 0.24);
+  color: var(--akm-accent-600);
+  font-size: 0.86rem;
+}
+
+.sch__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.sch__item-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+
+  strong {
+    font-size: 0.96rem;
+    color: var(--akm-ink);
+  }
+}
+
+.sch__item-time {
+  padding: 2px 10px;
+  border-radius: var(--akm-r-pill);
+  background: rgba(122, 0, 0, 0.08);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--akm-maroon-700);
+  white-space: nowrap;
+}
+
+.sch__item-desc {
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--akm-ink-muted);
+}
+
+.sch__item-loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.79rem;
+  color: var(--akm-ink-soft);
+
+  i {
+    color: var(--akm-accent-600);
+    font-size: 0.72rem;
+  }
+}
+
+/* ================================================================= CTA */
+
+.sch-cta__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+
+  h2 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0;
+    color: var(--akm-on-dark-muted);
+  }
+}
+
+.sch-cta__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* =========================================================== RESPONSIVE */
+
+@media (max-width: 880px) {
+  .sch-aarti__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .sch-hero {
+    padding-block: 66px 56px;
+  }
+
+  .sch__timeline {
+    padding-left: 28px;
+
+    &::before {
+      left: 9px;
+    }
+  }
+
+  .sch__marker {
+    left: -28px;
+    width: 20px;
+    height: 20px;
+    top: 22px;
+
+    span {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  .sch__card {
+    padding: 20px 18px;
+  }
+
+  .sch__card-head {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .sch__date {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    width: auto;
+    padding: 6px 14px;
+
+    strong {
+      font-size: 1.15rem;
+    }
+  }
+
+  .sch-cta__buttons .akm-btn {
+    flex: 1 1 100%;
+  }
+}

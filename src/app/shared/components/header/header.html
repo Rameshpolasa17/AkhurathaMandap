@@ -1,0 +1,96 @@
+<a class="akm-skip-link" href="#main-content">Skip to main content</a>
+
+<header class="hdr" [class.hdr--scrolled]="isScrolled()">
+  <div class="akm-container hdr__bar">
+    <a class="hdr__brand" routerLink="/" [attr.aria-label]="mandapName + ' — home'">
+      <img src="/images/Logo-Round.jpg" alt="" aria-hidden="true" />
+      <span class="hdr__brand-text">
+        <strong>{{ mandapName }}</strong>
+        <small>{{ festivalName }}</small>
+      </span>
+    </a>
+
+    <nav class="hdr__nav" aria-label="Primary">
+      @for (menu of menus; track menu.route) {
+        <a
+          [routerLink]="menu.route"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: menu.route === '/' }"
+        >
+          {{ menu.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="hdr__actions">
+      <a class="hdr__live" routerLink="/live">
+        <span class="hdr__live-dot" aria-hidden="true"></span>
+        Live
+      </a>
+
+      <a class="akm-btn akm-btn--primary akm-btn--sm hdr__support" routerLink="/support">
+        <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+        <span>Support Us</span>
+      </a>
+
+      <button
+        type="button"
+        class="hdr__burger"
+        [attr.aria-expanded]="isMenuOpen()"
+        aria-controls="mobile-menu"
+        [attr.aria-label]="isMenuOpen() ? 'Close menu' : 'Open menu'"
+        (click)="toggleMenu()"
+      >
+        <i class="fa-solid" [class.fa-bars]="!isMenuOpen()" [class.fa-xmark]="isMenuOpen()" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div class="drawer-scrim" [class.is-open]="isMenuOpen()" (click)="closeMenu()" aria-hidden="true"></div>
+
+<aside
+  id="mobile-menu"
+  class="drawer"
+  [class.is-open]="isMenuOpen()"
+  [attr.inert]="isMenuOpen() ? null : ''"
+  aria-label="Mobile navigation"
+>
+  <div class="drawer__head">
+    <img src="/images/Logo-Round.jpg" alt="" aria-hidden="true" />
+    <div>
+      <strong>{{ mandapName }}</strong>
+      <small>{{ festivalName }}</small>
+    </div>
+    <button type="button" class="drawer__close" aria-label="Close menu" (click)="closeMenu()">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <nav class="drawer__nav" aria-label="Mobile primary">
+    @for (menu of menus; track menu.route) {
+      <a
+        [routerLink]="menu.route"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: menu.route === '/' }"
+        (click)="closeMenu()"
+      >
+        <i [class]="menu.icon" aria-hidden="true"></i>
+        {{ menu.label }}
+        <i class="fa-solid fa-chevron-right drawer__chevron" aria-hidden="true"></i>
+      </a>
+    }
+  </nav>
+
+  <div class="drawer__foot">
+    <a class="akm-btn akm-btn--primary akm-btn--block" routerLink="/support" (click)="closeMenu()">
+      <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+      Support the Mandap
+    </a>
+    <a class="akm-btn akm-btn--ghost akm-btn--block" routerLink="/live" (click)="closeMenu()">
+      <i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i>
+      Live Darshan
+    </a>
+  </div>
+</aside>

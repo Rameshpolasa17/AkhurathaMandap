@@ -1,0 +1,167 @@
+<!-- ============================================================== HERO -->
+<section class="gal-hero" aria-labelledby="gal-title">
+  <div class="gal-hero__bg" aria-hidden="true"></div>
+  <div class="gal-hero__veil" aria-hidden="true"></div>
+  <div class="akm-orb gal-hero__orb" aria-hidden="true"></div>
+
+  <div class="akm-container gal-hero__inner">
+    <span class="akm-eyebrow">
+      <i class="fa-solid fa-camera-retro" aria-hidden="true"></i>
+      Festival Memories
+    </span>
+
+    <h1 id="gal-title">Moments of Devotion</h1>
+
+    <p>
+      The idol, the Ganga Harathi, the pandal going up and the nimarjanam procession —
+      Akhuratha Mandap through the eyes of everyone who celebrates here.
+    </p>
+
+    <div class="gal-hero__meta">
+      <span><strong>{{ photos.length }}</strong> photographs</span>
+      <span aria-hidden="true">•</span>
+      <span><strong>{{ categories.length - 1 }}</strong> collections</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== GALLERY -->
+<section class="gal akm-section akm-section--tint" aria-labelledby="gal-grid-title">
+  <div class="akm-container">
+    <div class="gal__bar" akmReveal>
+      <div>
+        <h2 id="gal-grid-title" class="gal__bar-title">Browse the collection</h2>
+        <p class="gal__bar-sub">Filter by moment, then tap any photograph to view it full size.</p>
+      </div>
+    </div>
+
+    <div class="akm-filters" role="group" aria-label="Filter photographs by category" akmReveal="fade">
+      @for (category of categories; track category) {
+        <button
+          type="button"
+          class="akm-filter"
+          [attr.aria-pressed]="activeCategory() === category"
+          (click)="selectCategory(category)"
+        >
+          {{ category }}
+        </button>
+      }
+    </div>
+
+    @if (loading()) {
+      <div class="gal__grid" aria-hidden="true">
+        @for (n of [1, 2, 3, 4, 5, 6, 7, 8]; track n) {
+          <div class="gal__skeleton" [class.tile--large]="n === 1"></div>
+        }
+      </div>
+    } @else if (filtered.length) {
+      <div class="gal__grid">
+        @for (photo of filtered; track photo.galleryId; let i = $index) {
+          <button
+            type="button"
+            class="gal__tile"
+            [class]="tileClass(photo, i)"
+            akmReveal
+            [revealDelay]="(i % 6) * 70"
+            (click)="openLightbox(i)"
+            [attr.aria-label]="'View ' + photo.title + ' full size'"
+          >
+            <app-safe-image
+              class="gal__img"
+              [src]="photo.imageUrl"
+              [alt]="photo.title"
+              icon="fa-solid fa-camera-retro"
+              [eager]="i < 4"
+            />
+
+            <span class="gal__scrim" aria-hidden="true"></span>
+
+            <span class="gal__meta">
+              <span class="gal__cat">{{ photo.category }}</span>
+              <span class="gal__title">{{ photo.title }}</span>
+              <span class="gal__desc">{{ photo.description }}</span>
+            </span>
+
+            <span class="gal__zoom" aria-hidden="true">
+              <i class="fa-solid fa-expand"></i>
+            </span>
+          </button>
+        }
+      </div>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-images" aria-hidden="true"></i>
+        <h3>No photographs here yet</h3>
+        <p>Nothing has been added to this collection. Try another category.</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ============================================================== LINKS -->
+<section class="gal-more akm-section akm-section--cream">
+  <div class="akm-container gal-more__inner">
+    <div>
+      <h2>More from the mandap</h2>
+      <p>See what is coming up next, or join the live darshan during the festival.</p>
+    </div>
+    <div class="gal-more__cta">
+      <a class="akm-btn akm-btn--brand" routerLink="/events">
+        <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+        Upcoming Events
+      </a>
+      <a class="akm-btn akm-btn--ghost" routerLink="/live">
+        <i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i>
+        Live Darshan
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== LIGHTBOX -->
+@if (activePhoto; as photo) {
+  <div
+    class="lb"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="photo.title"
+    (click)="onBackdrop($event)"
+    (touchstart)="onTouchStart($event)"
+    (touchend)="onTouchEnd($event)"
+  >
+    <button type="button" class="lb__close" aria-label="Close photo viewer" (click)="closeLightbox()">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+
+    @if (filtered.length > 1) {
+      <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo" (click)="previous()">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo" (click)="next()">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    }
+
+    <figure class="lb__figure">
+      <app-safe-image
+        class="lb__img"
+        [src]="photo.imageUrl"
+        [alt]="photo.title"
+        icon="fa-solid fa-camera-retro"
+        fit="contain"
+        [eager]="true"
+      />
+
+      <figcaption class="lb__caption">
+        <span class="akm-chip akm-chip--solid">{{ photo.category }}</span>
+        <h3>{{ photo.title }}</h3>
+        <p>{{ photo.description }}</p>
+        <small>
+          {{ photo.createdDate | date: 'mediumDate' }}
+          <span aria-hidden="true">•</span>
+          {{ lightboxIndex() + 1 }} of {{ filtered.length }}
+        </small>
+      </figcaption>
+    </figure>
+  </div>
+}

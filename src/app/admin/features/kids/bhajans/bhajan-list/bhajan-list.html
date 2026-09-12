@@ -1,0 +1,316 @@
+<section class="bhajan-admin-page">
+  <!-- =========================================
+                    HEADER
+  ========================================== -->
+
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>Bhajans</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-music"></i>
+        </div>
+
+        <div>
+          <h1>Bhajans</h1>
+
+          <p>Manage Ganesh bhajans, devotional songs, lyrics and audio.</p>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="add-button" (click)="addBhajan()">
+      <i class="fa-solid fa-plus"></i>
+
+      <span>Add Bhajan</span>
+    </button>
+  </div>
+
+  <!-- =========================================
+                   STAT CARDS
+  ========================================== -->
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-music"></i>
+      </div>
+
+      <div>
+        <span>Total Bhajans</span>
+
+        <strong>
+          {{ bhajans.length }}
+        </strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <span>Active</span>
+
+        <strong>
+          {{ activeCount }}
+        </strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-star"></i>
+      </div>
+
+      <div>
+        <span>Featured</span>
+
+        <strong>
+          {{ featuredCount }}
+        </strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+                    FILTERS
+  ========================================== -->
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        placeholder="Search by title or singer..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-filter"></i>
+
+      <select [value]="statusFilter" (change)="onStatusChange($event)">
+        <option value="all">All Bhajans</option>
+
+        <option value="active">Active</option>
+
+        <option value="inactive">Inactive</option>
+
+        <option value="featured">Featured</option>
+      </select>
+    </div>
+
+    <button type="button" class="refresh-button" (click)="loadBhajans()" title="Refresh">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  <!-- =========================================
+                    LOADING
+  ========================================== -->
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+
+      <h3>Loading Bhajans</h3>
+
+      <p>Please wait while we load devotional content.</p>
+    </div>
+  }
+
+  <!-- =========================================
+                     EMPTY
+  ========================================== -->
+
+  @if (!loading && filteredBhajans.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-music"></i>
+      </div>
+
+      <h2>No Bhajans Found</h2>
+
+      <p>
+        @if (searchText || statusFilter !== 'all') {
+          Try changing your search or filter.
+        } @else {
+          Add your first Ganesh bhajan to the Kids Zone.
+        }
+      </p>
+
+      @if (!searchText && statusFilter === 'all') {
+        <button type="button" (click)="addBhajan()">
+          <i class="fa-solid fa-plus"></i>
+
+          Add First Bhajan
+        </button>
+      }
+    </div>
+  }
+
+  <!-- =========================================
+                  BHAJAN GRID
+  ========================================== -->
+
+  @if (!loading && filteredBhajans.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing
+        <strong>
+          {{ filteredBhajans.length }}
+        </strong>
+        bhajan(s)
+      </p>
+    </div>
+
+    <div class="bhajan-grid">
+      @for (item of filteredBhajans; track item.id) {
+        <article class="bhajan-card">
+          <!-- IMAGE -->
+
+          <div class="image-area">
+            <img
+              [src]="item.thumbnailPath || 'images/defaults/no-image.png'"
+              [alt]="item.title"
+              (error)="imageError($event)"
+            />
+
+            <div class="image-overlay"></div>
+
+            @if (item.isFeatured) {
+              <span class="featured-badge">
+                <i class="fa-solid fa-star"></i>
+
+                Featured
+              </span>
+            }
+
+            <span
+              class="status-badge"
+              [class.active]="item.isActive"
+              [class.inactive]="!item.isActive"
+            >
+              <span class="status-dot"></span>
+
+              {{ item.isActive ? 'Active' : 'Inactive' }}
+            </span>
+
+            @if (item.mediaPath) {
+              <div class="audio-indicator">
+                <i class="fa-solid fa-volume-high"></i>
+              </div>
+            }
+          </div>
+
+          <!-- CARD BODY -->
+
+          <div class="card-body">
+            <div class="card-top">
+              <span class="display-order"> #{{ item.displayOrder }} </span>
+
+              <span class="content-type"> Bhajan </span>
+            </div>
+
+            <h2>
+              {{ item.title }}
+            </h2>
+
+            @if (item.shortDescription) {
+              <p class="english-title">
+                {{ item.shortDescription }}
+              </p>
+            }
+
+            <!-- META -->
+
+            <div class="meta-list">
+              @if (item.singer) {
+                <div class="meta-item">
+                  <i class="fa-solid fa-microphone"></i>
+
+                  <span>
+                    {{ item.singer }}
+                  </span>
+                </div>
+              }
+
+              @if (item.duration) {
+                <div class="meta-item">
+                  <i class="fa-regular fa-clock"></i>
+
+                  <span>
+                    {{ item.duration }}
+                  </span>
+                </div>
+              }
+
+              @if (item.ageGroup) {
+                <div class="meta-item">
+                  <i class="fa-solid fa-child-reaching"></i>
+
+                  <span>
+                    {{ item.ageGroup }}
+                  </span>
+                </div>
+              }
+            </div>
+
+            <!-- CONTENT FEATURES -->
+
+            <div class="content-features">
+              @if (item.description) {
+                <span>
+                  <i class="fa-solid fa-scroll"></i>
+                  Lyrics
+                </span>
+              }
+
+              @if (item.mediaPath) {
+                <span>
+                  <i class="fa-solid fa-music"></i>
+                  Audio
+                </span>
+              }
+
+              @if (item.videoUrl) {
+                <span>
+                  <i class="fa-solid fa-video"></i>
+                  Video
+                </span>
+              }
+            </div>
+
+            <!-- ACTIONS -->
+
+            <div class="card-actions">
+              <button type="button" class="edit-button" (click)="editBhajan(item)">
+                <i class="fa-solid fa-pen"></i>
+
+                Edit
+              </button>
+
+              <button
+                type="button"
+                class="delete-button"
+                (click)="deleteBhajan(item)"
+                title="Delete Bhajan"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

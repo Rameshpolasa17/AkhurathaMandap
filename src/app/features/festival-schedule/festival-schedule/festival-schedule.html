@@ -1,0 +1,131 @@
+<!-- ============================================================== HERO -->
+<section class="sch-hero" aria-labelledby="sch-title">
+  <div class="sch-hero__veil" aria-hidden="true"></div>
+  <div class="akm-orb sch-hero__orb" aria-hidden="true"></div>
+
+  <div class="akm-container sch-hero__inner">
+    <span class="akm-eyebrow">
+      <i class="fa-solid fa-clock" aria-hidden="true"></i>
+      Festival Schedule
+    </span>
+    <h1 id="sch-title">Day by Day at the Mandap</h1>
+    <p>
+      Aarti timings, cultural evenings, mahaprasad and the miravnuk — everything laid
+      out so you know exactly when to visit.
+    </p>
+  </div>
+</section>
+
+<!-- ===================================================== DAILY HARATHI -->
+<section class="sch-aarti akm-section akm-section--cream" aria-labelledby="sch-aarti-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-fire" aria-hidden="true"></i>
+        Every single evening
+      </span>
+      <h2 id="sch-aarti-title">{{ dailyHarathi.name }}</h2>
+      <p>Performed every evening of the festival, from the 14th through the 24th.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    <div class="sch-aarti__grid sch-aarti__grid--single">
+      <div class="sch-aarti__card" akmReveal>
+        <span class="sch-aarti__time">{{ dailyHarathi.time }}</span>
+        <h3>{{ dailyHarathi.name }}</h3>
+        <p>{{ dailyHarathi.note }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== TIMELINE -->
+<section class="sch akm-section akm-section--tint" aria-labelledby="sch-timeline-title">
+  <div class="akm-container">
+    <div class="akm-section-head" akmReveal>
+      <h2 id="sch-timeline-title">Key Days</h2>
+      <p>The confirmed dates of this year's festival, in order.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    @if (loading()) {
+      <p class="sch__loading">Loading the schedule…</p>
+    } @else if (days.length) {
+      <ol class="sch__timeline">
+        @for (day of days; track day.dayId; let i = $index) {
+          <li class="sch__day" [class.is-highlight]="day.highlight" akmReveal [revealDelay]="(i % 3) * 80">
+            <div class="sch__marker" aria-hidden="true">
+              <span></span>
+            </div>
+
+            <article class="sch__card akm-card">
+              <header class="sch__card-head">
+                <div>
+                  <span class="sch__label">{{ day.label }}</span>
+                  <h3>{{ day.title }}</h3>
+                  <p class="sch__summary">{{ day.summary }}</p>
+                </div>
+
+                <time class="sch__date" [attr.datetime]="day.date">
+                  <strong>{{ day.date | date: 'd' }}</strong>
+                  <small>{{ day.date | date: 'MMM' }}</small>
+                </time>
+              </header>
+
+              <ul class="sch__items">
+                @for (item of day.items; track item.title + item.time) {
+                  <li>
+                    <span class="sch__item-icon" aria-hidden="true">
+                      <i [class]="item.icon"></i>
+                    </span>
+                    <span class="sch__item-body">
+                      <span class="sch__item-top">
+                        <strong>{{ item.title }}</strong>
+                        @if (item.time) {
+                          <span class="sch__item-time">{{ item.time }}</span>
+                        }
+                      </span>
+                      @if (item.description) {
+                        <span class="sch__item-desc">{{ item.description }}</span>
+                      }
+                      <span class="sch__item-loc">
+                        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                        {{ item.location }}
+                      </span>
+                    </span>
+                  </li>
+                }
+              </ul>
+            </article>
+          </li>
+        }
+      </ol>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+        <h3>The schedule is being finalised</h3>
+        <p>Day-by-day timings will be published closer to the festival.</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ================================================================ CTA -->
+<section class="sch-cta akm-section akm-section--brand">
+  <div class="akm-container sch-cta__inner">
+    <div>
+      <h2>Plan your visit</h2>
+      <p>See the full event programme, or ask the committee anything you need to know.</p>
+    </div>
+    <div class="sch-cta__buttons">
+      <a class="akm-btn akm-btn--primary" routerLink="/events">
+        <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+        All Events
+      </a>
+      <a class="akm-btn akm-btn--on-dark" routerLink="/contact">
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        Contact Us
+      </a>
+    </div>
+  </div>
+</section>

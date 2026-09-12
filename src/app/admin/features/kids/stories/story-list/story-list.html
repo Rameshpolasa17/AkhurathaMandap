@@ -1,0 +1,388 @@
+<section class="story-admin-page">
+  <!-- =========================================
+                      HEADER
+  ========================================== -->
+
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <strong>Stories</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+
+        <div>
+          <h1>Stories</h1>
+
+          <p>Manage Ganesh stories, moral stories and interactive story pages for children.</p>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="add-button" (click)="addStory()">
+      <i class="fa-solid fa-plus"></i>
+
+      <span>Add Story</span>
+    </button>
+  </div>
+
+  <!-- =========================================
+                    STAT CARDS
+  ========================================== -->
+
+  <div class="stats-grid">
+    <!-- TOTAL -->
+
+    <div class="stat-card">
+      <div class="stat-icon total">
+        <i class="fa-solid fa-book-open"></i>
+      </div>
+
+      <div>
+        <span>Total Stories</span>
+
+        <strong>
+          {{ stories.length }}
+        </strong>
+      </div>
+    </div>
+
+    <!-- ACTIVE -->
+
+    <div class="stat-card">
+      <div class="stat-icon active">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <span>Active</span>
+
+        <strong>
+          {{ activeCount }}
+        </strong>
+      </div>
+    </div>
+
+    <!-- FEATURED -->
+
+    <div class="stat-card">
+      <div class="stat-icon featured">
+        <i class="fa-solid fa-star"></i>
+      </div>
+
+      <div>
+        <span>Featured</span>
+
+        <strong>
+          {{ featuredCount }}
+        </strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+                      FILTERS
+  ========================================== -->
+
+  <div class="filters-card">
+    <!-- SEARCH -->
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        placeholder="Search stories..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <!-- STATUS -->
+
+    <div class="status-filter">
+      <i class="fa-solid fa-filter"></i>
+
+      <select [value]="statusFilter" (change)="onStatusChange($event)">
+        <option value="all">All Stories</option>
+
+        <option value="active">Active</option>
+
+        <option value="inactive">Inactive</option>
+
+        <option value="featured">Featured</option>
+      </select>
+    </div>
+
+    <!-- REFRESH -->
+
+    <button type="button" class="refresh-button" (click)="loadStories()" title="Refresh">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  <!-- =========================================
+                      LOADING
+  ========================================== -->
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+
+      <h3>Loading Stories</h3>
+
+      <p>Please wait while we load story content.</p>
+    </div>
+  }
+
+  <!-- =========================================
+                       EMPTY
+  ========================================== -->
+
+  @if (!loading && filteredStories.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-book-open"></i>
+      </div>
+
+      <h2>No Stories Found</h2>
+
+      <p>
+        @if (searchText || statusFilter !== 'all') {
+          Try changing your search or filter.
+        } @else {
+          Add your first story to the Kids Zone.
+        }
+      </p>
+
+      @if (!searchText && statusFilter === 'all') {
+        <button type="button" (click)="addStory()">
+          <i class="fa-solid fa-plus"></i>
+
+          Add First Story
+        </button>
+      }
+    </div>
+  }
+
+  <!-- =========================================
+                   STORIES
+  ========================================== -->
+
+  @if (!loading && filteredStories.length > 0) {
+    <!-- RESULT COUNT -->
+
+    <div class="result-header">
+      <p>
+        Showing
+
+        <strong>
+          {{ filteredStories.length }}
+        </strong>
+
+        story(s)
+      </p>
+    </div>
+
+    <!-- =========================================
+                     STORY GRID
+    ========================================== -->
+
+    <div class="story-grid">
+      @for (item of filteredStories; track item.id) {
+        <article class="story-card">
+          <!-- =====================================
+                         IMAGE
+          ====================================== -->
+
+          <div class="image-area">
+            <img
+              [src]="item.thumbnailPath || 'images/defaults/no-image.png'"
+              [alt]="item.title"
+              (error)="imageError($event)"
+            />
+
+            <div class="image-overlay"></div>
+
+            <!-- FEATURED -->
+
+            @if (item.isFeatured) {
+              <span class="featured-badge">
+                <i class="fa-solid fa-star"></i>
+
+                Featured
+              </span>
+            }
+
+            <!-- STATUS -->
+
+            <span
+              class="status-badge"
+              [class.active]="item.isActive"
+              [class.inactive]="!item.isActive"
+            >
+              <span class="status-dot"></span>
+
+              {{ item.isActive ? 'Active' : 'Inactive' }}
+            </span>
+
+            <!-- BOOK ICON -->
+
+            <div class="story-indicator">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+          </div>
+
+          <!-- =====================================
+                       CARD BODY
+          ====================================== -->
+
+          <div class="card-body">
+            <!-- TOP -->
+
+            <div class="card-top">
+              <span class="display-order"> #{{ item.displayOrder }} </span>
+
+              <span class="content-type"> Story </span>
+            </div>
+
+            <!-- TITLE -->
+
+            <h2>
+              {{ item.title }}
+            </h2>
+
+            <!-- DESCRIPTION -->
+
+            @if (item.shortDescription) {
+              <p class="description">
+                {{ item.shortDescription }}
+              </p>
+            }
+
+            <!-- =====================================
+                           META
+            ====================================== -->
+
+            <div class="meta-list">
+              <!-- AGE GROUP -->
+
+              @if (item.ageGroup) {
+                <div class="meta-item">
+                  <i class="fa-solid fa-child-reaching"></i>
+
+                  <span>
+                    {{ item.ageGroup }}
+                  </span>
+                </div>
+              }
+
+              <!-- DURATION -->
+
+              @if (item.duration) {
+                <div class="meta-item">
+                  <i class="fa-regular fa-clock"></i>
+
+                  <span>
+                    {{ item.duration }}
+                  </span>
+                </div>
+              }
+            </div>
+
+            <!-- =====================================
+                      CONTENT FEATURES
+            ====================================== -->
+
+            <div class="content-features">
+              <!-- STORY CONTENT -->
+
+              @if (item.description) {
+                <span>
+                  <i class="fa-solid fa-align-left"></i>
+
+                  Story
+                </span>
+              }
+
+              <!-- IMAGE -->
+
+              @if (item.thumbnailPath) {
+                <span>
+                  <i class="fa-regular fa-image"></i>
+
+                  Image
+                </span>
+              }
+
+              <!-- MEDIA -->
+
+              @if (item.mediaPath) {
+                <span>
+                  <i class="fa-solid fa-headphones"></i>
+
+                  Audio
+                </span>
+              }
+
+              <!-- VIDEO -->
+
+              @if (item.videoUrl) {
+                <span>
+                  <i class="fa-solid fa-video"></i>
+
+                  Video
+                </span>
+              }
+            </div>
+
+            <!-- =====================================
+                         ACTIONS
+            ====================================== -->
+
+            <div class="card-actions">
+              <!-- EDIT -->
+
+              <button type="button" class="edit-button" (click)="editStory(item)">
+                <i class="fa-solid fa-pen"></i>
+
+                Edit
+              </button>
+
+              <!-- MANAGE PAGES -->
+
+              <button
+                type="button"
+                class="pages-button"
+                (click)="managePages(item)"
+                title="Manage Story Pages"
+              >
+                <i class="fa-solid fa-layer-group"></i>
+
+                Pages
+              </button>
+
+              <!-- DELETE -->
+
+              <button
+                type="button"
+                class="delete-button"
+                (click)="deleteStory(item)"
+                title="Delete Story"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

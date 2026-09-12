@@ -1,0 +1,214 @@
+<!-- ============================================================== HERO -->
+<section class="cp-hero" aria-labelledby="cp-title">
+  <div class="cp-hero__veil" aria-hidden="true"></div>
+  <div class="akm-orb cp-hero__orb" aria-hidden="true"></div>
+
+  <div class="akm-container cp-hero__inner">
+    <span class="akm-eyebrow">
+      <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+      Open to everyone
+    </span>
+    <h1 id="cp-title">Festival Competitions</h1>
+    <p>
+      Art, rangoli, dance, devotional singing and eco-friendly idol making — the part
+      of the festival the whole neighbourhood takes part in. Entry is free.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================== HOW -->
+<section class="cp-how akm-section akm-section--cream" aria-labelledby="cp-how-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <h2 id="cp-how-title">How registration works</h2>
+      <p>Four steps, no forms to post and no fees to pay.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    <ol class="cp-how__steps">
+      @for (step of steps; track step.title; let i = $index) {
+        <li class="cp-how__step" akmReveal [revealDelay]="i * 90">
+          <span class="cp-how__num" aria-hidden="true">{{ i + 1 }}</span>
+          <i [class]="step.icon" aria-hidden="true"></i>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<!-- ====================================================== COMPETITIONS -->
+<section class="cp akm-section akm-section--tint" aria-labelledby="cp-list-title">
+  <div class="akm-container">
+    <div class="akm-section-head" akmReveal>
+      <h2 id="cp-list-title">This Year's Competitions</h2>
+      <p>Every competition below is open for registration unless marked otherwise.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    <!-- The filter bar only earns its space once there is more than one category. -->
+    @if (categories.length > 2) {
+      <div class="akm-filters" role="group" aria-label="Filter competitions by category">
+        @for (category of categories; track category) {
+          <button
+            type="button"
+            class="akm-filter"
+            [attr.aria-pressed]="activeCategory() === category"
+            (click)="selectCategory(category)"
+          >
+            {{ category }}
+          </button>
+        }
+      </div>
+    }
+
+    @if (loading()) {
+      <p class="cp__loading">Loading competitions…</p>
+    } @else if (filtered.length) {
+      <div class="cp__grid">
+        @for (item of filtered; track item.competitionId; let i = $index) {
+          <article class="cp__card akm-card akm-card--lift" akmReveal [revealDelay]="(i % 3) * 90">
+            <div class="cp__media">
+              <app-safe-image
+                [src]="item.imageUrl"
+                [alt]="item.name"
+                icon="fa-solid fa-trophy"
+              />
+              <span class="cp__scrim" aria-hidden="true"></span>
+              <span class="cp__cat akm-chip akm-chip--on-dark">{{ item.category }}</span>
+              <h3 class="cp__name">{{ item.name }}</h3>
+            </div>
+
+            <div class="cp__body">
+              <ul class="cp__facts">
+                @if (item.date) {
+                  <li>
+                    <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                    <span>{{ item.date | date: 'EEEE, d MMMM' }}</span>
+                  </li>
+                }
+                @if (item.time) {
+                  <li>
+                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                    <span>{{ item.time }}</span>
+                  </li>
+                }
+                @if (item.location) {
+                  <li>
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                    <span>{{ item.location }}</span>
+                  </li>
+                }
+                @if (item.eligibility) {
+                  <li>
+                    <i class="fa-solid fa-users" aria-hidden="true"></i>
+                    <span>{{ item.eligibility }}</span>
+                  </li>
+                }
+              </ul>
+
+              <p class="cp__desc">{{ item.description }}</p>
+
+              @if (item.prizes?.length) {
+                <div class="cp__prizes">
+                  <h4>
+                    <i class="fa-solid fa-award" aria-hidden="true"></i>
+                    Prizes
+                  </h4>
+                  <ul>
+                    @for (prize of item.prizes; track prize) {
+                      <li>{{ prize }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+
+              <div class="cp__actions">
+                @if (item.registrationEnabled) {
+                  <button
+                    type="button"
+                    class="akm-btn akm-btn--brand akm-btn--block"
+                    (click)="openRegistration(item)"
+                  >
+                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                    Register for {{ item.name }}
+                  </button>
+                } @else {
+                  <p class="cp__closed">
+                    <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                    Registration is closed for this competition.
+                  </p>
+                }
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+        <h3>No competitions in this category</h3>
+        <p>Try another category to see what else is running this year.</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ============================================================== RULES -->
+<section class="cp-rules akm-section akm-section--brand" aria-labelledby="cp-rules-title">
+  <div class="akm-container cp-rules__inner">
+    <div>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+        Good to know
+      </span>
+      <h2 id="cp-rules-title">Before you take part</h2>
+      <p>
+        A few things that apply to every competition at the mandap. If anything is
+        unclear, send us a message and the committee will help.
+      </p>
+      <a class="akm-btn akm-btn--primary" routerLink="/contact">
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        Ask the committee
+      </a>
+    </div>
+
+    <ul class="cp-rules__list">
+      <li>
+        <i class="fa-solid fa-indian-rupee-sign" aria-hidden="true"></i>
+        <span>Entry is free for every competition — there is no participation fee.</span>
+      </li>
+      <li>
+        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+        <span>Please arrive fifteen minutes before the listed start time.</span>
+      </li>
+      <li>
+        <i class="fa-solid fa-child-reaching" aria-hidden="true"></i>
+        <span>Participants under twelve should be accompanied by a parent or guardian.</span>
+      </li>
+      <li>
+        <i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i>
+        <span>Content and costumes must be suitable for a family festival.</span>
+      </li>
+      <li>
+        <i class="fa-solid fa-gavel" aria-hidden="true"></i>
+        <span>The judges' decision is final for every category.</span>
+      </li>
+      <li>
+        <i class="fa-solid fa-camera" aria-hidden="true"></i>
+        <span>Photographs taken during the competitions may appear in the mandap gallery.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ====================================================== REGISTRATION -->
+@if (registering(); as competition) {
+  <app-registration-dialog
+    kind="competition"
+    [subject]="competition.name"
+    [subtitle]="subtitleFor(competition)"
+    (closed)="closeRegistration()"
+  />
+}

@@ -1,0 +1,78 @@
+<section class="support akm-section" aria-labelledby="support-title">
+  <div class="support__orb akm-orb" aria-hidden="true"></div>
+
+  <div class="akm-container support__inner">
+    <!-- Copy -->
+    <div class="support__copy" akmReveal="left">
+      @if (showHeading) {
+        <span class="akm-eyebrow">
+          <i class="fa-solid fa-hands-holding-circle" aria-hidden="true"></i>
+          Seva &amp; Support
+        </span>
+        <h2 id="support-title">Support {{ mandapName }}</h2>
+      } @else {
+        <h2 id="support-title" class="akm-visually-hidden">Support {{ mandapName }}</h2>
+      }
+
+      <p class="support__lede">
+        Your support helps us celebrate Ganesh Festival with devotion and community spirit. Every
+        contribution goes directly into the seva that keeps the mandap running through the eleven
+        days.
+      </p>
+
+      <ul class="support__uses">
+        @for (item of usedFor; track item.label) {
+          <li>
+            <i [class]="item.icon" aria-hidden="true"></i>
+            <span>{{ item.label }}</span>
+          </li>
+        }
+      </ul>
+
+      <p class="support__note">
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        Contributions are made directly through your own UPI app. This website does not process or
+        store any payment.
+      </p>
+    </div>
+
+    <!-- QR card -->
+    <!-- <div class="support__card" akmReveal="right" [revealDelay]="120">
+      <span class="support__ribbon">Scan &amp; Support</span>
+
+      <div class="support__qr">
+        @if (!qrMissing) {
+          <img
+            [src]="qrImage"
+            alt="UPI QR code for {{ mandapName }}"
+            (error)="qrMissing = true"
+          />
+        } @else {
+          <div class="support__qr-missing">
+            <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+            <p>QR code coming soon</p>
+          </div>
+        }
+      </div>
+
+      <h3>Scan this QR code using any UPI app</h3>
+
+      <ul class="support__apps">
+        @for (app of upiApps; track app) {
+          <li>{{ app }}</li>
+        }
+      </ul>
+
+      @if (!qrMissing) {
+        <a
+          class="akm-btn akm-btn--primary akm-btn--block"
+          [href]="qrImage"
+          [attr.download]="downloadName"
+        >
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
+          Download QR
+        </a>
+      }
+    </div> -->
+  </div>
+</section>

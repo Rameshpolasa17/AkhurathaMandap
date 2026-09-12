@@ -1,0 +1,343 @@
+<section class="competition-admin-page">
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>Competitions</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-trophy"></i>
+        </div>
+
+        <div>
+          <h1>Competitions</h1>
+          <p>Manage kids competitions and registrations.</p>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="add-button" (click)="addCompetition()">
+      <i class="fa-solid fa-plus"></i>
+      <span>Add Competition</span>
+    </button>
+  </div>
+
+  <!-- =======================================================
+       STATISTICS
+  ======================================================== -->
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+
+      <div>
+        <span>Total Competitions</span>
+        <strong>{{ competitions.length }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <span>Active</span>
+        <strong>{{ activeCount }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-door-open"></i>
+      </div>
+
+      <div>
+        <span>Registration Open</span>
+        <strong>{{ registrationOpenCount }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================
+       FILTERS
+  ======================================================== -->
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        placeholder="Search competitions..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-calendar"></i>
+
+      <select [value]="yearFilter" (change)="onYearChange($event)">
+        <option value="all">All Years</option>
+
+        @for (year of years; track year) {
+          <option [value]="year">
+            {{ year }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-filter"></i>
+
+      <select [value]="statusFilter" (change)="onStatusChange($event)">
+        <option value="all">All Status</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-door-open"></i>
+
+      <select [value]="registrationFilter" (change)="onRegistrationChange($event)">
+        <option value="all">All Registration</option>
+        <option value="open">Registration Open</option>
+        <option value="closed">Registration Closed</option>
+      </select>
+    </div>
+
+    <button type="button" class="refresh-button" (click)="loadCompetitions()" title="Refresh">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  <!-- =======================================================
+       LOADING
+  ======================================================== -->
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+
+      <h3>Loading Competitions...</h3>
+    </div>
+  }
+
+  <!-- =======================================================
+       EMPTY STATE
+  ======================================================== -->
+
+  @if (!loading && filteredCompetitions.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+
+      <h2>No Competitions Found</h2>
+
+      <p>
+        @if (
+          searchText ||
+          yearFilter !== 'all' ||
+          statusFilter !== 'all' ||
+          registrationFilter !== 'all'
+        ) {
+          Try changing your search or filters.
+        } @else {
+          Add your first Competition.
+        }
+      </p>
+
+      @if (
+        !searchText &&
+        yearFilter === 'all' &&
+        statusFilter === 'all' &&
+        registrationFilter === 'all'
+      ) {
+        <button type="button" (click)="addCompetition()">
+          <i class="fa-solid fa-plus"></i>
+          Add Competition
+        </button>
+      }
+    </div>
+  }
+
+  <!-- =======================================================
+       RESULTS
+  ======================================================== -->
+
+  @if (!loading && filteredCompetitions.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing
+        <strong>{{ filteredCompetitions.length }}</strong>
+        competition(s)
+      </p>
+    </div>
+
+    <div class="competition-grid">
+      @for (competition of filteredCompetitions; track competition.id) {
+        <article class="competition-card">
+          <!-- =================================================
+               IMAGE
+          ================================================== -->
+
+          <div class="image-area">
+            @if (competition.thumbnailPath) {
+              <img
+                [src]="competition.thumbnailPath"
+                [alt]="competition.title"
+                (error)="imageError($event)"
+              />
+            } @else {
+              <img src="images/defaults/no-image.png" [alt]="competition.title" />
+            }
+
+            <span
+              class="status-badge"
+              [class.active]="competition.isActive"
+              [class.inactive]="!competition.isActive"
+            >
+              {{ competition.isActive ? 'Active' : 'Inactive' }}
+            </span>
+
+            @if (competition.isRegistrationOpen) {
+              <span class="registration-badge">
+                <i class="fa-solid fa-door-open"></i>
+                Registration Open
+              </span>
+            }
+          </div>
+
+          <!-- =================================================
+               BODY
+          ================================================== -->
+
+          <div class="card-body">
+            <div class="card-top">
+              <span> #{{ competition.displayOrder }} </span>
+
+              <span>
+                {{ competition.year }}
+              </span>
+            </div>
+
+            <h2>
+              {{ competition.title }}
+            </h2>
+
+            @if (competition.description) {
+              <p class="description">
+                {{ competition.description }}
+              </p>
+            }
+
+            <!-- =================================================
+                 META
+            ================================================== -->
+
+            <div class="meta-list">
+              <div class="meta-item">
+                <i class="fa-solid fa-calendar"></i>
+
+                <span>
+                  {{ competition.year }}
+                </span>
+              </div>
+
+              @if (competition.registrationStartDate) {
+                <div class="meta-item">
+                  <i class="fa-regular fa-calendar-check"></i>
+
+                  <span>
+                    {{ competition.registrationStartDate | date: 'dd MMM yyyy' }}
+                  </span>
+                </div>
+              }
+            </div>
+
+            <!-- =================================================
+                 FEATURES
+            ================================================== -->
+
+            <div class="content-features">
+              @if (competition.isRegistrationOpen) {
+                <span>
+                  <i class="fa-solid fa-user-plus"></i>
+                  Open
+                </span>
+              } @else {
+                <span>
+                  <i class="fa-solid fa-lock"></i>
+                  Closed
+                </span>
+              }
+
+              @if (competition.maxParticipants) {
+                <span>
+                  <i class="fa-solid fa-users"></i>
+                  {{ competition.maxParticipants }} Participants
+                </span>
+              }
+            </div>
+
+            <!-- =================================================
+                 ACTIONS
+            ================================================== -->
+
+            <div class="card-actions">
+              <button
+                type="button"
+                class="categories-button"
+                (click)="manageCategories(competition.id)"
+              >
+                <i class="fa-solid fa-layer-group"></i>
+                Categories
+              </button>
+
+              <button
+                type="button"
+                class="registrations-button"
+                (click)="manageRegistrations(competition.id)"
+              >
+                <i class="fa-solid fa-users"></i>
+                Registrations
+              </button>
+
+              <button type="button" class="results-button" (click)="viewResults(competition.id)">
+                <i class="fa-solid fa-ranking-star"></i>
+                Results
+              </button>
+
+              <button type="button" class="edit-button" (click)="editCompetition(competition.id)">
+                <i class="fa-solid fa-pen"></i>
+                Edit
+              </button>
+
+              <button
+                type="button"
+                class="delete-button"
+                (click)="deleteCompetition(competition)"
+                title="Delete Competition"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

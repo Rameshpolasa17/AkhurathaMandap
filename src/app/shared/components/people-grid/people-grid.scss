@@ -1,0 +1,115 @@
+.pg {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--akm-gap);
+}
+
+.pg__card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--akm-r-lg);
+  border: 1px solid var(--akm-border);
+  background: var(--akm-white);
+  box-shadow: var(--akm-shadow-sm);
+  overflow: hidden;
+  transition:
+    transform var(--akm-t),
+    box-shadow var(--akm-t),
+    border-color var(--akm-t);
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--akm-shadow-lg);
+    border-color: rgba(255, 152, 0, 0.32);
+  }
+}
+
+/* --------------------------------------------------------------- photo */
+
+.pg__photo {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--akm-grad-brand);
+  overflow: hidden;
+
+  app-safe-image {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    transition: transform 0.85s var(--akm-ease);
+  }
+}
+
+.pg__card:hover .pg__photo app-safe-image {
+  transform: scale(1.07);
+}
+
+/*
+ * Sits behind the photo. When the file is missing, SafeImage draws its own
+ * translucent fallback tile and these initials read through it.
+ */
+.pg__initials {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.32);
+  letter-spacing: 0.06em;
+}
+
+/* ---------------------------------------------------------------- body */
+
+.pg__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+
+  h3 {
+    margin: 5px 0 9px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.08rem;
+    line-height: 1.3;
+    color: var(--akm-maroon-800);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.87rem;
+    line-height: 1.72;
+    color: var(--akm-ink-muted);
+  }
+}
+
+.pg__role {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--akm-accent-600);
+}
+
+/* ----------------------------------------------------------- responsive */
+
+@media (max-width: 520px) {
+  .pg {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .pg__body {
+    padding: 14px;
+
+    h3 {
+      font-size: 0.95rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
+  }
+}

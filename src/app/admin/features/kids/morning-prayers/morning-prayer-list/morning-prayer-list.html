@@ -1,0 +1,221 @@
+<section class="bhajan-admin-page">
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>Morning Prayers</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-sun"></i>
+        </div>
+
+        <div>
+          <h1>Morning Prayers</h1>
+          <p>Manage daily Ganesh morning prayers.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="add-button" (click)="addPrayer()">
+      <i class="fa-solid fa-plus"></i>
+      <span>Add Prayer</span>
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-sun"></i>
+      </div>
+      <div>
+        <span>Total Prayers</span>
+        <strong>{{ prayers.length }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div>
+        <span>Active</span>
+        <strong>{{ activeCount }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-star"></i>
+      </div>
+      <div>
+        <span>Featured</span>
+        <strong>{{ featuredCount }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        type="text"
+        placeholder="Search morning prayers..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-filter"></i>
+      <select [value]="statusFilter" (change)="onStatusChange($event)">
+        <option value="all">All</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+        <option value="featured">Featured</option>
+      </select>
+    </div>
+
+    <button class="refresh-button" (click)="loadPrayers()">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+      <h3>Loading Morning Prayers...</h3>
+    </div>
+  }
+
+  @if (!loading && filteredPrayers.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-sun"></i>
+      </div>
+
+      <h2>No Morning Prayers Found</h2>
+
+      <p>
+        @if (searchText || statusFilter != 'all') {
+          Try changing your search or filter.
+        } @else {
+          Add your first Morning Prayer.
+        }
+      </p>
+
+      @if (!searchText && statusFilter == 'all') {
+        <button (click)="addPrayer()">
+          <i class="fa-solid fa-plus"></i>
+          Add Prayer
+        </button>
+      }
+    </div>
+  }
+
+  @if (!loading && filteredPrayers.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing
+        <strong>{{ filteredPrayers.length }}</strong>
+        prayer(s)
+      </p>
+    </div>
+
+    <div class="bhajan-grid">
+      @for (item of filteredPrayers; track item.id) {
+        <article class="bhajan-card">
+          <div class="image-area">
+            <img
+              [src]="item.thumbnailPath || 'images/defaults/no-image.png'"
+              [alt]="item.title"
+              (error)="imageError($event)"
+            />
+
+            @if (item.isFeatured) {
+              <span class="featured-badge">
+                <i class="fa-solid fa-star"></i>
+                Featured
+              </span>
+            }
+
+            <span
+              class="status-badge"
+              [class.active]="item.isActive"
+              [class.inactive]="!item.isActive"
+            >
+              {{ item.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div class="card-body">
+            <div class="card-top">
+              <span>#{{ item.displayOrder }}</span>
+              <span>Prayer</span>
+            </div>
+
+            <h2>{{ item.title }}</h2>
+
+            @if (item.shortDescription) {
+              <p class="english-title">
+                {{ item.shortDescription }}
+              </p>
+            }
+
+            <div class="meta-list">
+              @if (item.ageGroup) {
+                <div class="meta-item">
+                  <i class="fa-solid fa-child-reaching"></i>
+                  <span>{{ item.ageGroup }}</span>
+                </div>
+              }
+
+              @if (item.duration) {
+                <div class="meta-item">
+                  <i class="fa-regular fa-clock"></i>
+                  <span>{{ item.duration }}</span>
+                </div>
+              }
+            </div>
+
+            <div class="content-features">
+              @if (item.description) {
+                <span>
+                  <i class="fa-solid fa-book-open"></i>
+                  Prayer
+                </span>
+              }
+
+              @if (item.videoUrl) {
+                <span>
+                  <i class="fa-solid fa-video"></i>
+                  Video
+                </span>
+              }
+
+              @if (item.mediaPath) {
+                <span>
+                  <i class="fa-solid fa-volume-high"></i>
+                  Audio
+                </span>
+              }
+            </div>
+
+            <div class="card-actions">
+              <button class="edit-button" (click)="editPrayer(item)">
+                <i class="fa-solid fa-pen"></i>
+                Edit
+              </button>
+
+              <button class="delete-button" (click)="deletePrayer(item)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

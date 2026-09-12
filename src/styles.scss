@@ -1,0 +1,980 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* ==========================================================================
+   AKHURATHA MANDAP — DESIGN SYSTEM
+   One source of truth for colour, type, spacing, elevation and motion.
+   Every feature page composes the primitives defined here.
+   ========================================================================== */
+
+:root {
+  /* --- Brand: deep maroon → temple red --- */
+  --akm-maroon-900: #5c0000;
+  --akm-maroon-800: #7a0000;
+  --akm-maroon-700: #8b1e24;
+  --akm-maroon-600: #a51e27;
+
+  /* --- Accent: gold / marigold --- */
+  --akm-accent-600: #e8890c;
+  --akm-accent-500: #ff9800;
+  --akm-accent-400: #ffc107;
+  --akm-gold: #c99a2e;
+  --akm-gold-soft: #f3dcae;
+
+  /* --- Surfaces --- */
+  --akm-cream: #fff8ef;
+  --akm-cream-soft: #fffdf9;
+  --akm-white: #ffffff;
+  --akm-surface-tint: #fdf1e2;
+
+  /* --- Ink --- */
+  --akm-ink: #2d241b;
+  --akm-ink-muted: #555555;
+  --akm-ink-soft: #777777;
+  --akm-on-dark: #fdf6ec;
+  --akm-on-dark-muted: rgba(253, 246, 236, 0.74);
+
+  /* --- Lines --- */
+  --akm-border: rgba(122, 0, 0, 0.1);
+  --akm-border-strong: rgba(122, 0, 0, 0.18);
+  --akm-border-on-dark: rgba(255, 255, 255, 0.16);
+
+  /* --- Gradients --- */
+  --akm-grad-brand: linear-gradient(135deg, #5c0000 0%, #8b1e24 55%, #a51e27 100%);
+  --akm-grad-accent: linear-gradient(135deg, #ff9800 0%, #ffc107 100%);
+  --akm-grad-cream: linear-gradient(180deg, #fffdf9 0%, #fff8ef 100%);
+
+  /* --- Elevation --- */
+  --akm-shadow-sm: 0 2px 8px rgba(45, 36, 27, 0.06);
+  --akm-shadow-md: 0 10px 28px rgba(45, 36, 27, 0.09);
+  --akm-shadow-lg: 0 22px 60px rgba(45, 36, 27, 0.14);
+  --akm-shadow-brand: 0 18px 40px rgba(139, 30, 36, 0.26);
+  --akm-shadow-accent: 0 14px 32px rgba(255, 152, 0, 0.3);
+
+  /* --- Radii --- */
+  --akm-r-sm: 10px;
+  --akm-r-md: 16px;
+  --akm-r-lg: 22px;
+  --akm-r-xl: 30px;
+  --akm-r-pill: 999px;
+
+  /* --- Rhythm --- */
+  --akm-section-y: 96px;
+  --akm-gap: 26px;
+  --akm-container: 1240px;
+
+  /* --- Motion --- */
+  --akm-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --akm-t-fast: 0.18s var(--akm-ease);
+  --akm-t: 0.32s var(--akm-ease);
+  --akm-t-slow: 0.6s var(--akm-ease);
+
+  /* Legacy aliases kept so older component styles keep resolving. */
+  --primary: var(--akm-maroon-800);
+  --secondary: var(--akm-accent-500);
+  --gold: var(--akm-accent-400);
+  --bg: var(--akm-cream);
+  --dark: var(--akm-ink);
+  --white: var(--akm-white);
+  --radius: var(--akm-r-lg);
+}
+
+/* ==========================================================================
+   RESET
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--akm-cream);
+  color: var(--akm-ink);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+
+:focus-visible {
+  outline: 3px solid var(--akm-accent-500);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.akm-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.akm-skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 2000;
+  padding: 12px 22px;
+  border-radius: var(--akm-r-pill);
+  background: var(--akm-maroon-800);
+  color: #fff;
+  font-weight: 600;
+  transition: top var(--akm-t-fast);
+
+  &:focus {
+    top: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   SCROLLBAR
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--akm-surface-tint);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--akm-maroon-700), var(--akm-accent-600));
+  border-radius: var(--akm-r-pill);
+}
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+
+.akm-container,
+.container {
+  width: 100%;
+  max-width: var(--akm-container);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.akm-section {
+  position: relative;
+  padding-block: var(--akm-section-y);
+  overflow: hidden;
+}
+
+/* Alternating section grounds keep the page from reading as one flat sheet. */
+.akm-section--cream {
+  background: var(--akm-grad-cream);
+}
+
+.akm-section--tint {
+  background:
+    radial-gradient(1100px 460px at 12% -10%, rgba(255, 152, 0, 0.11), transparent 62%),
+    radial-gradient(900px 420px at 92% 8%, rgba(139, 30, 36, 0.09), transparent 60%),
+    var(--akm-cream);
+}
+
+.akm-section--brand {
+  background: var(--akm-grad-brand);
+  color: var(--akm-on-dark);
+}
+
+.akm-section--brand .akm-section-head h2 {
+  color: var(--akm-white);
+}
+
+.akm-section--brand .akm-section-head p {
+  color: var(--akm-on-dark-muted);
+}
+
+.akm-section--brand .akm-eyebrow {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--akm-accent-400);
+  border-color: var(--akm-border-on-dark);
+}
+
+/* ==========================================================================
+   SECTION HEADINGS
+   ========================================================================== */
+
+.akm-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 18px;
+  border-radius: var(--akm-r-pill);
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  background: rgba(255, 152, 0, 0.12);
+  color: var(--akm-accent-600);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.akm-section-head {
+  max-width: 720px;
+  margin-bottom: 56px;
+
+  h2 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+    line-height: 1.18;
+    font-weight: 700;
+    color: var(--akm-maroon-800);
+    margin: 18px 0 14px;
+  }
+
+  p {
+    font-size: 1.02rem;
+    color: var(--akm-ink-muted);
+    margin: 0;
+  }
+}
+
+.akm-section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/*
+ * A thin gold rule under headings. It draws itself out from nothing once the
+ * heading reveals, which gives each section a quiet "arrival" beat.
+ */
+/*
+ * Drawn state is the default: the rule can only ever be collapsed while a
+ * reveal ancestor is still pending, so no markup arrangement can leave it
+ * permanently invisible.
+ */
+.akm-rule {
+  width: 84px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--akm-grad-accent);
+  margin-top: 18px;
+  transform: scaleX(1);
+  transform-origin: left center;
+  transition: transform 0.7s var(--akm-ease) 0.18s;
+}
+
+.akm-reveal:not(.is-visible) .akm-rule {
+  transform: scaleX(0);
+}
+
+.akm-section-head--center .akm-rule {
+  margin-inline: auto;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .akm-rule {
+    transform: scaleX(1);
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+.akm-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 28px;
+  border: 1px solid transparent;
+  border-radius: var(--akm-r-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--akm-t-fast),
+    box-shadow var(--akm-t),
+    background var(--akm-t),
+    color var(--akm-t),
+    border-color var(--akm-t);
+
+  /* A light sweeps across the button once on hover. */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 -60%;
+    z-index: -1;
+    width: 45%;
+    transform: skewX(-22deg);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.32),
+      transparent
+    );
+    transition: left 0.55s var(--akm-ease);
+  }
+
+  &:hover::after {
+    left: 115%;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  /* A real press, not just a hover reset. */
+  &:active {
+    transform: translateY(0) scale(0.975);
+    transition-duration: 0.06s;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &:disabled::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .akm-btn::after {
+    display: none;
+  }
+}
+
+.akm-btn--primary {
+  background: var(--akm-grad-accent);
+  color: #442200;
+  box-shadow: var(--akm-shadow-accent);
+
+  &:hover {
+    box-shadow: 0 18px 40px rgba(255, 152, 0, 0.42);
+  }
+}
+
+.akm-btn--brand {
+  background: var(--akm-maroon-800);
+  color: #fff;
+  box-shadow: var(--akm-shadow-brand);
+
+  &:hover {
+    background: var(--akm-maroon-700);
+  }
+}
+
+.akm-btn--ghost {
+  background: transparent;
+  border-color: var(--akm-border-strong);
+  color: var(--akm-maroon-800);
+
+  &:hover {
+    background: rgba(139, 30, 36, 0.07);
+    border-color: var(--akm-maroon-700);
+  }
+}
+
+.akm-btn--on-dark {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--akm-border-on-dark);
+  color: #fff;
+  backdrop-filter: blur(8px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.19);
+  }
+}
+
+.akm-btn--sm {
+  padding: 9px 18px;
+  font-size: 0.86rem;
+}
+
+.akm-btn--block {
+  width: 100%;
+}
+
+/* A quiet text link with a moving underline. */
+.akm-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--akm-maroon-700);
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+
+  i {
+    transition: transform var(--akm-t-fast);
+  }
+
+  &:hover {
+    color: var(--akm-accent-600);
+  }
+
+  &:hover i {
+    transform: translateX(4px);
+  }
+}
+
+/* ==========================================================================
+   CARDS
+   ========================================================================== */
+
+.akm-card {
+  position: relative;
+  background: var(--akm-white);
+  border: 1px solid var(--akm-border);
+  border-radius: var(--akm-r-lg);
+  box-shadow: var(--akm-shadow-sm);
+  overflow: hidden;
+  transition:
+    transform var(--akm-t),
+    box-shadow var(--akm-t),
+    border-color var(--akm-t);
+}
+
+.akm-card--lift {
+  /* A gold hairline that wipes across the top edge on hover. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 100% auto 0;
+    height: 3px;
+    z-index: 2;
+    background: var(--akm-grad-accent);
+    transition: inset-inline-end 0.45s var(--akm-ease);
+    pointer-events: none;
+  }
+
+  &:hover::before,
+  &:focus-within::before {
+    inset-inline-end: 0;
+  }
+}
+
+.akm-card--lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--akm-shadow-lg);
+  border-color: rgba(255, 152, 0, 0.35);
+}
+
+/* Media block with a zoom-on-hover image and a readable gradient scrim. */
+.akm-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--akm-surface-tint);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--akm-t-slow);
+  }
+}
+
+.akm-card--lift:hover .akm-media img {
+  transform: scale(1.07);
+}
+
+.akm-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(38, 12, 12, 0.88) 0%,
+    rgba(38, 12, 12, 0.35) 42%,
+    rgba(38, 12, 12, 0) 72%
+  );
+}
+
+.akm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 14px;
+  border-radius: var(--akm-r-pill);
+  background: rgba(255, 152, 0, 0.14);
+  border: 1px solid rgba(255, 152, 0, 0.28);
+  color: var(--akm-accent-600);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.akm-chip--solid {
+  background: var(--akm-grad-accent);
+  border-color: transparent;
+  color: #442200;
+}
+
+.akm-chip--on-dark {
+  background: rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+
+/* ==========================================================================
+   FILTER PILLS (gallery, events, competitions, FAQ)
+   ========================================================================== */
+
+.akm-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.akm-filter {
+  padding: 9px 20px;
+  border-radius: var(--akm-r-pill);
+  border: 1px solid var(--akm-border-strong);
+  background: var(--akm-white);
+  color: var(--akm-maroon-800);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--akm-t-fast),
+    color var(--akm-t-fast),
+    border-color var(--akm-t-fast),
+    box-shadow var(--akm-t-fast),
+    transform var(--akm-t-fast);
+
+  &:hover {
+    border-color: var(--akm-accent-500);
+    color: var(--akm-accent-600);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.96);
+    transition-duration: 0.06s;
+  }
+
+  &[aria-pressed='true'] {
+    background: var(--akm-grad-brand);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: var(--akm-shadow-brand);
+  }
+}
+
+/* ==========================================================================
+   FORMS
+   ========================================================================== */
+
+.akm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--akm-ink);
+  }
+
+  .akm-req {
+    color: var(--akm-maroon-600);
+  }
+}
+
+.akm-input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--akm-border-strong);
+  border-radius: var(--akm-r-md);
+  background: var(--akm-white);
+  color: var(--akm-ink);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition:
+    border-color var(--akm-t-fast),
+    box-shadow var(--akm-t-fast);
+
+  &::placeholder {
+    color: #a89e93;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--akm-accent-500);
+    box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.16);
+  }
+
+  &.is-invalid {
+    border-color: var(--akm-maroon-600);
+    box-shadow: 0 0 0 4px rgba(165, 30, 39, 0.12);
+  }
+}
+
+textarea.akm-input {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.akm-error {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--akm-maroon-600);
+}
+
+.akm-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: var(--akm-r-md);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.akm-note--info {
+  background: rgba(255, 152, 0, 0.1);
+  border: 1px solid rgba(255, 152, 0, 0.28);
+  color: #7a4a00;
+}
+
+.akm-note--warn {
+  background: rgba(165, 30, 39, 0.08);
+  border: 1px solid rgba(165, 30, 39, 0.22);
+  color: var(--akm-maroon-700);
+}
+
+/* ==========================================================================
+   EMPTY STATE
+   ========================================================================== */
+
+.akm-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 64px 24px;
+  border: 1px dashed var(--akm-border-strong);
+  border-radius: var(--akm-r-lg);
+  background: var(--akm-cream-soft);
+  color: var(--akm-ink-soft);
+
+  i {
+    font-size: 2rem;
+    color: var(--akm-gold);
+    margin-bottom: 14px;
+  }
+
+  h3 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.25rem;
+    color: var(--akm-maroon-800);
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.94rem;
+  }
+}
+
+/* ==========================================================================
+   IMAGE FALLBACK
+   A missing photo renders as a warm monogram tile, never a broken icon.
+   ========================================================================== */
+
+.akm-img-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 193, 7, 0.22), transparent 55%),
+    var(--akm-grad-brand);
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  padding: 18px;
+
+  i {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    opacity: 0.85;
+  }
+}
+
+/* ==========================================================================
+   SCROLL REVEAL  (driven by the RevealOnScroll directive)
+   One transition, four entry directions. Distances stay small on purpose —
+   the page should feel like it settles, not like it assembles itself.
+   ========================================================================== */
+
+.akm-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.66s var(--akm-ease),
+    transform 0.66s var(--akm-ease);
+  will-change: opacity, transform;
+}
+
+.akm-reveal--left {
+  transform: translateX(-28px);
+}
+
+.akm-reveal--right {
+  transform: translateX(28px);
+}
+
+.akm-reveal--scale {
+  transform: scale(0.96);
+}
+
+.akm-reveal--fade {
+  transform: none;
+}
+
+.akm-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Drops `will-change` once the animation is done so the layer is released. */
+.akm-reveal.is-visible {
+  will-change: auto;
+}
+
+/* ==========================================================================
+   ENTRANCE ANIMATIONS  (above-the-fold content, no observer needed)
+   ========================================================================== */
+
+@keyframes akmRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes akmFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes akmPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/**
+ * Staggered entrance for a small group of elements.
+ * Put `.akm-enter` on each child and `--i` for its position.
+ *
+ * The hidden state lives only inside the keyframes, and `both` holds it
+ * during the delay. There is deliberately no standalone `opacity: 0` here —
+ * if the animation never runs the element simply renders normally, rather
+ * than staying invisible forever.
+ */
+.akm-enter {
+  animation: akmRise 0.8s var(--akm-ease) both;
+  animation-delay: calc(var(--i, 0) * 110ms);
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   Everything above collapses to "just show it".
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .akm-reveal,
+  .akm-enter {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .akm-float {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   DECORATIVE
+   ========================================================================== */
+
+.akm-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.akm-float {
+  animation: akmFloat 6s ease-in-out infinite;
+}
+
+@keyframes akmFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* ==========================================================================
+   LEGACY HELPERS
+   Older component styles still reference these; they now inherit the system.
+   ========================================================================== */
+
+section {
+  position: relative;
+}
+
+.primary-btn {
+  @extend .akm-btn;
+  @extend .akm-btn--primary;
+}
+
+.secondary-btn,
+.outline-btn {
+  @extend .akm-btn;
+  @extend .akm-btn--on-dark;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 56px;
+
+  span {
+    @extend .akm-eyebrow;
+  }
+
+  h2 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+    color: var(--akm-maroon-800);
+    margin: 18px 0 14px;
+  }
+
+  p {
+    font-size: 1.02rem;
+    color: var(--akm-ink-muted);
+    max-width: 700px;
+    margin-inline: auto;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE RHYTHM
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  :root {
+    --akm-section-y: 78px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --akm-section-y: 62px;
+    --akm-gap: 18px;
+  }
+
+  .akm-container,
+  .container {
+    padding-inline: 18px;
+  }
+
+  .akm-section-head {
+    margin-bottom: 36px;
+  }
+
+  .akm-btn {
+    padding: 12px 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --akm-section-y: 52px;
+  }
+
+  .akm-container,
+  .container {
+    padding-inline: 15px;
+  }
+
+  /* Stacked CTAs read better than wrapped ones on a phone. */
+  .akm-btn--block-sm {
+    width: 100%;
+  }
+}

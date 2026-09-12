@@ -1,0 +1,322 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(560px, 88vh, 860px);
+  padding-block: 90px 110px;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+}
+
+/* --------------------------------------------------------- background */
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background: url('/images/Ganesh.jpg') center 22% / cover no-repeat;
+  transform: scale(1.06);
+  animation: heroDrift 26s ease-in-out infinite alternate;
+}
+
+@keyframes heroDrift {
+  to {
+    transform: scale(1.13) translateY(-14px);
+  }
+}
+
+/* Warm maroon veil so the type always stays legible over the photo. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(105deg, rgba(56, 0, 0, 0.94) 0%, rgba(92, 0, 0, 0.8) 42%, rgba(92, 0, 0, 0.36) 100%),
+    linear-gradient(to top, rgba(40, 0, 0, 0.86) 0%, transparent 46%);
+}
+
+.hero__orb {
+  z-index: -1;
+
+  &--1 {
+    width: 420px;
+    height: 420px;
+    top: -110px;
+    right: 6%;
+    background: rgba(255, 152, 0, 0.3);
+  }
+
+  &--2 {
+    width: 340px;
+    height: 340px;
+    bottom: -130px;
+    left: -80px;
+    background: rgba(255, 193, 7, 0.18);
+  }
+}
+
+/* -------------------------------------------------------------- layout */
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 56px;
+}
+
+/* ---------------------------------------------------------------- copy */
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  border-radius: var(--akm-r-pill);
+  border: 1px solid rgba(255, 193, 7, 0.42);
+  background: rgba(255, 193, 7, 0.14);
+  backdrop-filter: blur(8px);
+  color: var(--akm-accent-400);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero__copy h1 {
+  margin: 24px 0 20px;
+  font-family: 'Cinzel', Georgia, serif;
+  line-height: 1.08;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.hero__welcome {
+  display: block;
+  font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.hero__name {
+  display: block;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 700;
+  background: linear-gradient(100deg, #ffffff 0%, #ffd98a 46%, #ff9800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero__lede {
+  max-width: 54ch;
+  font-size: clamp(0.98rem, 1.4vw, 1.1rem);
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+/* ----------------------------------------------------------- countdown */
+
+.hero__countdown {
+  margin-top: 46px;
+}
+
+.hero__countdown-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hero__units {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero__unit {
+  min-width: 84px;
+  padding: 14px 16px;
+  border-radius: var(--akm-r-md);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(12px);
+  text-align: center;
+
+  strong {
+    display: block;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.1;
+    color: var(--akm-accent-400);
+    font-variant-numeric: tabular-nums;
+  }
+
+  small {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.66);
+  }
+}
+
+/* -------------------------------------------------------------- visual */
+
+.hero__visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 380px;
+}
+
+.hero__halo {
+  position: absolute;
+  width: min(430px, 78vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.32) 0%, transparent 68%);
+  animation: heroPulse 5s ease-in-out infinite;
+}
+
+@keyframes heroPulse {
+  50% {
+    transform: scale(1.08);
+    opacity: 0.75;
+  }
+}
+
+.hero__medallion {
+  position: relative;
+  width: min(360px, 68vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 12px;
+  background: linear-gradient(145deg, rgba(255, 193, 7, 0.55), rgba(255, 152, 0, 0.12));
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+
+  /* Settles into place, then picks up the ambient float from the utility class. */
+  animation:
+    akmPopIn 0.9s var(--akm-ease) backwards,
+    akmFloat 6s ease-in-out 0.9s infinite;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__medallion {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------- scroll hint */
+
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 42px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--akm-r-pill);
+
+  span {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 4px;
+    height: 8px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: var(--akm-accent-400);
+    animation: heroScroll 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes heroScroll {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* ----------------------------------------------------------- responsive */
+
+@media (max-width: 992px) {
+  .hero {
+    min-height: auto;
+    padding-block: 70px 90px;
+    text-align: center;
+  }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  /* Medallion above the copy reads better on a narrow screen. */
+  .hero__visual {
+    order: -1;
+    min-height: auto;
+  }
+
+  .hero__lede {
+    margin-inline: auto;
+  }
+
+  .hero__cta,
+  .hero__units {
+    justify-content: center;
+  }
+
+  .hero__veil {
+    background:
+      linear-gradient(180deg, rgba(56, 0, 0, 0.9) 0%, rgba(92, 0, 0, 0.86) 100%);
+  }
+
+  .hero__scroll {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__medallion {
+    width: min(240px, 62vw);
+  }
+
+  .hero__unit {
+    flex: 1 1 calc(50% - 12px);
+    min-width: 0;
+    padding: 12px 10px;
+  }
+
+  .hero__cta .akm-btn {
+    width: 100%;
+  }
+}

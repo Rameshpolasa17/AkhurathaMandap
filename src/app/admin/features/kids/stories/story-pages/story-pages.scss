@@ -1,0 +1,166 @@
+:host {
+  display: block;
+}
+
+.story-pages-page {
+  padding: 30px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #888;
+
+  strong {
+    color: #ea7d21;
+  }
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  h1 {
+    margin: 0;
+    font-size: 30px;
+  }
+
+  p {
+    margin: 5px 0 0;
+    color: #777;
+  }
+}
+
+.title-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #ff9d2f, #ea6f1f);
+  color: #fff;
+  font-size: 22px;
+}
+
+.add-button {
+  border: 0;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff9d2f, #ea6f1f);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.table-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f6f8fb;
+
+  th {
+    padding: 16px;
+    text-align: left;
+    font-size: 14px;
+  }
+}
+
+tbody {
+  tr {
+    border-top: 1px solid #eee;
+
+    &:hover {
+      background: #fafafa;
+    }
+  }
+
+  td {
+    padding: 16px;
+    vertical-align: middle;
+  }
+
+  img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.active {
+  background: #d8f7df;
+  color: #0f8a37;
+}
+
+.inactive {
+  background: #ffe0e0;
+  color: #c42b2b;
+}
+
+.edit-btn,
+.delete-btn {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.edit-btn {
+  background: #e9f4ff;
+  color: #1b74d8;
+}
+
+.delete-btn {
+  background: #ffe7e7;
+  color: #d53939;
+}
+
+.loading-state,
+.empty-state {
+  padding: 80px;
+  text-align: center;
+}
+
+.loader {
+  width: 45px;
+  height: 45px;
+  border: 4px solid #ddd;
+  border-top-color: #ea7d21;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: auto auto 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

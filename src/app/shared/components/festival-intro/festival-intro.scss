@@ -1,0 +1,230 @@
+/* ================================================================ INTRO */
+
+.fi__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: 64px;
+}
+
+.fi__visual {
+  position: relative;
+
+  > img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--akm-r-xl);
+    box-shadow: var(--akm-shadow-lg);
+  }
+}
+
+/* Gold hairline frame offset behind the photograph. */
+.fi__frame {
+  position: absolute;
+  inset: 20px -20px -20px 20px;
+  border: 2px solid rgba(201, 154, 46, 0.42);
+  border-radius: var(--akm-r-xl);
+}
+
+.fi__medal {
+  position: absolute;
+  z-index: 2;
+  right: -22px;
+  bottom: 34px;
+  width: 122px;
+  height: 122px;
+  padding: 9px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255, 193, 7, 0.92), rgba(255, 152, 0, 0.6));
+  box-shadow: var(--akm-shadow-lg);
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.fi__copy {
+  h2 {
+    margin: 20px 0 20px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    line-height: 1.24;
+    color: var(--akm-maroon-800);
+  }
+
+  p {
+    font-size: 0.99rem;
+    line-height: 1.92;
+    color: var(--akm-ink-muted);
+    margin-bottom: 16px;
+  }
+}
+
+.fi__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* =========================================================== HIGHLIGHTS */
+
+.fh__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.fh__card {
+  position: relative;
+  display: block;
+  padding: 30px 26px 28px;
+  border-radius: var(--akm-r-lg);
+  background: var(--akm-white);
+  border: 1px solid var(--akm-border);
+  box-shadow: var(--akm-shadow-sm);
+  overflow: hidden;
+  transition:
+    transform var(--akm-t),
+    box-shadow var(--akm-t),
+    border-color var(--akm-t);
+
+  /* Gold cap that slides in on hover. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 100% auto 0;
+    height: 4px;
+    background: var(--akm-grad-accent);
+    transition: inset-inline-end var(--akm-t);
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: var(--akm-shadow-lg);
+    border-color: rgba(255, 152, 0, 0.34);
+  }
+
+  &:hover::before,
+  &:focus-visible::before {
+    inset-inline-end: 0;
+  }
+
+  h3 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.12rem;
+    color: var(--akm-maroon-800);
+    margin-bottom: 9px;
+  }
+
+  p {
+    margin: 0;
+    padding-right: 34px;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--akm-ink-muted);
+  }
+}
+
+.fh__icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 18px;
+  border-radius: var(--akm-r-md);
+  background: var(--akm-grad-brand);
+  color: var(--akm-accent-400);
+  font-size: 1.18rem;
+  box-shadow: var(--akm-shadow-brand);
+  transition: transform var(--akm-t);
+}
+
+.fh__card:hover .fh__icon {
+  transform: scale(1.06) rotate(-4deg);
+}
+
+.fh__go {
+  position: absolute;
+  right: 22px;
+  bottom: 26px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 152, 0, 0.12);
+  color: var(--akm-accent-600);
+  font-size: 0.76rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity var(--akm-t),
+    transform var(--akm-t);
+}
+
+.fh__card:hover .fh__go,
+.fh__card:focus-visible .fh__go {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================== RESPONSIVE */
+
+@media (max-width: 1024px) {
+  .fh__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .fi__inner {
+    grid-template-columns: 1fr;
+    gap: 54px;
+  }
+
+  .fi__visual {
+    max-width: 440px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .fi__frame {
+    inset: 12px -12px -12px 12px;
+  }
+
+  .fi__medal {
+    width: 84px;
+    height: 84px;
+    right: -10px;
+    bottom: 20px;
+  }
+
+  .fi__cta .akm-btn {
+    width: 100%;
+  }
+
+  .fh__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fh__card {
+    padding: 24px 20px;
+
+    p {
+      padding-right: 0;
+    }
+  }
+
+  .fh__go {
+    display: none;
+  }
+}

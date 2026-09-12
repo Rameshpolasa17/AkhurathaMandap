@@ -1,0 +1,332 @@
+<section class="competition-categories-page">
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <span>Competitions</span>
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <strong>Categories</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+
+        <div>
+          <h1>Competition Categories</h1>
+
+          <p>
+            @if (competition) {
+              Manage categories for {{ competition.title }}.
+            } @else {
+              Manage competition categories.
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="add-button" (click)="addCategory()">
+      <i class="fa-solid fa-plus"></i>
+      <span>Add Category</span>
+    </button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-layer-group"></i>
+      </div>
+
+      <div>
+        <span>Total Categories</span>
+        <strong>{{ categories.length }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <span>Active</span>
+        <strong>{{ activeCount }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+
+      <div>
+        <span>Competition</span>
+        <strong>
+          {{ competition?.year || '-' }}
+        </strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        placeholder="Search categories..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <button type="button" class="refresh-button" (click)="loadCategories()" title="Refresh">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  <!-- ADD / EDIT FORM -->
+  @if (showForm) {
+    <div class="category-form-card">
+      <div class="form-header">
+        <div>
+          <h2>
+            {{ editingId > 0 ? 'Edit Category' : 'Add Category' }}
+          </h2>
+
+          <p>Enter the category details below.</p>
+        </div>
+
+        <button type="button" class="close-button" (click)="cancelForm()" [disabled]="saving">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="form-grid">
+        <!-- NAME -->
+        <div class="form-group">
+          <label>
+            Category Name
+            <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            name="categoryName"
+            [(ngModel)]="form.name"
+            placeholder="Example: Drawing"
+            maxlength="200"
+          />
+        </div>
+
+        <!-- AGE GROUP -->
+        <div class="form-group">
+          <label> Age Group </label>
+
+          <input
+            type="text"
+            name="ageGroup"
+            [(ngModel)]="form.ageGroup"
+            placeholder="Example: 6-8 Years"
+            maxlength="100"
+          />
+        </div>
+
+        <!-- DISPLAY ORDER -->
+        <div class="form-group">
+          <label> Display Order </label>
+
+          <input type="number" name="displayOrder" [(ngModel)]="form.displayOrder" min="1" />
+        </div>
+
+        <!-- MAX PARTICIPANTS -->
+        <div class="form-group">
+          <label> Maximum Participants </label>
+
+          <input
+            type="number"
+            name="maxParticipants"
+            [(ngModel)]="form.maxParticipants"
+            min="1"
+            placeholder="Optional"
+          />
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="form-group full-width">
+          <label> Description </label>
+
+          <textarea
+            name="categoryDescription"
+            [(ngModel)]="form.description"
+            placeholder="Enter category description"
+            rows="3"
+            maxlength="1000"
+          ></textarea>
+        </div>
+
+        <!-- ACTIVE -->
+        <div class="form-group full-width">
+          <label class="toggle-label">
+            <input type="checkbox" name="categoryActive" [(ngModel)]="form.isActive" />
+
+            <span class="toggle"></span>
+
+            <span class="toggle-text"> Active Category </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- FORM ACTIONS -->
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="cancelForm()" [disabled]="saving">
+          Cancel
+        </button>
+
+        <button type="button" class="save-button" (click)="saveCategory()" [disabled]="saving">
+          @if (saving) {
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Saving...
+          } @else {
+            <i class="fa-solid fa-floppy-disk"></i>
+
+            {{ editingId > 0 ? 'Update Category' : 'Save Category' }}
+          }
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- LOADING -->
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+
+      <h3>Loading Categories...</h3>
+    </div>
+  }
+
+  <!-- EMPTY -->
+  @if (!loading && filteredCategories.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-layer-group"></i>
+      </div>
+
+      <h2>No Categories Found</h2>
+
+      <p>
+        @if (searchText) {
+          Try changing your search.
+        } @else {
+          Add your first competition category.
+        }
+      </p>
+
+      @if (!searchText) {
+        <button type="button" (click)="addCategory()">
+          <i class="fa-solid fa-plus"></i>
+          Add Category
+        </button>
+      }
+    </div>
+  }
+
+  <!-- RESULTS -->
+  @if (!loading && filteredCategories.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing
+        <strong>
+          {{ filteredCategories.length }}
+        </strong>
+        category(s)
+      </p>
+    </div>
+
+    <div class="category-grid">
+      @for (category of filteredCategories; track category.id) {
+        <article class="category-card">
+          <!-- CARD TOP -->
+          <div class="category-card-top">
+            <div class="category-icon">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <span
+              class="status-badge"
+              [class.active]="category.isActive"
+              [class.inactive]="!category.isActive"
+            >
+              {{ category.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <!-- BODY -->
+          <div class="card-body">
+            <div class="order">#{{ category.displayOrder || 1 }}</div>
+
+            <h2>
+              {{ category.name }}
+            </h2>
+
+            @if (category.description) {
+              <p class="description">
+                {{ category.description }}
+              </p>
+            }
+
+            <div class="meta-list">
+              @if (category.ageGroup) {
+                <div class="meta-item">
+                  <i class="fa-solid fa-child-reaching"></i>
+
+                  <span>
+                    {{ category.ageGroup }}
+                  </span>
+                </div>
+              }
+
+              @if (category.maxParticipants) {
+                <div class="meta-item">
+                  <i class="fa-solid fa-users"></i>
+
+                  <span> Max {{ category.maxParticipants }} </span>
+                </div>
+              }
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="card-actions">
+              <button type="button" class="edit-button" (click)="editCategory(category)">
+                <i class="fa-solid fa-pen"></i>
+                Edit
+              </button>
+
+              <button type="button" class="delete-button" (click)="deleteCategory(category)">
+                <i class="fa-solid fa-trash"></i>
+                Delete
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+
+  <!-- BACK -->
+  <div class="bottom-actions">
+    <button type="button" class="back-button" (click)="backToCompetitions()">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Competitions
+    </button>
+  </div>
+</section>

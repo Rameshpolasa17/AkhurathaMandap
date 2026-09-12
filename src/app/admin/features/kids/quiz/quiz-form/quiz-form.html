@@ -1,0 +1,150 @@
+<div class="quiz-form-page">
+  <div class="page-header">
+    <div>
+      <h2>{{ id > 0 ? 'Edit Quiz' : 'Add Quiz' }}</h2>
+      <p>{{ id > 0 ? 'Update quiz details' : 'Create a new quiz' }}</p>
+    </div>
+
+    <button type="button" class="btn-secondary" (click)="cancel()">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      Loading quiz...
+    </div>
+  } @else {
+    <div class="form-card">
+      <form (ngSubmit)="save()">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="title"> Quiz Title <span>*</span> </label>
+
+            <input
+              id="title"
+              type="text"
+              name="title"
+              [(ngModel)]="form.title"
+              placeholder="Enter quiz title"
+              maxlength="200"
+              required
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="description"> Description </label>
+
+            <textarea
+              id="description"
+              name="description"
+              [(ngModel)]="form.description"
+              placeholder="Enter quiz description"
+              rows="4"
+              maxlength="2000"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="level"> Level </label>
+
+            <select id="level" name="level" [(ngModel)]="form.level">
+              <option value="">Select Level</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="timeLimitSeconds"> Time Limit (Seconds) </label>
+
+            <input
+              id="timeLimitSeconds"
+              type="number"
+              name="timeLimitSeconds"
+              [(ngModel)]="form.timeLimitSeconds"
+              min="0"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="passingPercentage"> Passing Percentage </label>
+
+            <input
+              id="passingPercentage"
+              type="number"
+              name="passingPercentage"
+              [(ngModel)]="form.passingPercentage"
+              min="0"
+              max="100"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="certificatePercentage"> Certificate Percentage </label>
+
+            <input
+              id="certificatePercentage"
+              type="number"
+              name="certificatePercentage"
+              [(ngModel)]="form.certificatePercentage"
+              min="0"
+              max="100"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="displayOrder"> Display Order </label>
+
+            <input
+              id="displayOrder"
+              type="number"
+              name="displayOrder"
+              [(ngModel)]="form.displayOrder"
+              min="1"
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="thumbnailPath"> Thumbnail Path </label>
+
+            <input
+              id="thumbnailPath"
+              type="text"
+              name="thumbnailPath"
+              [(ngModel)]="form.thumbnailPath"
+              placeholder="Enter thumbnail path"
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label class="checkbox-label">
+              <input type="checkbox" name="isActive" [(ngModel)]="form.isActive" />
+
+              <span>Active</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="cancel()" [disabled]="saving">
+            Cancel
+          </button>
+
+          <button type="submit" class="btn-primary" [disabled]="saving">
+            @if (saving) {
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              Saving...
+            } @else {
+              <i class="fa-solid fa-save"></i>
+              {{ id > 0 ? 'Update Quiz' : 'Save Quiz' }}
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

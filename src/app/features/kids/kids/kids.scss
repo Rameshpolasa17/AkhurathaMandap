@@ -1,0 +1,1669 @@
+/*==========================================================
+                    KIDS PAGE
+==========================================================*/
+
+.kids-page,
+.kids {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fffdf8 0%, #fff8ef 45%, #ffffff 100%);
+}
+
+/*==========================================================
+                    CONTAINER
+==========================================================*/
+
+.container {
+  max-width: 1320px;
+  margin: auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/*==========================================================
+                    SECTION HEADER
+==========================================================*/
+
+.section-header {
+  text-align: center;
+  margin-bottom: 70px;
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    border-radius: 40px;
+    background: #ffffff;
+    color: #ef6c00;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  h2 {
+    margin: 22px 0 18px;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    font-weight: 800;
+    color: #2f2418;
+    line-height: 1.15;
+
+    span {
+      color: #ff9800;
+      display: block;
+    }
+  }
+
+  p {
+    max-width: 760px;
+    margin: auto;
+    color: #666;
+    line-height: 1.9;
+    font-size: 18px;
+  }
+}
+
+/*==========================================================
+                    HERO
+==========================================================*/
+
+.kids-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0;
+  background: linear-gradient(135deg, #fff9ec 0%, #fff4db 45%, #fffef9 100%);
+}
+
+/*==========================================================
+                    BACKGROUND
+==========================================================*/
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  animation: floating 10s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 520px;
+  height: 520px;
+  left: -160px;
+  top: -150px;
+  background: rgba(255, 193, 7, 0.18);
+  filter: blur(80px);
+}
+
+.shape-2 {
+  width: 380px;
+  height: 380px;
+  right: -110px;
+  top: 120px;
+  background: rgba(255, 152, 0, 0.15);
+  filter: blur(70px);
+  animation-delay: 2s;
+}
+
+.shape-3 {
+  width: 300px;
+  height: 300px;
+  bottom: -100px;
+  left: 45%;
+  background: rgba(255, 235, 59, 0.14);
+  filter: blur(60px);
+  animation-delay: 4s;
+}
+
+/*==========================================================
+                    HERO CONTENT
+==========================================================*/
+
+.hero-content {
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px);
+    color: #ef6c00;
+    font-weight: 700;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  }
+
+  h1 {
+    margin: 28px 0 24px;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #2f2418;
+
+    span {
+      display: block;
+      background: linear-gradient(135deg, #ff9800, #ff6f00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  p {
+    max-width: 620px;
+    color: #666;
+    line-height: 1.9;
+    font-size: 18px;
+    margin-bottom: 35px;
+  }
+}
+
+/*==========================================================
+                    HERO BUTTONS
+==========================================================*/
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 45px;
+}
+
+.hero-buttons .btn {
+  height: 58px;
+  padding: 0 34px;
+  border-radius: 50px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.35s;
+}
+
+.hero-buttons .btn-primary {
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+  border: none;
+  color: white;
+  box-shadow: 0 20px 40px rgba(255, 152, 0, 0.28);
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 28px 55px rgba(255, 152, 0, 0.38);
+  }
+}
+
+.hero-buttons .btn-light {
+  background: white;
+  color: #333;
+  border: 1px solid #eee;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+}
+
+/*==========================================================
+                    HERO STATS
+==========================================================*/
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.hero-stats .stat-card {
+  padding: 28px;
+  text-align: center;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  transition: 0.35s;
+
+  &:hover {
+    transform: translateY(-8px);
+  }
+
+  h3 {
+    font-size: 38px;
+    font-weight: 800;
+    color: #ff9800;
+    margin-bottom: 8px;
+  }
+
+  span {
+    color: #666;
+    font-weight: 600;
+  }
+}
+
+/*==========================================================
+                    HERO IMAGE
+==========================================================*/
+
+.hero-image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 540px;
+  border-radius: 35px;
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.18);
+  transition: 0.5s;
+}
+
+.hero-image:hover img {
+  transform: translateY(-10px) scale(1.03);
+}
+
+/*==========================================================
+                FLOATING ANIMATION
+==========================================================*/
+
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+/*==========================================================
+                    KIDS ACTIVITIES
+==========================================================*/
+
+.kids-activities {
+  position: relative;
+  padding: 110px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fffaf2 100%);
+}
+
+.kids-activities::before {
+  content: '';
+
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  top: -120px;
+  left: -120px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 193, 7, 0.08);
+
+  filter: blur(80px);
+}
+
+.kids-activities::after {
+  content: '';
+
+  position: absolute;
+
+  width: 350px;
+  height: 350px;
+
+  right: -120px;
+  bottom: -100px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 152, 0, 0.08);
+
+  filter: blur(70px);
+}
+
+/*==========================================================
+                    GRID
+==========================================================*/
+
+.kids-activities .row {
+  position: relative;
+  z-index: 2;
+}
+
+/*==========================================================
+                    ACTIVITY CARD
+==========================================================*/
+
+.activity-card {
+  position: relative;
+
+  overflow: hidden;
+
+  height: 100%;
+
+  padding: 38px 30px;
+
+  border-radius: 30px;
+
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.78);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+
+  transition: 0.45s;
+
+  cursor: pointer;
+}
+
+.activity-card:hover {
+  transform: translateY(-14px);
+
+  box-shadow: 0 35px 70px rgba(255, 152, 0, 0.18);
+}
+
+.activity-card::before {
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), transparent);
+
+  opacity: 0;
+
+  transition: 0.4s;
+}
+
+.activity-card:hover::before {
+  opacity: 1;
+}
+
+/*==========================================================
+                    TOP BORDER
+==========================================================*/
+
+.activity-card::after {
+  content: '';
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 6px;
+
+  background: linear-gradient(90deg, #ff9800, #ffc107);
+}
+
+/*==========================================================
+                    ICON
+==========================================================*/
+
+.activity-card .icon {
+  width: 100px;
+
+  height: 100px;
+
+  margin: auto;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 46px;
+
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+
+  color: white;
+
+  box-shadow: 0 20px 40px rgba(255, 152, 0, 0.28);
+
+  transition: 0.45s;
+}
+
+.activity-card:hover .icon {
+  transform: rotate(10deg) scale(1.08);
+}
+
+/*==========================================================
+                ICON COLORS
+==========================================================*/
+
+.col-lg-3:nth-child(2) .activity-card .icon {
+  background: linear-gradient(135deg, #4caf50, #81c784);
+}
+
+.col-lg-3:nth-child(3) .activity-card .icon {
+  background: linear-gradient(135deg, #2196f3, #64b5f6);
+}
+
+.col-lg-3:nth-child(4) .activity-card .icon {
+  background: linear-gradient(135deg, #e91e63, #f48fb1);
+}
+
+.col-lg-3:nth-child(5) .activity-card .icon {
+  background: linear-gradient(135deg, #9c27b0, #ce93d8);
+}
+
+.col-lg-3:nth-child(6) .activity-card .icon {
+  background: linear-gradient(135deg, #ff5722, #ffab91);
+}
+
+.col-lg-3:nth-child(7) .activity-card .icon {
+  background: linear-gradient(135deg, #009688, #4db6ac);
+}
+
+.col-lg-3:nth-child(8) .activity-card .icon {
+  background: linear-gradient(135deg, #3f51b5, #7986cb);
+}
+
+/*==========================================================
+                    TITLE
+==========================================================*/
+
+.activity-card h4 {
+  margin: 28px 0 16px;
+
+  font-size: 26px;
+
+  font-weight: 800;
+
+  color: #34281d;
+
+  transition: 0.35s;
+}
+
+.activity-card:hover h4 {
+  color: #ef6c00;
+}
+
+/*==========================================================
+                    DESCRIPTION
+==========================================================*/
+
+.activity-card p {
+  color: #666;
+
+  font-size: 16px;
+
+  line-height: 1.9;
+
+  margin-bottom: 28px;
+}
+
+/*==========================================================
+                    BUTTON
+==========================================================*/
+
+.activity-card .activity-btn {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 14px 28px;
+
+  border-radius: 40px;
+
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+
+  color: white;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition: 0.35s;
+
+  box-shadow: 0 18px 35px rgba(255, 152, 0, 0.22);
+}
+
+.activity-card .activity-btn:hover {
+  transform: translateY(-5px);
+}
+
+.activity-card .activity-btn i {
+  transition: 0.35s;
+}
+
+.activity-card .activity-btn:hover i {
+  transform: translateX(6px);
+}
+
+/*==========================================================
+                    BADGE
+==========================================================*/
+
+.activity-card .badge {
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  padding: 6px 14px;
+
+  border-radius: 30px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  color: white;
+
+  background: linear-gradient(135deg, #ff5722, #ff9800);
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/*==========================================================
+                RESPONSIVE
+==========================================================*/
+
+@media (max-width: 1200px) {
+  .activity-card {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 992px) {
+  .activity-card h4 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kids-activities {
+    padding: 90px 0;
+  }
+
+  .activity-card {
+    padding: 30px 24px;
+  }
+
+  .activity-card .icon {
+    width: 85px;
+    height: 85px;
+
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 576px) {
+  .activity-card {
+    border-radius: 24px;
+  }
+
+  .activity-card h4 {
+    font-size: 22px;
+  }
+
+  .activity-card p {
+    font-size: 15px;
+  }
+}
+/*==========================================================
+                LEARNING CORNER
+==========================================================*/
+
+.learning-corner {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(180deg, #fffdf8 0%, #ffffff 100%);
+  overflow: hidden;
+}
+
+.learning-corner::before {
+  content: '';
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  left: -180px;
+  top: 0;
+  border-radius: 50%;
+  background: rgba(255, 193, 7, 0.08);
+  filter: blur(80px);
+}
+
+.learning-image {
+  position: relative;
+}
+
+.learning-image img {
+  width: 100%;
+  border-radius: 35px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+  transition: 0.5s;
+}
+
+.learning-image:hover img {
+  transform: scale(1.03);
+}
+
+.learning-image .floating-card {
+  position: absolute;
+  right: -25px;
+  bottom: 40px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(15px);
+  padding: 22px 28px;
+  border-radius: 24px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.12);
+}
+
+.learning-image .floating-card h3 {
+  color: #ff9800;
+  font-size: 34px;
+  margin-bottom: 5px;
+  font-weight: 800;
+}
+
+.learning-image .floating-card span {
+  color: #666;
+  font-weight: 600;
+}
+
+.learning-content .section-tag {
+  display: inline-flex;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background: #fff3e0;
+  color: #ef6c00;
+  font-weight: 700;
+}
+
+.learning-content h2 {
+  margin: 25px 0;
+  font-size: 52px;
+  line-height: 1.15;
+  color: #2f2418;
+  font-weight: 800;
+}
+
+.learning-content h2 span {
+  color: #ff9800;
+  display: block;
+}
+
+.learning-content > p {
+  font-size: 17px;
+  line-height: 1.9;
+  color: #666;
+  margin-bottom: 35px;
+}
+
+.learning-list {
+  display: grid;
+  gap: 20px;
+}
+
+.learning-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+  transition: 0.35s;
+}
+
+.learning-item:hover {
+  transform: translateX(10px);
+}
+
+.learning-item .icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  flex-shrink: 0;
+}
+
+.learning-item h5 {
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #2f2418;
+}
+
+.learning-item p {
+  color: #666;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/*==========================================================
+                    FUN GAMES
+==========================================================*/
+
+.fun-games {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(180deg, #fff8ef, #ffffff);
+}
+
+.game-card {
+  overflow: hidden;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  transition: 0.45s;
+  height: 100%;
+}
+
+.game-card:hover {
+  transform: translateY(-12px);
+}
+
+.game-image {
+  overflow: hidden;
+  height: 240px;
+}
+
+.game-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.6s;
+}
+
+.game-card:hover img {
+  transform: scale(1.08);
+}
+
+.game-content {
+  padding: 30px;
+  text-align: center;
+}
+
+.game-content .icon {
+  width: 80px;
+  height: 80px;
+  margin: -70px auto 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  color: #fff;
+  border: 6px solid #fff;
+  box-shadow: 0 15px 35px rgba(255, 152, 0, 0.25);
+}
+
+.game-content h4 {
+  font-size: 26px;
+  margin-bottom: 15px;
+  font-weight: 800;
+  color: #2f2418;
+}
+
+.game-content p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+
+.age-tag {
+  display: inline-flex;
+  padding: 10px 22px;
+  border-radius: 30px;
+  background: #fff3e0;
+  color: #ef6c00;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/*==========================================================
+                GAME CARD COLORS
+==========================================================*/
+
+.col-lg-3:nth-child(2) .game-content .icon {
+  background: linear-gradient(135deg, #4caf50, #81c784);
+}
+
+.col-lg-3:nth-child(3) .game-content .icon {
+  background: linear-gradient(135deg, #2196f3, #64b5f6);
+}
+
+.col-lg-3:nth-child(4) .game-content .icon {
+  background: linear-gradient(135deg, #e91e63, #f48fb1);
+}
+
+/*==========================================================
+                RESPONSIVE
+==========================================================*/
+
+@media (max-width: 992px) {
+  .learning-content {
+    margin-top: 40px;
+  }
+
+  .learning-content h2 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  .learning-corner,
+  .fun-games {
+    padding: 90px 0;
+  }
+
+  .learning-image .floating-card {
+    right: 15px;
+    bottom: 15px;
+  }
+
+  .game-image {
+    height: 220px;
+  }
+}
+
+@media (max-width: 576px) {
+  .learning-content h2 {
+    font-size: 34px;
+  }
+
+  .learning-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .learning-item .icon {
+    margin: auto;
+  }
+
+  .game-content {
+    padding: 24px;
+  }
+}
+/*==========================================================
+                    KIDS GALLERY
+==========================================================*/
+
+.kids-gallery {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fff9f2 100%);
+  overflow: hidden;
+}
+
+.kids-gallery::before {
+  content: '';
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  top: -180px;
+  right: -180px;
+  border-radius: 50%;
+  background: rgba(255, 193, 7, 0.08);
+  filter: blur(90px);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 22px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.gallery-item.large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.gallery-item.tall {
+  grid-row: span 2;
+}
+
+.gallery-item.wide {
+  grid-column: span 2;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.7s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.12);
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.82));
+  opacity: 0.15;
+  transition: 0.4s;
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+.gallery-item .overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 28px;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.gallery-item:hover .overlay {
+  opacity: 1;
+}
+
+.gallery-item .overlay h4 {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Floating Shine */
+
+.gallery-item::before {
+  content: '';
+
+  position: absolute;
+
+  top: -150%;
+  left: -80%;
+
+  width: 60%;
+  height: 300%;
+
+  background: rgba(255, 255, 255, 0.25);
+
+  transform: rotate(25deg);
+
+  transition: 0.9s;
+
+  z-index: 2;
+}
+
+.gallery-item:hover::before {
+  left: 150%;
+}
+
+/*==========================================================
+                    PARENTS GUIDE
+==========================================================*/
+
+.parents-guide {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(180deg, #fffdf8, #ffffff);
+}
+
+.guide-content .section-tag {
+  display: inline-flex;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background: #fff3e0;
+  color: #ef6c00;
+  font-weight: 700;
+}
+
+.guide-content h2 {
+  margin: 25px 0;
+  font-size: 50px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: #2f2418;
+}
+
+.guide-content h2 span {
+  color: #ff9800;
+  display: block;
+}
+
+.guide-content > p {
+  color: #666;
+  line-height: 1.9;
+  font-size: 17px;
+  margin-bottom: 35px;
+}
+
+.guide-list {
+  display: grid;
+  gap: 20px;
+}
+
+.guide-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+  transition: 0.35s;
+}
+
+.guide-item:hover {
+  transform: translateX(10px);
+}
+
+.guide-item .icon {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+
+  border-radius: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+
+  color: white;
+}
+
+.guide-item:nth-child(2) .icon {
+  background: linear-gradient(135deg, #2196f3, #64b5f6);
+}
+
+.guide-item:nth-child(3) .icon {
+  background: linear-gradient(135deg, #4caf50, #81c784);
+}
+
+.guide-item:nth-child(4) .icon {
+  background: linear-gradient(135deg, #e91e63, #f48fb1);
+}
+
+.guide-item h5 {
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: #2f2418;
+  font-weight: 700;
+}
+
+.guide-item p {
+  color: #666;
+  margin: 0;
+  line-height: 1.7;
+}
+
+/*==========================================================
+                    GUIDE IMAGE
+==========================================================*/
+
+.guide-image {
+  position: relative;
+}
+
+.guide-image img {
+  width: 100%;
+  border-radius: 35px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12);
+  transition: 0.5s;
+}
+
+.guide-image:hover img {
+  transform: scale(1.03);
+}
+
+.guide-image .floating-card {
+  position: absolute;
+  left: -25px;
+  bottom: 40px;
+
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(15px);
+
+  padding: 22px 30px;
+
+  border-radius: 24px;
+
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+}
+
+.guide-image .floating-card h3 {
+  color: #ff9800;
+  font-size: 36px;
+  margin-bottom: 5px;
+  font-weight: 800;
+}
+
+.guide-image .floating-card span {
+  color: #666;
+  font-weight: 600;
+}
+
+/*==========================================================
+                RESPONSIVE
+==========================================================*/
+
+@media (max-width: 992px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .guide-content {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kids-gallery,
+  .parents-guide {
+    padding: 90px 0;
+  }
+
+  .gallery-grid {
+    grid-auto-rows: 180px;
+  }
+
+  .guide-image .floating-card {
+    left: 15px;
+    bottom: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-item.large,
+  .gallery-item.tall,
+  .gallery-item.wide {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .guide-content h2 {
+    font-size: 34px;
+  }
+
+  .guide-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .guide-item .icon {
+    margin: auto;
+  }
+}
+/*==========================================================
+                    FAQ
+==========================================================*/
+
+.faqs-kids {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fff8ef 100%);
+  overflow: hidden;
+}
+
+.faqs-kids::before {
+  content: '';
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  top: -150px;
+  left: -180px;
+  border-radius: 50%;
+  background: rgba(255, 193, 7, 0.08);
+  filter: blur(90px);
+}
+
+.faqs-kids .accordion {
+  max-width: 980px;
+  margin: auto;
+}
+
+.faqs-kids .accordion-item {
+  border: none;
+  border-radius: 22px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: white;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.faqs-kids .accordion-button {
+  background: white;
+  color: #2f2418;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 24px 30px;
+  box-shadow: none;
+}
+
+.faqs-kids .accordion-button:not(.collapsed) {
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+  color: white;
+}
+
+.faqs-kids .accordion-button:focus {
+  box-shadow: none;
+}
+
+.faqs-kids .accordion-body {
+  padding: 24px 30px;
+  color: #666;
+  line-height: 1.9;
+  font-size: 16px;
+}
+
+/*==========================================================
+                    CTA
+==========================================================*/
+
+.kids-cta {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.cta-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 40px;
+  padding: 70px;
+  background: linear-gradient(135deg, #ff9800, #ff6f00);
+  color: white;
+  box-shadow: 0 35px 80px rgba(255, 152, 0, 0.3);
+}
+
+.cta-wrapper::before {
+  content: '';
+
+  position: absolute;
+
+  width: 450px;
+  height: 450px;
+
+  right: -180px;
+  top: -180px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cta-wrapper::after {
+  content: '';
+
+  position: absolute;
+
+  width: 320px;
+  height: 320px;
+
+  left: -120px;
+  bottom: -120px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cta-content,
+.cta-buttons {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-content .section-tag {
+  display: inline-flex;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  font-weight: 700;
+}
+
+.cta-content h2 {
+  margin: 24px 0;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.cta-content h2 span {
+  display: block;
+}
+
+.cta-content p {
+  max-width: 700px;
+  line-height: 1.9;
+  font-size: 17px;
+  opacity: 0.95;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 35px;
+}
+
+.feature {
+  padding: 14px 22px;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  font-weight: 600;
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cta-buttons .btn {
+  height: 58px;
+  border-radius: 50px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.35s;
+}
+
+.btn-register {
+  background: white;
+  color: #ff6f00;
+}
+
+.btn-register:hover {
+  transform: translateY(-6px);
+  background: #fff8ef;
+}
+
+.btn-outline-custom {
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  color: white;
+}
+
+.btn-outline-custom:hover {
+  background: white;
+  color: #ff6f00;
+  transform: translateY(-6px);
+}
+
+/*==========================================================
+                SCROLL ANIMATION
+==========================================================*/
+
+.activity-card,
+.game-card,
+.gallery-item,
+.learning-item,
+.guide-item,
+.stat-card {
+  transition:
+    transform 0.35s,
+    box-shadow 0.35s;
+}
+
+.activity-card:hover,
+.game-card:hover,
+.gallery-item:hover,
+.learning-item:hover,
+.guide-item:hover,
+.stat-card:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+}
+
+/*==========================================================
+                CUSTOM SCROLLBAR
+==========================================================*/
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ff9800, #ff6f00);
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f8f8;
+}
+
+/*==========================================================
+                    RESPONSIVE
+==========================================================*/
+
+@media (max-width: 1200px) {
+  .cta-wrapper {
+    padding: 60px 45px;
+  }
+}
+
+@media (max-width: 992px) {
+  .cta-buttons {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .faqs-kids,
+  .kids-cta {
+    padding: 90px 0;
+  }
+
+  .cta-wrapper {
+    padding: 45px 30px;
+    text-align: center;
+  }
+
+  .features {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .cta-content h2 {
+    font-size: 34px;
+  }
+
+  .features {
+    flex-direction: column;
+  }
+
+  .feature {
+    width: 100%;
+    text-align: center;
+  }
+
+  .cta-buttons .btn {
+    width: 100%;
+  }
+}
+/*==========================================
+        FLOATING DECORATIONS
+==========================================*/
+
+.floating-elements {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.balloon {
+  position: absolute;
+
+  font-size: 42px;
+
+  animation: floatBalloon 8s ease-in-out infinite;
+
+  opacity: 0.85;
+}
+
+.balloon-1 {
+  top: 8%;
+
+  left: 5%;
+}
+
+.balloon-2 {
+  top: 18%;
+
+  right: 10%;
+
+  animation-delay: 2s;
+}
+
+.balloon-3 {
+  bottom: 20%;
+
+  left: 8%;
+
+  animation-delay: 4s;
+}
+
+.balloon-4 {
+  bottom: 12%;
+
+  right: 15%;
+
+  animation-delay: 1.5s;
+}
+
+.balloon-5 {
+  top: 48%;
+
+  left: 45%;
+
+  font-size: 55px;
+
+  animation-delay: 3s;
+}
+
+@keyframes floatBalloon {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-30px) rotate(8deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+.activity-card,
+.game-card,
+.gallery-item,
+.guide-item {
+  overflow: hidden;
+}
+
+.activity-card::before,
+.game-card::before,
+.gallery-item::before,
+.guide-item::before {
+  content: '';
+
+  position: absolute;
+
+  top: -150%;
+
+  left: -80%;
+
+  width: 60%;
+
+  height: 300%;
+
+  background: rgba(255, 255, 255, 0.35);
+
+  transform: rotate(25deg);
+
+  transition: 0.8s;
+}
+
+.activity-card:hover::before,
+.game-card:hover::before,
+.gallery-item:hover::before,
+.guide-item:hover::before {
+  left: 160%;
+}
+.hero-image img,
+.learning-image img,
+.guide-image img {
+  animation: imageFloat 6s ease-in-out infinite;
+}
+
+@keyframes imageFloat {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+.kids section {
+  animation: fadeUp 0.8s ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}

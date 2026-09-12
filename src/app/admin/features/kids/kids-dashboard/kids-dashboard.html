@@ -1,0 +1,73 @@
+<section class="kids-dashboard">
+  <div class="page-header">
+    <div class="title-row">
+      <div class="title-icon"><i class="fa-solid fa-child-reaching"></i></div>
+      <div>
+        <div class="breadcrumb">
+          <span>Admin</span>
+          <i class="fa-solid fa-chevron-right"></i>
+          <strong>Kids Zone</strong>
+        </div>
+        <h1>Kids Dashboard</h1>
+        <p>Overview of kids content, games, quizzes and competitions.</p>
+      </div>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+      <h3>Loading Dashboard...</h3>
+    </div>
+  } @else {
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
+        <div>
+          <span>Active Content</span><strong>{{ activeContents }}</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-circle-question"></i></div>
+        <div>
+          <span>Active Quizzes</span><strong>{{ activeQuizzes }}</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-gamepad"></i></div>
+        <div>
+          <span>Active Games</span><strong>{{ activeGames }}</strong>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-trophy"></i></div>
+        <div>
+          <span>Active Competitions</span><strong>{{ activeCompetitions }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-grid">
+      <button class="quick-card" (click)="openQuizzes()">
+        <i class="fa-solid fa-circle-question"></i>
+        <span>Manage Quizzes</span>
+        <small>{{ quizzes.length }} quizzes</small>
+      </button>
+
+      <button class="quick-card" (click)="openGames()">
+        <i class="fa-solid fa-gamepad"></i>
+        <span>Manage Games</span>
+        <small>{{ games.length }} games</small>
+      </button>
+
+      <button class="quick-card" (click)="openCompetitions()">
+        <i class="fa-solid fa-trophy"></i>
+        <span>Manage Competitions</span>
+        <small>{{ competitions.length }} competitions</small>
+      </button>
+    </div>
+  }
+</section>

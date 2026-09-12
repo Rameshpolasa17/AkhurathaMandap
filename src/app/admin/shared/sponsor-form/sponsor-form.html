@@ -1,0 +1,161 @@
+<div class="popup">
+  <div class="popup-header">
+    <h2>
+      {{ request.sponsorId == 0 ? 'Add Sponsor' : 'Edit Sponsor' }}
+    </h2>
+
+    <button type="button" (click)="cancel()">✕</button>
+  </div>
+
+  <div class="popup-body">
+    <div class="row">
+      <div class="col-md-6">
+        <label>
+          Sponsor Name
+          <span class="required">*</span>
+        </label>
+
+        <input type="text" placeholder="Sponsor Name" [(ngModel)]="request.sponsorName" />
+      </div>
+
+      <div class="col-md-6">
+        <label>Company Name</label>
+
+        <input type="text" placeholder="Company Name" [(ngModel)]="request.companyName" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label>
+          Sponsor Type
+          <span class="required">*</span>
+        </label>
+
+        <select [(ngModel)]="request.sponsorTypeId">
+          <option [ngValue]="0">Select Sponsor Type</option>
+
+          <option [ngValue]="1">Title Sponsor</option>
+
+          <option [ngValue]="2">Platinum</option>
+
+          <option [ngValue]="3">Gold</option>
+
+          <option [ngValue]="4">Silver</option>
+
+          <option [ngValue]="5">Bronze</option>
+
+          <option [ngValue]="6">Supporter</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label>Festival Year</label>
+
+        <input type="number" [(ngModel)]="request.festivalYear" />
+      </div>
+    </div>
+
+    <label>Description</label>
+
+    <textarea rows="4" [(ngModel)]="request.description"> </textarea>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label>Website</label>
+
+        <input type="text" [(ngModel)]="request.website" />
+      </div>
+
+      <div class="col-md-6">
+        <label>Email</label>
+
+        <input type="email" [(ngModel)]="request.email" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label>Phone</label>
+
+        <input type="text" [(ngModel)]="request.phone" />
+      </div>
+
+      <div class="col-md-6">
+        <label>Display Order</label>
+
+        <input type="number" [(ngModel)]="request.displayOrder" />
+      </div>
+    </div>
+
+    <label>Address</label>
+
+    <textarea rows="2" [(ngModel)]="request.address"> </textarea>
+
+    <div class="row">
+      <div class="col-md-4">
+        <label>Facebook</label>
+
+        <input type="text" [(ngModel)]="request.facebookUrl" />
+      </div>
+
+      <div class="col-md-4">
+        <label>Instagram</label>
+
+        <input type="text" [(ngModel)]="request.instagramUrl" />
+      </div>
+
+      <div class="col-md-4">
+        <label>YouTube</label>
+
+        <input type="text" [(ngModel)]="request.youtubeUrl" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label>Logo URL</label>
+
+        <input type="text" [(ngModel)]="request.logoUrl" />
+      </div>
+
+      <div class="col-md-6">
+        <label>Banner URL</label>
+
+        <input type="text" [(ngModel)]="request.bannerUrl" />
+      </div>
+    </div>
+
+    <div class="checkbox-row">
+      <label>
+        <input type="checkbox" [(ngModel)]="request.isFeatured" />
+
+        Featured Sponsor
+      </label>
+    </div>
+
+    <div class="checkbox-row">
+      <label>
+        <input type="checkbox" [(ngModel)]="request.isActive" />
+
+        Active
+      </label>
+    </div>
+  </div>
+
+  <div class="popup-footer">
+    <button class="cancel-btn" [disabled]="loading" (click)="cancel()">Cancel</button>
+
+    <button class="save-btn" [disabled]="loading" (click)="save()">
+      @if (loading) {
+        Saving...
+      } @else {
+        <span>
+          <i class="fa-solid fa-floppy-disk"></i>
+
+          Save
+        </span>
+      }
+    </button>
+  </div>
+</div>

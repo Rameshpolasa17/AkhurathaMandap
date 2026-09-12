@@ -1,0 +1,232 @@
+<section class="rhyme-admin-page">
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>Rhymes</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-microphone-lines"></i>
+        </div>
+
+        <div>
+          <h1>Kids Rhymes</h1>
+          <p>Manage devotional rhymes and songs for children.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="add-button" (click)="addRhyme()">
+      <i class="fa-solid fa-plus"></i>
+      <span>Add Rhyme</span>
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-microphone-lines"></i>
+      </div>
+
+      <div>
+        <span>Total Rhymes</span>
+        <strong>{{ rhymes.length }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <span>Active</span>
+        <strong>{{ activeCount }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-star"></i>
+      </div>
+
+      <div>
+        <span>Featured</span>
+        <strong>{{ featuredCount }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        placeholder="Search Rhymes..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-filter"></i>
+
+      <select [value]="statusFilter" (change)="onStatusChange($event)">
+        <option value="all">All</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+        <option value="featured">Featured</option>
+      </select>
+    </div>
+
+    <button class="refresh-button" (click)="loadRhymes()">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+      <h3>Loading Rhymes...</h3>
+    </div>
+  }
+
+  @if (!loading && filteredRhymes.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-microphone-lines"></i>
+      </div>
+
+      <h2>No Rhymes Found</h2>
+
+      <p>
+        @if (searchText || statusFilter != 'all') {
+          Try changing your search.
+        } @else {
+          Add your first Rhyme.
+        }
+      </p>
+
+      @if (!searchText && statusFilter == 'all') {
+        <button (click)="addRhyme()">
+          <i class="fa-solid fa-plus"></i>
+          Add Rhyme
+        </button>
+      }
+    </div>
+  }
+
+  @if (!loading && filteredRhymes.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing
+        <strong>{{ filteredRhymes.length }}</strong>
+        rhyme(s)
+      </p>
+    </div>
+
+    <div class="rhyme-grid">
+      @for (item of filteredRhymes; track item.id) {
+        <article class="rhyme-card">
+          <div class="image-area">
+            <img
+              [src]="item.thumbnailPath || 'images/defaults/no-image.png'"
+              [alt]="item.title"
+              (error)="imageError($event)"
+            />
+
+            @if (item.isFeatured) {
+              <span class="featured-badge">
+                <i class="fa-solid fa-star"></i>
+                Featured
+              </span>
+            }
+
+            <span
+              class="status-badge"
+              [class.active]="item.isActive"
+              [class.inactive]="!item.isActive"
+            >
+              {{ item.isActive ? 'Active' : 'Inactive' }}
+            </span>
+
+            @if (item.mediaPath) {
+              <div class="audio-indicator">
+                <i class="fa-solid fa-volume-high"></i>
+              </div>
+            }
+          </div>
+
+          <div class="card-body">
+            <div class="card-top">
+              <span>#{{ item.displayOrder }}</span>
+              <span>Rhyme</span>
+            </div>
+
+            <h2>{{ item.title }}</h2>
+
+            @if (item.shortDescription) {
+              <p class="english-title">
+                {{ item.shortDescription }}
+              </p>
+            }
+
+            <div class="meta-list">
+              @if (item.ageGroup) {
+                <div class="meta-item">
+                  <i class="fa-solid fa-child-reaching"></i>
+                  <span>{{ item.ageGroup }}</span>
+                </div>
+              }
+
+              @if (item.duration) {
+                <div class="meta-item">
+                  <i class="fa-regular fa-clock"></i>
+                  <span>{{ item.duration }}</span>
+                </div>
+              }
+            </div>
+
+            <div class="content-features">
+              @if (item.description) {
+                <span>
+                  <i class="fa-solid fa-file-lines"></i>
+                  Lyrics
+                </span>
+              }
+
+              @if (item.mediaPath) {
+                <span>
+                  <i class="fa-solid fa-music"></i>
+                  Audio
+                </span>
+              }
+
+              @if (item.videoUrl) {
+                <span>
+                  <i class="fa-solid fa-video"></i>
+                  Video
+                </span>
+              }
+            </div>
+
+            <div class="card-actions">
+              <button class="edit-button" (click)="editRhyme(item)">
+                <i class="fa-solid fa-pen"></i>
+                Edit
+              </button>
+
+              <button class="delete-button" (click)="deleteRhyme(item)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

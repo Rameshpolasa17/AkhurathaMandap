@@ -1,0 +1,387 @@
+<section class="word-search-page">
+  <!--=========================================
+                    HERO
+  ==========================================-->
+
+  <section class="word-hero">
+    <div class="hero-decoration decoration-1"></div>
+    <div class="hero-decoration decoration-2"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag"> 🔤 Word Search Challenge </span>
+
+        <h1>
+          Find The Hidden
+          <span>Ganesh Words</span>
+        </h1>
+
+        <p>
+          Search across, down and diagonally to discover hidden words related to Lord Ganesha,
+          festivals and traditions.
+        </p>
+
+        <div class="hero-features">
+          <div class="feature">
+            <span>🔎</span>
+            Find Words
+          </div>
+
+          <div class="feature">
+            <span>🧠</span>
+            Train Your Brain
+          </div>
+
+          <div class="feature">
+            <span>🏆</span>
+            Complete Challenge
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                    GAME AREA
+  ==========================================-->
+
+  <section class="game-section">
+    <div class="container">
+      <!--=====================================
+                    STATS
+      ======================================-->
+
+      <div class="game-stats">
+        <div class="stat-card">
+          <div class="stat-icon">⏱️</div>
+
+          <div class="stat-content">
+            <span>Time</span>
+
+            <h3>
+              {{ formattedTime }}
+            </h3>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+
+          <div class="stat-content">
+            <span>Words Found</span>
+
+            <h3>{{ foundCount }}/{{ words.length }}</h3>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">⭐</div>
+
+          <div class="stat-content">
+            <span>Score</span>
+
+            <h3>
+              {{ score }}
+            </h3>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🔄</div>
+
+          <div class="stat-content">
+            <span>Attempts</span>
+
+            <h3>
+              {{ attempts }}
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <!--=====================================
+                  PROGRESS
+      ======================================-->
+
+      <div class="progress-panel">
+        <div class="progress-header">
+          <div>
+            <span> Your Progress </span>
+          </div>
+
+          <strong> {{ progress }}% </strong>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="progress"></div>
+        </div>
+      </div>
+
+      <!--=====================================
+                GAME WRAPPER
+      ======================================-->
+
+      <div class="game-wrapper">
+        <!--=================================
+                    WORD GRID
+        ==================================-->
+
+        <div class="board-panel">
+          <div class="panel-header">
+            <div>
+              <span class="small-tag"> 🔎 Puzzle Board </span>
+
+              <h2>Find All Hidden Words</h2>
+
+              <p>Click letters in a straight line and then press Check Word.</p>
+            </div>
+
+            <button type="button" class="new-game-btn" (click)="newGame()">🔀 New Game</button>
+          </div>
+
+          <!--=================================
+                  SELECTED WORD
+          ==================================-->
+
+          <div class="selected-panel">
+            <div class="selected-info">
+              <span> Selected Letters </span>
+
+              <strong>
+                @if (selectedWord) {
+                  {{ selectedWord }}
+                } @else {
+                  Select letters from the board
+                }
+              </strong>
+            </div>
+
+            <div class="selected-actions">
+              <button
+                type="button"
+                class="clear-btn"
+                [disabled]="selectedCells.length === 0"
+                (click)="clearSelection()"
+              >
+                ✕ Clear
+              </button>
+
+              <button
+                type="button"
+                class="check-btn"
+                [disabled]="selectedCells.length === 0"
+                (click)="checkSelectedWord()"
+              >
+                ✓ Check Word
+              </button>
+            </div>
+          </div>
+
+          <!--=================================
+                    MESSAGE
+          ==================================-->
+
+          @if (message) {
+            <div
+              class="game-message"
+              [class.success]="messageType === 'success'"
+              [class.error]="messageType === 'error'"
+            >
+              {{ message }}
+            </div>
+          }
+
+          <!--=================================
+                    LETTER GRID
+          ==================================-->
+
+          <div class="grid-wrapper">
+            <div class="letter-grid" [style.gridTemplateColumns]="'repeat(' + gridSize + ', 1fr)'">
+              @for (row of grid; track $index) {
+                @for (cell of row; track cell.row + '-' + cell.col) {
+                  <button
+                    type="button"
+                    class="letter-cell"
+                    [class.selected]="cell.selected"
+                    [class.found]="cell.found"
+                    [disabled]="gameCompleted"
+                    (click)="selectCell(cell)"
+                  >
+                    {{ cell.letter }}
+                  </button>
+                }
+              }
+            </div>
+          </div>
+
+          <!--=================================
+                    MOBILE HELP
+          ==================================-->
+
+          <div class="board-help">
+            <div class="help-item">
+              <span class="help-dot selected-dot"></span>
+              Selected
+            </div>
+
+            <div class="help-item">
+              <span class="help-dot found-dot"></span>
+              Found
+            </div>
+
+            <div class="help-item">💡 Words may appear in any direction</div>
+          </div>
+        </div>
+
+        <!--=================================
+                  WORD LIST
+        ==================================-->
+
+        <aside class="words-panel">
+          <div class="words-header">
+            <div class="words-icon">📝</div>
+
+            <div>
+              <span> Challenge </span>
+
+              <h3>Words To Find</h3>
+            </div>
+          </div>
+
+          <div class="words-progress">
+            <div>
+              <strong>
+                {{ foundCount }}
+              </strong>
+
+              <span> Found </span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div>
+              <strong>
+                {{ words.length - foundCount }}
+              </strong>
+
+              <span> Remaining </span>
+            </div>
+          </div>
+
+          <div class="words-list">
+            @for (item of words; track item.word) {
+              <div class="word-item" [class.found]="item.found">
+                <div class="word-status">
+                  @if (item.found) {
+                    <span class="found-check"> ✓ </span>
+                  } @else {
+                    <span class="not-found"> ? </span>
+                  }
+                </div>
+
+                <span class="word-name">
+                  {{ item.word }}
+                </span>
+
+                @if (item.found) {
+                  <span class="completed-label"> Found </span>
+                }
+              </div>
+            }
+          </div>
+
+          <!--=================================
+                      TIP
+          ==================================-->
+
+          <div class="tip-card">
+            <div class="tip-icon">💡</div>
+
+            <div>
+              <h4>Little Hint</h4>
+
+              <p>
+                Look horizontally, vertically and diagonally. Some words may also appear backwards!
+              </p>
+            </div>
+          </div>
+
+          <button type="button" class="reset-btn" (click)="newGame()">🔄 Restart Challenge</button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                COMPLETION
+  ==========================================-->
+
+  @if (gameCompleted) {
+    <section class="completion-section">
+      <div class="container">
+        <div class="completion-card">
+          <div class="celebration-icons">
+            <span>🎉</span>
+            <span>🏆</span>
+            <span>🎊</span>
+          </div>
+
+          <span class="completion-tag"> Challenge Completed </span>
+
+          <h2>
+            Amazing Work,
+            <span>Word Champion!</span>
+          </h2>
+
+          <p>You discovered every hidden Ganesh word. Keep learning, playing and exploring!</p>
+
+          <div class="completion-stats">
+            <div class="result-card">
+              <span>⏱️</span>
+
+              <small> Time </small>
+
+              <strong>
+                {{ formattedTime }}
+              </strong>
+            </div>
+
+            <div class="result-card">
+              <span>⭐</span>
+
+              <small> Score </small>
+
+              <strong>
+                {{ score }}
+              </strong>
+            </div>
+
+            <div class="result-card">
+              <span>🔄</span>
+
+              <small> Attempts </small>
+
+              <strong>
+                {{ attempts }}
+              </strong>
+            </div>
+
+            <div class="result-card">
+              <span>🎯</span>
+
+              <small> Words </small>
+
+              <strong> {{ foundCount }}/{{ words.length }} </strong>
+            </div>
+          </div>
+
+          <div class="completion-actions">
+            <button type="button" class="play-again-btn" (click)="newGame()">🔄 Play Again</button>
+
+            <button type="button" class="certificate-btn">🏆 View Certificate</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+</section>

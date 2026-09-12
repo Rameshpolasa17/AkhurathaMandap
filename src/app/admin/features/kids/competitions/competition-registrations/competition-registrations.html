@@ -1,0 +1,228 @@
+<section class="competition-registrations-page">
+  <div class="page-header">
+    <div>
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Competitions</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>Registrations</strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-users"></i>
+        </div>
+
+        <div>
+          <h1>Competition Registrations</h1>
+          <p>
+            @if (competition) {
+              Manage registrations for {{ competition.title }}.
+            } @else {
+              Manage competition registrations.
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-users"></i>
+      </div>
+      <div>
+        <span>Total</span>
+        <strong>{{ totalCount }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+      <div>
+        <span>Pending</span>
+        <strong>{{ pendingCount }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div>
+        <span>Approved</span>
+        <strong>{{ approvedCount }}</strong>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="fa-solid fa-circle-xmark"></i>
+      </div>
+      <div>
+        <span>Rejected</span>
+        <strong>{{ rejectedCount }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-card">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+
+      <input
+        type="text"
+        placeholder="Search registrations..."
+        [value]="searchText"
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <div class="status-filter">
+      <i class="fa-solid fa-filter"></i>
+
+      <select [value]="statusFilter" (change)="onStatusChange($event)">
+        <option value="all">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+
+    <button type="button" class="refresh-button" (click)="loadRegistrations()">
+      <i class="fa-solid fa-rotate-right"></i>
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="loader"></div>
+      <h3>Loading Registrations...</h3>
+    </div>
+  }
+
+  @if (!loading && filteredRegistrations.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-users"></i>
+      </div>
+
+      <h2>No Registrations Found</h2>
+
+      <p>
+        @if (searchText || statusFilter !== 'all') {
+          Try changing your search or filter.
+        } @else {
+          No registrations are available for this competition.
+        }
+      </p>
+    </div>
+  }
+
+  @if (!loading && filteredRegistrations.length > 0) {
+    <div class="result-header">
+      <p>
+        Showing
+        <strong>{{ filteredRegistrations.length }}</strong>
+        registration(s)
+      </p>
+    </div>
+
+    <div class="registration-grid">
+      @for (registration of filteredRegistrations; track registration.id) {
+        <article class="registration-card">
+          <div class="card-top">
+            <div class="user-icon">
+              <i class="fa-solid fa-user"></i>
+            </div>
+
+            <span class="status-badge" [class]="getStatusClass(registration.status)">
+              {{ registration.status || 'Pending' }}
+            </span>
+          </div>
+
+          <div class="card-body">
+            <h2>
+              {{ registration.childName || registration.name || 'Participant' }}
+            </h2>
+
+            @if (registration.registrationNumber) {
+              <div class="registration-number">#{{ registration.registrationNumber }}</div>
+            }
+
+            @if (registration.parentName) {
+              <div class="meta-item">
+                <i class="fa-solid fa-user-group"></i>
+                <span>{{ registration.parentName }}</span>
+              </div>
+            }
+
+            @if (registration.email) {
+              <div class="meta-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>{{ registration.email }}</span>
+              </div>
+            }
+
+            @if (registration.phone) {
+              <div class="meta-item">
+                <i class="fa-solid fa-phone"></i>
+                <span>{{ registration.phone }}</span>
+              </div>
+            }
+
+            @if (registration.categoryName) {
+              <div class="meta-item">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>{{ registration.categoryName }}</span>
+              </div>
+            }
+
+            @if (registration.createdDate) {
+              <div class="meta-item">
+                <i class="fa-regular fa-calendar"></i>
+                <span>
+                  {{ registration.createdDate | date: 'dd MMM yyyy' }}
+                </span>
+              </div>
+            }
+          </div>
+
+          @if (registration.status?.toLowerCase() === 'pending' || !registration.status) {
+            <div class="card-actions">
+              <button
+                type="button"
+                class="approve-button"
+                (click)="updateStatus(registration, 'Approved')"
+              >
+                <i class="fa-solid fa-check"></i>
+                Approve
+              </button>
+
+              <button
+                type="button"
+                class="reject-button"
+                (click)="updateStatus(registration, 'Rejected')"
+              >
+                <i class="fa-solid fa-xmark"></i>
+                Reject
+              </button>
+            </div>
+          }
+        </article>
+      }
+    </div>
+  }
+
+  <div class="bottom-actions">
+    <button type="button" class="back-button" (click)="backToCompetitions()">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Competitions
+    </button>
+  </div>
+</section>

@@ -1,0 +1,175 @@
+.hist__inner {
+  max-width: 880px;
+}
+
+/* ============================================================ TIMELINE */
+
+.hist__timeline {
+  position: relative;
+  list-style: none;
+  padding-left: 44px;
+
+  /* The vertical spine. */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 152, 0, 0.75) 0%,
+      rgba(139, 30, 36, 0.35) 65%,
+      transparent 100%
+    );
+  }
+}
+
+.hist__item {
+  position: relative;
+  margin-bottom: 22px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.hist__dot {
+  position: absolute;
+  left: -44px;
+  top: 28px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--akm-cream);
+  border: 2px solid rgba(255, 152, 0, 0.5);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border-radius: 50%;
+    background: var(--akm-grad-accent);
+  }
+}
+
+.hist__card {
+  padding: 26px 28px;
+  border-radius: var(--akm-r-lg);
+  background: var(--akm-white);
+  border: 1px solid var(--akm-border);
+  box-shadow: var(--akm-shadow-sm);
+  transition:
+    transform var(--akm-t),
+    box-shadow var(--akm-t);
+
+  &:hover {
+    transform: translateX(5px);
+    box-shadow: var(--akm-shadow-md);
+  }
+
+  h3 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.22rem;
+    color: var(--akm-maroon-800);
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.82;
+    color: var(--akm-ink-muted);
+  }
+}
+
+.hist__year {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 14px;
+  border-radius: var(--akm-r-pill);
+  background: var(--akm-grad-brand);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* =============================================================== STATS */
+
+.hist-stats__grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  text-align: center;
+
+  li {
+    padding: 26px 18px;
+    border-radius: var(--akm-r-lg);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  strong {
+    display: block;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    line-height: 1;
+    color: var(--akm-accent-400);
+  }
+
+  span {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--akm-on-dark-muted);
+  }
+}
+
+.hist-stats__cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+/* =========================================================== RESPONSIVE */
+
+@media (max-width: 768px) {
+  .hist-stats__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .hist__timeline {
+    padding-left: 30px;
+
+    &::before {
+      left: 10px;
+    }
+  }
+
+  .hist__dot {
+    left: -30px;
+    width: 22px;
+    height: 22px;
+    top: 24px;
+
+    &::after {
+      inset: 5px;
+    }
+  }
+
+  .hist__card {
+    padding: 20px 18px;
+  }
+
+  .hist-stats__cta .akm-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,162 @@
+<app-page-hero
+  titleId="an-title"
+  eyebrow="Notice board"
+  icon="fa-solid fa-bullhorn"
+  heading="Announcements"
+  lede="Festival dates, registrations, seva calls and every other update from the mandap committee."
+/>
+
+<section class="an akm-section akm-section--cream" aria-labelledby="an-list-title">
+  <div class="akm-container">
+    <h2 id="an-list-title" class="akm-visually-hidden">All announcements</h2>
+
+    <!-- Search -->
+    <div class="an__search">
+      <label for="an-search" class="akm-visually-hidden">Search announcements</label>
+      <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+      <input
+        id="an-search"
+        type="search"
+        class="akm-input"
+        placeholder="Search announcements…"
+        [(ngModel)]="searchText"
+        (input)="search()"
+      />
+    </div>
+
+    <!-- Categories -->
+    @if (categories.length > 2) {
+      <div class="akm-filters" role="group" aria-label="Filter announcements by topic">
+        @for (category of categories; track category) {
+          <button
+            type="button"
+            class="akm-filter"
+            [attr.aria-pressed]="selectedCategory() === category"
+            (click)="selectCategory(category)"
+          >
+            {{ category }}
+          </button>
+        }
+      </div>
+    }
+
+    <!-- List -->
+    @if (displayed.length) {
+      <div class="an__grid">
+        @for (item of displayed; track item.announcementId; let i = $index) {
+          <article class="an__card" akmReveal [revealDelay]="(i % 4) * 65">
+            <div class="an__card-top">
+              <span class="akm-chip">{{ categoryOf(item) }}</span>
+              @if (isNew(item)) {
+                <span class="an__new">New</span>
+              }
+            </div>
+
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+
+            <div class="an__card-foot">
+              <time [attr.datetime]="item.publishDate">
+                <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                {{ item.publishDate | date: 'd MMM y' }}
+              </time>
+
+              <button
+                type="button"
+                class="akm-link"
+                (click)="open(item)"
+                [attr.aria-label]="'Read ' + item.title"
+              >
+                Read
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+
+      @if (hasMore) {
+        <div class="an__more">
+          <button type="button" class="akm-btn akm-btn--ghost" (click)="loadMore()">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            Load more
+          </button>
+        </div>
+      }
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-regular fa-bell-slash" aria-hidden="true"></i>
+        <h3>No announcements found</h3>
+        <p>Try another keyword or topic.</p>
+      </div>
+    }
+
+    <div class="an__cta" akmReveal>
+      <div>
+        <h3>Looking for something specific?</h3>
+        <p>Check the festival schedule, or ask the committee directly.</p>
+      </div>
+      <div class="an__cta-buttons">
+        <a class="akm-btn akm-btn--brand" routerLink="/festival-schedule">
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          Festival Schedule
+        </a>
+        <a class="akm-btn akm-btn--ghost" routerLink="/contact">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= MODAL -->
+@if (selected(); as item) {
+  <div class="an-modal" (click)="onBackdrop($event)">
+    <div class="an-modal__panel" role="dialog" aria-modal="true" aria-labelledby="an-modal-title">
+      <header class="an-modal__head">
+        <div>
+          <span class="an-modal__cat">{{ categoryOf(item) }}</span>
+          <h2 id="an-modal-title">{{ item.title }}</h2>
+          <time [attr.datetime]="item.publishDate">
+            <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+            {{ item.publishDate | date: 'EEEE, d MMMM y' }}
+          </time>
+        </div>
+
+        <button type="button" class="an-modal__close" aria-label="Close announcement" (click)="close()">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <div class="an-modal__body">
+        <p>{{ item.description }}</p>
+
+        @if (item.expiryDate) {
+          <p class="an-modal__expiry">
+            <i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>
+            Valid until {{ item.expiryDate | date: 'd MMMM y' }}
+          </p>
+        }
+      </div>
+
+      <footer class="an-modal__foot">
+        @if (canShare) {
+          <button type="button" class="akm-btn akm-btn--ghost akm-btn--sm" (click)="share(item)">
+            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+            Share
+          </button>
+        }
+
+        <button type="button" class="akm-btn akm-btn--ghost akm-btn--sm" (click)="copy(item)">
+          <i class="fa-solid" [class.fa-copy]="!copied()" [class.fa-check]="copied()" aria-hidden="true"></i>
+          {{ copied() ? 'Copied' : 'Copy text' }}
+        </button>
+
+        <button type="button" class="akm-btn akm-btn--brand akm-btn--sm" (click)="close()">
+          Close
+        </button>
+      </footer>
+    </div>
+  </div>
+}

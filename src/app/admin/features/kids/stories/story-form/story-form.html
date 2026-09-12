@@ -1,0 +1,160 @@
+<section class="story-form-page">
+  <!-- =========================================
+                    HEADER
+  ========================================== -->
+
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        <span>Kids Zone</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Stories</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <strong>
+          {{ isEditMode ? 'Edit Story' : 'Add Story' }}
+        </strong>
+      </div>
+
+      <div class="title-row">
+        <div class="title-icon">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+
+        <div>
+          <h1>
+            {{ isEditMode ? 'Edit Story' : 'Add Story' }}
+          </h1>
+
+          <p>Create engaging Ganesh stories for children.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+                    FORM
+  ========================================== -->
+
+  <form [formGroup]="storyForm" (ngSubmit)="saveStory()">
+    <div class="form-card">
+      <div class="form-grid">
+        <!-- Title -->
+
+        <div class="form-group full">
+          <label>Story Title *</label>
+
+          <input type="text" formControlName="title" placeholder="Enter story title" />
+        </div>
+
+        <!-- Short Description -->
+
+        <div class="form-group full">
+          <label>Short Description</label>
+
+          <textarea
+            rows="2"
+            formControlName="shortDescription"
+            placeholder="Short summary"
+          ></textarea>
+        </div>
+
+        <!-- Story -->
+
+        <div class="form-group full">
+          <label>Story Content *</label>
+
+          <textarea
+            rows="10"
+            formControlName="description"
+            placeholder="Write the story..."
+          ></textarea>
+        </div>
+
+        <!-- Thumbnail -->
+
+        <div class="form-group">
+          <label>Thumbnail URL</label>
+
+          <input type="text" formControlName="thumbnailPath" placeholder="https://..." />
+        </div>
+
+        <!-- Audio -->
+
+        <div class="form-group">
+          <label>Audio URL</label>
+
+          <input type="text" formControlName="mediaPath" placeholder="https://..." />
+        </div>
+
+        <!-- Video -->
+
+        <div class="form-group full">
+          <label>Video URL</label>
+
+          <input type="text" formControlName="videoUrl" placeholder="https://youtube.com/..." />
+        </div>
+
+        <!-- Age -->
+
+        <div class="form-group">
+          <label>Age Group</label>
+
+          <select formControlName="ageGroup">
+            <option value="All">All</option>
+            <option value="3-5 Years">3-5 Years</option>
+            <option value="6-8 Years">6-8 Years</option>
+            <option value="9-12 Years">9-12 Years</option>
+          </select>
+        </div>
+
+        <!-- Duration -->
+
+        <div class="form-group">
+          <label>Reading Time</label>
+
+          <input type="text" formControlName="duration" placeholder="5 mins" />
+        </div>
+
+        <!-- Display Order -->
+
+        <div class="form-group">
+          <label>Display Order</label>
+
+          <input type="number" formControlName="displayOrder" />
+        </div>
+
+        <!-- Featured -->
+
+        <div class="form-group checkbox">
+          <label>
+            <input type="checkbox" formControlName="isFeatured" />
+
+            Featured Story
+          </label>
+        </div>
+
+        <!-- Active -->
+
+        <div class="form-group checkbox">
+          <label>
+            <input type="checkbox" formControlName="isActive" />
+
+            Active
+          </label>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+
+      <div class="button-row">
+        <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+
+        <button type="submit" class="save-btn" [disabled]="saving">
+          <i class="fa-solid fa-floppy-disk"></i>
+
+          {{ saving ? 'Saving...' : 'Save Story' }}
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

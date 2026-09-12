@@ -1,0 +1,275 @@
+<section class="puzzle-page">
+  <!--=========================================
+                  HERO
+  ==========================================-->
+
+  <section class="puzzle-hero">
+    <div class="hero-bg"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag"> 🧩 Kids Puzzle Zone </span>
+
+        <h1>
+          {{ heroTitle }}
+        </h1>
+
+        <p>
+          {{ heroSubtitle }}
+        </p>
+
+        <div class="hero-buttons">
+          <button class="btn-primary">Start Playing</button>
+
+          <button class="btn-outline">View Challenges</button>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="images/puzzles/puzzle-hero.png" alt="Puzzle Hero" />
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              GAME CATEGORIES
+  ==========================================-->
+
+  <section class="categories">
+    <div class="container">
+      <div class="section-header">
+        <span>Choose Your Game</span>
+
+        <h2>Puzzle Categories</h2>
+
+        <p>Explore different games specially designed for kids.</p>
+      </div>
+
+      <div class="categories-grid">
+        @for (category of categories; track category.title) {
+          <div
+            class="category-card"
+            [class.active]="selectedCategory == $index"
+            (click)="goToCategory(category.route)"
+          >
+            <div class="icon" [style.background]="category.color">
+              {{ category.icon }}
+            </div>
+
+            <h3>
+              {{ category.title }}
+            </h3>
+
+            <p>
+              {{ category.description }}
+            </p>
+
+            <span class="difficulty">
+              {{ category.difficulty }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                JIGSAW
+  ==========================================-->
+
+  <section class="jigsaw">
+    <div class="container">
+      <div class="section-header">
+        <span>🧩 Jigsaw Puzzle</span>
+
+        <h2>Arrange The Pieces</h2>
+      </div>
+
+      <div class="jigsaw-grid">
+        @for (item of puzzles; track item.title) {
+          <div class="jigsaw-card">
+            <img [src]="item.image" [alt]="item.title" />
+
+            <div class="content">
+              <h3>
+                {{ item.title }}
+              </h3>
+
+              <p>Pieces : {{ item.pieces }}</p>
+
+              <span>
+                {{ item.level }}
+              </span>
+
+              <button (click)="playPuzzle(item.route)">Play Puzzle</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              WORD SEARCH
+  ==========================================-->
+
+  <section class="word-search">
+    <div class="container">
+      <div class="section-header">
+        <span>🔤 Word Search</span>
+
+        <h2>Find The Hidden Words</h2>
+      </div>
+
+      <div class="words">
+        @for (word of words; track word) {
+          <div class="word-chip">
+            {{ word }}
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                MEMORY GAME
+  ==========================================-->
+
+  <section class="memory-game">
+    <div class="container">
+      <div class="section-header">
+        <span>🧠 Memory Game</span>
+
+        <h2>Flip & Match Cards</h2>
+      </div>
+
+      <div class="memory-grid">
+        @for (card of memoryCards; track $index) {
+          <div class="memory-card">
+            {{ card }}
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+              MATCH SHADOW
+  ==========================================-->
+
+  <section class="shadow-game">
+    <div class="container">
+      <div class="section-header">
+        <span>🎯 Match Shadow</span>
+
+        <h2>Find The Correct Match</h2>
+      </div>
+
+      <div class="shadow-grid">
+        @for (item of shadowItems; track item.image) {
+          <div class="shadow-card">
+            <div class="image">
+              <img [src]="item.image" alt="Object" />
+            </div>
+
+            <div class="arrow">➜</div>
+
+            <div class="shadow">
+              <img [src]="item.shadow" alt="Shadow" />
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+            GUESS THE PICTURE
+  ==========================================-->
+
+  <section class="guess-game">
+    <div class="container">
+      <div class="section-header">
+        <span>❓ Guess The Picture</span>
+
+        <h2>Can You Guess?</h2>
+      </div>
+
+      <div class="guess-grid">
+        @for (item of guessImages; track item.answer) {
+          <div class="guess-card">
+            <img [src]="item.image" alt="Guess Image" />
+
+            <h3>Who is this?</h3>
+
+            <div class="options">
+              @for (option of item.options; track option) {
+                <button>
+                  {{ option }}
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                  STATS
+  ==========================================-->
+
+  <section class="puzzle-stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h2>
+            {{ totalGames }}
+          </h2>
+
+          <span> Games </span>
+        </div>
+
+        <div class="stat-card">
+          <h2>
+            {{ totalLevels }}
+          </h2>
+
+          <span> Levels </span>
+        </div>
+
+        <div class="stat-card">
+          <h2>
+            {{ completedGames }}
+          </h2>
+
+          <span> Completed </span>
+        </div>
+
+        <div class="stat-card">
+          <h2>
+            {{ certificatesEarned }}
+          </h2>
+
+          <span> Certificates </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=========================================
+                CERTIFICATE
+  ==========================================-->
+
+  <section class="certificate">
+    <div class="container">
+      <div class="certificate-card">
+        <h2>🏆 Puzzle Champion</h2>
+
+        <p>Complete all games to unlock your Kids Achievement Certificate.</p>
+
+        <button>Download Certificate</button>
+      </div>
+    </div>
+  </section>
+</section>

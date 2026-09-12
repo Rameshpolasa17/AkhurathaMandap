@@ -1,0 +1,618 @@
+/*==========================================
+            KIDS SECTION
+==========================================*/
+
+.kids {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 120px 0;
+
+  background: linear-gradient(180deg, #fffdf8 0%, #fff7eb 45%, #ffffff 100%);
+}
+
+.kids::before {
+  content: '';
+
+  position: absolute;
+
+  width: 550px;
+
+  height: 550px;
+
+  top: -180px;
+
+  left: -180px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 193, 7, 0.08);
+
+  filter: blur(90px);
+}
+
+.kids::after {
+  content: '';
+
+  position: absolute;
+
+  width: 420px;
+
+  height: 420px;
+
+  right: -150px;
+
+  bottom: -150px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 152, 0, 0.08);
+
+  filter: blur(80px);
+}
+
+.container {
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 1320px;
+
+  margin: auto;
+
+  padding: 0 20px;
+}
+
+/*==========================================
+            HEADER
+==========================================*/
+
+.section-header {
+  text-align: center;
+
+  margin-bottom: 70px;
+}
+
+.section-header span {
+  display: inline-flex;
+
+  padding: 12px 28px;
+
+  border-radius: 40px;
+
+  background: #fff;
+
+  color: #ef6c00;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.section-header h2 {
+  margin: 22px 0 18px;
+
+  font-size: clamp(3rem, 5vw, 4.2rem);
+
+  font-weight: 800;
+
+  color: #35271d;
+}
+
+.section-header p {
+  max-width: 720px;
+
+  margin: auto;
+
+  color: #666;
+
+  font-size: 18px;
+
+  line-height: 1.9;
+}
+
+/*==========================================
+          FEATURE BANNER
+==========================================*/
+
+.activity-banner {
+  display: grid;
+
+  grid-template-columns: 1.1fr 0.9fr;
+
+  gap: 40px;
+
+  align-items: center;
+
+  padding: 55px;
+
+  margin-bottom: 70px;
+
+  border-radius: 35px;
+
+  overflow: hidden;
+
+  background: linear-gradient(135deg, #fff, #fff8ef);
+
+  border: 1px solid rgba(255, 193, 7, 0.18);
+
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.08);
+}
+
+.activity-left {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.activity-left span {
+  width: max-content;
+
+  padding: 10px 22px;
+
+  border-radius: 40px;
+
+  background: #fff3e0;
+
+  color: #ef6c00;
+
+  font-weight: 700;
+
+  margin-bottom: 24px;
+}
+
+.activity-left h2 {
+  font-size: 50px;
+
+  line-height: 1.15;
+
+  color: #32251b;
+
+  margin-bottom: 22px;
+
+  font-weight: 800;
+}
+
+.activity-left p {
+  font-size: 18px;
+
+  color: #666;
+
+  line-height: 1.9;
+
+  margin-bottom: 35px;
+}
+
+.activity-left button {
+  width: max-content;
+
+  border: none;
+
+  cursor: pointer;
+
+  padding: 17px 36px;
+
+  border-radius: 50px;
+
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  transition: 0.35s;
+
+  box-shadow: 0 20px 45px rgba(255, 152, 0, 0.25);
+}
+
+.activity-left button:hover {
+  transform: translateY(-6px);
+}
+
+.activity-right {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+}
+
+.activity-right img {
+  width: 100%;
+
+  max-width: 420px;
+
+  transition: 0.8s;
+}
+
+.activity-banner:hover img {
+  transform: scale(1.05);
+}
+/*==========================================
+            ACTIVITY GRID
+==========================================*/
+
+.grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 30px;
+
+  margin-bottom: 70px;
+}
+
+/*==========================================
+            ACTIVITY CARD
+==========================================*/
+
+.card {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 38px 30px;
+
+  text-align: center;
+
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.78);
+
+  backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+
+  transition: 0.45s;
+
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-14px);
+
+  box-shadow: 0 35px 70px rgba(255, 152, 0, 0.18);
+}
+
+.card::before {
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45), transparent);
+
+  opacity: 0;
+
+  transition: 0.4s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/*==========================================
+            ICON
+==========================================*/
+
+.icon {
+  width: 95px;
+
+  height: 95px;
+
+  margin: auto;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  color: white;
+
+  background: linear-gradient(135deg, #ff9800, #ffd54f);
+
+  box-shadow: 0 20px 40px rgba(255, 152, 0, 0.3);
+
+  transition: 0.4s;
+}
+
+.icon mat-icon {
+  font-size: 42px;
+
+  width: 42px;
+
+  height: 42px;
+}
+
+.card:hover .icon {
+  transform: rotate(12deg) scale(1.08);
+}
+
+/* Different Colors */
+
+.card:nth-child(2) .icon {
+  background: linear-gradient(135deg, #4caf50, #81c784);
+}
+
+.card:nth-child(3) .icon {
+  background: linear-gradient(135deg, #2196f3, #64b5f6);
+}
+
+.card:nth-child(4) .icon {
+  background: linear-gradient(135deg, #e91e63, #f48fb1);
+}
+
+.card:nth-child(5) .icon {
+  background: linear-gradient(135deg, #9c27b0, #ce93d8);
+}
+
+.card:nth-child(6) .icon {
+  background: linear-gradient(135deg, #ff5722, #ffab91);
+}
+
+/*==========================================
+            CONTENT
+==========================================*/
+
+.card h3 {
+  margin: 28px 0 16px;
+
+  font-size: 26px;
+
+  font-weight: 700;
+
+  color: #3a2d21;
+}
+
+.card p {
+  color: #666;
+
+  font-size: 16px;
+
+  line-height: 1.8;
+
+  margin-bottom: 28px;
+}
+
+/*==========================================
+            BUTTON
+==========================================*/
+
+.card button {
+  width: 100%;
+
+  height: 52px;
+
+  border: none;
+
+  border-radius: 35px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 10px;
+
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  transition: 0.35s;
+}
+
+.card button:hover {
+  transform: translateY(-4px);
+}
+
+.card button i {
+  transition: 0.35s;
+}
+
+.card button:hover i {
+  transform: translateX(8px);
+}
+
+/*==========================================
+            STATS
+==========================================*/
+
+.kids-stats {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 25px;
+
+  margin-bottom: 70px;
+}
+
+.stat-card {
+  padding: 40px 20px;
+
+  text-align: center;
+
+  border-radius: 26px;
+
+  background: #fff;
+
+  border: 1px solid rgba(255, 193, 7, 0.15);
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
+
+  transition: 0.35s;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+}
+
+.stat-card h2 {
+  font-size: 42px;
+
+  font-weight: 800;
+
+  color: #ff9800;
+
+  margin-bottom: 12px;
+}
+
+.stat-card span {
+  font-size: 16px;
+
+  font-weight: 600;
+
+  color: #666;
+}
+
+/*==========================================
+            FOOTER
+==========================================*/
+
+.kids-footer {
+  display: flex;
+
+  justify-content: center;
+}
+
+.view-btn {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 18px 42px;
+
+  border: none;
+
+  border-radius: 60px;
+
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ff9800, #ffc107);
+
+  color: white;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  transition: 0.35s;
+
+  box-shadow: 0 20px 45px rgba(255, 152, 0, 0.25);
+}
+
+.view-btn:hover {
+  transform: translateY(-6px);
+}
+
+.view-btn i {
+  transition: 0.35s;
+}
+
+.view-btn:hover i {
+  transform: translateX(8px);
+}
+
+/*==========================================
+            RESPONSIVE
+==========================================*/
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .kids-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .activity-banner {
+    grid-template-columns: 1fr;
+
+    text-align: center;
+  }
+
+  .activity-left button {
+    margin: auto;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kids-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-left h2 {
+    font-size: 36px;
+  }
+
+  .view-btn {
+    width: 100%;
+
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .kids {
+    padding: 80px 0;
+  }
+
+  .section-header h2 {
+    font-size: 34px;
+  }
+
+  .card {
+    padding: 30px 24px;
+  }
+
+  .icon {
+    width: 80px;
+
+    height: 80px;
+  }
+
+  .icon mat-icon {
+    font-size: 36px;
+
+    width: 36px;
+
+    height: 36px;
+  }
+
+  .card h3 {
+    font-size: 22px;
+  }
+
+  .stat-card h2 {
+    font-size: 34px;
+  }
+}

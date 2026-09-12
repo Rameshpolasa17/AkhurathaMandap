@@ -1,0 +1,246 @@
+.sponsors-page {
+  padding: 1.5rem;
+  background: #f5f7fb;
+  min-height: calc(100vh - 70px);
+}
+
+//==============================
+// Header
+//==============================
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  h2 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+
+  p {
+    margin: 5px 0 0;
+    color: #64748b;
+  }
+
+  .btn {
+    height: 45px;
+    padding: 0 24px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+}
+
+//==============================
+// Filter Card
+//==============================
+
+.filter-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+
+  .form-control,
+  .form-select {
+    height: 46px;
+    border-radius: 10px;
+    border: 1px solid #dbe2ea;
+
+    &:focus {
+      border-color: #0d6efd;
+      box-shadow: none;
+    }
+  }
+
+  .btn {
+    height: 46px;
+    border-radius: 10px;
+  }
+}
+
+//==============================
+// Table
+//==============================
+
+.table-responsive {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.table {
+  margin: 0;
+
+  thead {
+    background: #0d6efd;
+    color: white;
+
+    th {
+      border: none;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  }
+
+  tbody {
+    tr {
+      transition: 0.25s;
+
+      &:hover {
+        background: #f8fbff;
+      }
+    }
+
+    td {
+      padding: 15px;
+      vertical-align: middle;
+    }
+  }
+}
+
+//==============================
+// Logo
+//==============================
+
+.logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background: #fff;
+  padding: 5px;
+}
+
+//==============================
+// Badges
+//==============================
+
+.badge {
+  padding: 8px 12px;
+  font-size: 12px;
+  border-radius: 30px;
+  font-weight: 600;
+}
+
+//==============================
+// Buttons
+//==============================
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+
+  .btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 8px;
+  }
+}
+
+//==============================
+// Loading
+//==============================
+
+.loading {
+  background: white;
+  padding: 80px;
+  text-align: center;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+
+  i {
+    color: #0d6efd;
+  }
+
+  p {
+    margin-top: 15px;
+    color: #64748b;
+    font-weight: 500;
+  }
+}
+
+//==============================
+// Empty State
+//==============================
+
+.empty-state {
+  background: white;
+  border-radius: 14px;
+  padding: 80px 20px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+
+  i {
+    color: #cbd5e1;
+    margin-bottom: 20px;
+  }
+
+  h4 {
+    color: #334155;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #64748b;
+  }
+}
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  padding: 20px;
+}
+//==============================
+// Responsive
+//==============================
+
+@media (max-width: 992px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .table {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sponsors-page {
+    padding: 15px;
+  }
+
+  .page-header {
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  .filter-card {
+    padding: 15px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+}

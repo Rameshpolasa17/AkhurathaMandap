@@ -1,0 +1,169 @@
+<div class="question-form-page">
+  <div class="page-header">
+    <div>
+      <h2>{{ id > 0 ? 'Edit Question' : 'Add Question' }}</h2>
+      <p>Manage the question and answer options</p>
+    </div>
+
+    <button type="button" class="btn-secondary" (click)="backToQuestions()" [disabled]="saving">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      Loading question...
+    </div>
+  } @else {
+    <div class="form-card">
+      <form (ngSubmit)="save()">
+        <div class="form-group full-width">
+          <label for="question"> Question <span>*</span> </label>
+
+          <textarea
+            id="question"
+            name="question"
+            [(ngModel)]="form.question"
+            rows="4"
+            maxlength="2000"
+            placeholder="Enter question"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="points">Points</label>
+
+            <input id="points" type="number" name="points" [(ngModel)]="form.points" min="1" />
+          </div>
+
+          <div class="form-group">
+            <label for="displayOrder">Display Order</label>
+
+            <input
+              id="displayOrder"
+              type="number"
+              name="displayOrder"
+              [(ngModel)]="form.displayOrder"
+              min="1"
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="imagePath">Image Path</label>
+
+            <input
+              id="imagePath"
+              type="text"
+              name="imagePath"
+              [(ngModel)]="form.imagePath"
+              placeholder="Enter image path"
+            />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="explanation">Explanation</label>
+
+            <textarea
+              id="explanation"
+              name="explanation"
+              [(ngModel)]="form.explanation"
+              rows="3"
+              maxlength="2000"
+              placeholder="Enter answer explanation"
+            ></textarea>
+          </div>
+
+          <div class="form-group full-width">
+            <label class="checkbox-label">
+              <input type="checkbox" name="isActive" [(ngModel)]="form.isActive" />
+              <span>Active</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="options-header">
+          <div>
+            <h3>Answer Options</h3>
+            <p>Select exactly one correct answer.</p>
+          </div>
+
+          <button type="button" class="btn-secondary" (click)="addOption()" [disabled]="saving">
+            <i class="fa-solid fa-plus"></i>
+            Add Option
+          </button>
+        </div>
+
+        <div class="options-list">
+          @for (option of options; track $index; let i = $index) {
+            <div class="option-card" [class.correct]="option.isCorrect">
+              <div class="option-number">
+                {{ ['A', 'B', 'C', 'D', 'E', 'F'][i] || i + 1 }}
+              </div>
+
+              <div class="option-input">
+                <label>
+                  Option {{ i + 1 }}
+                  <span>*</span>
+                </label>
+
+                <input
+                  type="text"
+                  [name]="'optionText' + i"
+                  [(ngModel)]="option.optionText"
+                  placeholder="Enter option"
+                  maxlength="1000"
+                  required
+                />
+              </div>
+
+              <label class="correct-checkbox">
+                <input
+                  type="radio"
+                  name="correctOption"
+                  [checked]="option.isCorrect"
+                  (change)="setCorrectOption(i)"
+                />
+                <span>Correct</span>
+              </label>
+
+              <button
+                type="button"
+                class="btn-delete"
+                title="Remove Option"
+                (click)="removeOption(i)"
+                [disabled]="saving"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="button"
+            class="btn-secondary"
+            (click)="backToQuestions()"
+            [disabled]="saving"
+          >
+            Cancel
+          </button>
+
+          <button type="submit" class="btn-primary" [disabled]="saving">
+            @if (saving) {
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              Saving...
+            } @else {
+              <i class="fa-solid fa-save"></i>
+              {{ id > 0 ? 'Update Question' : 'Save Question' }}
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

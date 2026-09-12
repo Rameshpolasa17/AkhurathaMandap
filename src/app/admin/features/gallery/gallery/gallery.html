@@ -1,0 +1,63 @@
+<div class="page-header">
+  <h2>Gallery</h2>
+
+  <button class="btn btn-primary" (click)="addGallery()">Add Gallery</button>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+
+      <th>Image</th>
+
+      <th>Title</th>
+
+      <th>Category</th>
+
+      <th>Order</th>
+
+      <th>Status</th>
+
+      <th width="180">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (item of galleryList; track item.galleryId) {
+      <tr>
+        <td>{{ item.galleryId }}</td>
+
+        <td>
+          <img [src]="getImageUrl(item.imageUrl)" width="80" height="80" alt="Gallery Image" />
+        </td>
+
+        <td>{{ item.title }}</td>
+
+        <td>{{ item.category }}</td>
+
+        <td>{{ item.displayOrder }}</td>
+
+        <td>
+          @if (item.isActive) {
+            <span class="badge bg-success"> Active </span>
+          } @else {
+            <span class="badge bg-danger"> Inactive </span>
+          }
+        </td>
+
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="editGallery(item)">Edit</button>
+
+          <button class="btn btn-sm btn-danger" (click)="deleteGallery(item.galleryId)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@if (showPopup) {
+  <app-gallery-form [gallery]="selectedGallery" (close)="closePopup($event)"> </app-gallery-form>
+}

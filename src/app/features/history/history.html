@@ -1,0 +1,71 @@
+<app-page-hero
+  titleId="hist-title"
+  eyebrow="Our history"
+  icon="fa-solid fa-clock-rotate-left"
+  heading="From One Street to a Tradition"
+  lede="How Akhuratha Mandap grew from a small pandal on a single street into eleven days the whole neighbourhood plans around."
+/>
+
+<!-- ========================================================== TIMELINE -->
+<section class="hist akm-section akm-section--cream" aria-labelledby="hist-time-title">
+  <div class="akm-container hist__inner">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <h2 id="hist-time-title">The journey so far</h2>
+      <p>Each step was taken by volunteers who simply kept turning up.</p>
+      <div class="akm-rule"></div>
+    </div>
+
+    @if (milestones.length) {
+      <ol class="hist__timeline">
+        @for (milestone of milestones; track milestone.title; let i = $index) {
+          <li class="hist__item" akmReveal [revealDelay]="(i % 3) * 90">
+            <span class="hist__dot" aria-hidden="true"></span>
+            <div class="hist__card">
+              <span class="hist__year">{{ milestone.year }}</span>
+              <h3>{{ milestone.title }}</h3>
+              <p>{{ milestone.description }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    } @else {
+      <div class="akm-empty">
+        <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+        <h3>Our history is being written up</h3>
+        <p>This page will be filled in shortly.</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ============================================================= STATS -->
+@if (stats.length) {
+  <section class="hist-stats akm-section akm-section--brand" aria-labelledby="hist-stats-title">
+    <div class="akm-container">
+      <div class="akm-section-head akm-section-head--center" akmReveal>
+        <h2 id="hist-stats-title">The festival today</h2>
+        <div class="akm-rule"></div>
+      </div>
+
+      <ul class="hist-stats__grid">
+        @for (stat of stats; track stat.label; let i = $index) {
+          <li akmReveal [revealDelay]="i * 80">
+            <strong>{{ stat.value }}</strong>
+            <span>{{ stat.label }}</span>
+          </li>
+        }
+      </ul>
+
+      <div class="hist-stats__cta" akmReveal>
+        <a class="akm-btn akm-btn--primary" routerLink="/gallery">
+          <i class="fa-solid fa-images" aria-hidden="true"></i>
+          See the gallery
+        </a>
+        <a class="akm-btn akm-btn--on-dark" routerLink="/about">
+          <i class="fa-solid fa-om" aria-hidden="true"></i>
+          About the mandap
+        </a>
+      </div>
+    </div>
+  </section>
+}

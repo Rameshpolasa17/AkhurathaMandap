@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.ph {
+  position: relative;
+  padding-block: 88px 76px;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--akm-grad-brand);
+}
+
+.ph__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(680px 320px at 78% 0%, rgba(255, 152, 0, 0.22), transparent 66%);
+}
+
+.ph__orb {
+  width: 360px;
+  height: 360px;
+  bottom: -160px;
+  left: -70px;
+  background: rgba(255, 193, 7, 0.15);
+  z-index: -1;
+}
+
+.ph__inner {
+  max-width: 680px;
+}
+
+.akm-eyebrow {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--akm-accent-400);
+}
+
+h1 {
+  margin: 22px 0 16px;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(2rem, 4.4vw, 3.1rem);
+  line-height: 1.14;
+  color: #fff;
+}
+
+p {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+@media (max-width: 640px) {
+  .ph {
+    padding-block: 62px 52px;
+  }
+}

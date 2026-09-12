@@ -1,0 +1,54 @@
+<section class="spv akm-section akm-section--brand" aria-labelledby="spv-title">
+  <div class="akm-orb spv__orb" aria-hidden="true"></div>
+
+  <div class="akm-container spv__inner">
+    <div class="spv__intro" akmReveal>
+      <span class="akm-eyebrow">
+        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+        Festival Schedule
+      </span>
+      <h2 id="spv-title">Know when to visit</h2>
+      <p>
+        Ganga Harathi every evening from the 14th through the 24th, with the Laddu
+        Velam on the 23rd and Nimarjanam on the 24th.
+      </p>
+
+      <div class="spv__aarti">
+        <span>
+          <strong>{{ dailyHarathi.time }}</strong>
+          {{ dailyHarathi.name }} — {{ dailyHarathi.note }}
+        </span>
+      </div>
+
+      <a class="akm-btn akm-btn--primary" routerLink="/festival-schedule">
+        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+        Full Schedule
+      </a>
+    </div>
+
+    @if (days.length) {
+      <ol class="spv__list">
+        @for (day of days; track day.dayId; let i = $index) {
+          <li class="spv__day" [class.is-highlight]="day.highlight" akmReveal [revealDelay]="i * 90">
+            <time class="spv__date" [attr.datetime]="day.date">
+              <strong>{{ day.date | date: 'd' }}</strong>
+              <small>{{ day.date | date: 'MMM' }}</small>
+            </time>
+
+            <div class="spv__body">
+              <span class="spv__label">{{ day.label }}</span>
+              <h3>{{ day.title }}</h3>
+              <p>{{ day.summary }}</p>
+            </div>
+
+            @if (day.highlight) {
+              <span class="spv__star" aria-label="Highlight of the festival">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+              </span>
+            }
+          </li>
+        }
+      </ol>
+    }
+  </div>
+</section>
