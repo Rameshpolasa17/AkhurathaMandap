@@ -28,6 +28,72 @@ export const KIDS_ENABLED = false;
  */
 export const SUPPORT_QR_ENABLED = false;
 
+/**
+ * GANESH REVEAL — the evening darshan moment on the home page.
+ *
+ * All times are India time (IST, UTC+05:30 — India has no daylight saving, so
+ * the offset never changes). The visitor's own clock decides *when* "now" is,
+ * but the moment itself is always `revealTime` in India, wherever they are.
+ *
+ *   before `revealDate`                      → nothing is shown
+ *   on `revealDate`, before `revealTime`     → "A Divine Reveal Awaits" + countdown
+ *   from `revealTime` to end of `showUntilDate` → the Ganesh Darshan section
+ *   after `showUntilDate`                    → nothing is shown
+ *
+ * The switch happens on its own at `revealTime` — no refresh needed.
+ *
+ * To keep the darshan up only on the reveal day itself, set `showUntilDate`
+ * to the same value as `revealDate`.
+ */
+export interface GaneshRevealConfig {
+  /** Master switch. `false` removes the section entirely. */
+  enabled: boolean;
+  /** Reveal day in India, `YYYY-MM-DD`. */
+  revealDate: string;
+  /** Reveal time in India, 24-hour `HH:mm`. */
+  revealTime: string;
+  /** Last day (India) the revealed darshan stays on the page, `YYYY-MM-DD`. */
+  showUntilDate: string;
+  image: {
+    /**
+     * The reveal photograph. Drop the file at `src/assets/images/` with this
+     * name — it is served from `assets/images/`. Until it exists, a branded
+     * placeholder tile is drawn instead of a broken image.
+     */
+    src: string;
+    /**
+     * Optional responsive variants, e.g.
+     * `'assets/images/ganesh-reveal-640.webp 640w, assets/images/ganesh-reveal.webp 1200w'`.
+     * Leave empty to serve `src` alone. Only list files that actually exist.
+     */
+    srcset: string;
+    /** Intrinsic pixel size of `src`. The frame is a fixed 4:5 arch either way. */
+    width: number;
+    height: number;
+    /** Which part of the photo stays in frame when it is cropped to 4:5. */
+    focus: string;
+    alt: string;
+  };
+}
+
+export const GANESH_REVEAL: GaneshRevealConfig = {
+  enabled: true,
+  revealDate: '2026-09-13',
+  revealTime: '18:00',
+  showUntilDate: '2026-09-24',
+  image: {
+    src: 'assets/images/ganesh-reveal.webp',
+    srcset:
+      'assets/images/ganesh-reveal-560.webp 560w, ' +
+      'assets/images/ganesh-reveal-800.webp 800w, ' +
+      'assets/images/ganesh-reveal.webp 1144w',
+    width: 1144,
+    height: 1375,
+    focus: 'center 30%',
+    alt: 'Shree Ganesh seated on a tiger, holding a conch and an axe, blessing devotees — Akhuratha Mandap Ganesh Darshan',
+  },
+};
+
 export interface SocialLink {
   label: string;
   icon: string;

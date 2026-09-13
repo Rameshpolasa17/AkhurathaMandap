@@ -1,0 +1,9 @@
+# Cloudflare Pages — SPA fallback.
+#
+# Angular routes like /gallery and /contact only exist in the browser. Without
+# this rule a refresh or a shared deep link would ask Pages for a file that is
+# not on disk and get a 404. Serving index.html with a 200 lets the Angular
+# router take over and render the right page.
+#
+# Real files (JS, CSS, images) are matched first, so this only catches routes.
+/*    /index.html   200

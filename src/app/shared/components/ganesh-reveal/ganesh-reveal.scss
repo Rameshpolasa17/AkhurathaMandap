@@ -1,0 +1,642 @@
+/* ==========================================================================
+   GANESH REVEAL
+   Teaser (veiled arch + countdown) and the revealed darshan share one layout
+   and one stage size, so the 6 PM swap barely moves the page below.
+   Every animation is transform/opacity only; nothing loops in JavaScript.
+   ========================================================================== */
+
+@use 'sass:list';
+
+:host {
+  display: block;
+}
+
+.gr {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(72px, 11vw, 120px);
+  color: var(--akm-on-dark);
+  text-align: center;
+  background: #2a0000;
+}
+
+/* ------------------------------------------------------------ grounds */
+
+.gr__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 48%, rgba(255, 152, 0, 0.22), transparent 70%),
+    radial-gradient(ellipse at 50% 40%, #a51e27 0%, #7a0000 34%, #4a0000 64%, #220000 100%);
+}
+
+/* The house lights: fully dark until the reveal plays, then lifts away. */
+.gr__dark {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(circle at 50% 45%, #1c0000 0%, #0b0000 70%);
+}
+
+/* A thin double gold border, echoing the mandap's printed material. */
+.gr__frameline {
+  position: absolute;
+  inset: clamp(10px, 2vw, 22px);
+  z-index: -1;
+  border: 1.5px solid rgba(231, 185, 90, 0.5);
+  border-radius: clamp(14px, 2.4vw, 26px);
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(231, 185, 90, 0.22);
+    border-radius: inherit;
+  }
+}
+
+/* ----------------------------------------------------------- particles */
+
+.gr__dust {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    bottom: -12px;
+    width: var(--sz);
+    height: var(--sz);
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff3c4 0%, #ffc107 45%, rgba(255, 152, 0, 0) 72%);
+    opacity: 0;
+    animation: grDrift var(--dur) linear var(--delay) infinite;
+    will-change: transform, opacity;
+  }
+}
+
+/* left, size, duration, delay — fixed so every visit looks the same. */
+$dust: (
+  (6%, 6px, 13s, 0s),
+  (14%, 9px, 17s, 3.2s),
+  (22%, 5px, 11s, 6.1s),
+  (30%, 8px, 15s, 1.4s),
+  (38%, 4px, 12s, 8.3s),
+  (46%, 10px, 18s, 4.6s),
+  (54%, 6px, 14s, 0.8s),
+  (62%, 8px, 16s, 7.2s),
+  (70%, 5px, 12s, 2.5s),
+  (78%, 9px, 17s, 5.4s),
+  (86%, 6px, 13s, 9.1s),
+  (94%, 4px, 11s, 3.8s),
+  (18%, 7px, 19s, 10.2s),
+  (82%, 7px, 19s, 11.6s)
+);
+
+@for $i from 1 through list.length($dust) {
+  $d: list.nth($dust, $i);
+  .gr__dust span:nth-child(#{$i}) {
+    left: list.nth($d, 1);
+    --sz: #{list.nth($d, 2)};
+    --dur: #{list.nth($d, 3)};
+    --delay: #{list.nth($d, 4)};
+  }
+}
+
+@keyframes grDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(18px, -760px, 0);
+    opacity: 0;
+  }
+}
+
+/* -------------------------------------------------------------- layout */
+
+.gr__inner {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: clamp(26px, 5vw, 44px);
+}
+
+.gr__head {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  max-width: 760px;
+}
+
+.gr__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  border-radius: var(--akm-r-pill);
+  border: 1px solid rgba(255, 193, 7, 0.42);
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--akm-accent-400);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.gr__title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 7.4vw, 3.6rem);
+  line-height: 1.12;
+  color: #fff;
+  text-wrap: balance;
+  margin: 0;
+}
+
+.gr__title--gold {
+  font-size: clamp(2.4rem, 11vw, 4.9rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #fff4cf 0%, #ffd36b 42%, #ff9800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 6px 22px rgba(0, 0, 0, 0.45));
+}
+
+.gr__sub {
+  margin: 0;
+  font-size: clamp(1rem, 3.6vw, 1.2rem);
+  color: var(--akm-on-dark-muted);
+
+  strong {
+    color: var(--akm-accent-400);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+/* --------------------------------------------------------------- stage */
+
+.gr__stage {
+  position: relative;
+  width: min(100%, 440px);
+  aspect-ratio: 4 / 5;
+}
+
+/* A temple-niche arch. Its box is identical in both phases. */
+.gr__frame {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 999px 999px 26px 26px / 44% 44% 26px 26px;
+  border: 3px solid #e7b95a;
+  box-shadow:
+    0 0 0 8px rgba(231, 185, 90, 0.14),
+    0 28px 70px rgba(0, 0, 0, 0.55);
+  background: #3d0000;
+}
+
+.gr__aura {
+  position: absolute;
+  inset: -22% -30%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 214, 107, 0.55) 0%,
+    rgba(255, 152, 0, 0.22) 38%,
+    transparent 68%
+  );
+  animation: grAura 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes grAura {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.gr__rays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1100px;
+  height: 1100px;
+  margin: -550px 0 0 -550px;
+  z-index: -2;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    rgba(255, 199, 90, 0.13) 0deg 5deg,
+    transparent 5deg 15deg
+  );
+  -webkit-mask-image: radial-gradient(circle, #000 12%, transparent 62%);
+  mask-image: radial-gradient(circle, #000 12%, transparent 62%);
+  animation: grSpin 120s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes grSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ------------------------------------------------------------ teaser */
+
+.gr--teaser .gr__rays {
+  opacity: 0.45;
+}
+
+.gr__frame--veiled {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 193, 7, 0.22), transparent 46%),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0 14px, rgba(255, 255, 255, 0.03) 14px 28px),
+    linear-gradient(180deg, #6b0a10 0%, #4a0000 60%, #2e0000 100%);
+
+  /* A slow sheen passing across the veil. */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 35%, rgba(255, 228, 160, 0.16) 50%, transparent 65%);
+    transform: translateX(-100%);
+    animation: grSheen 5.5s ease-in-out infinite;
+  }
+}
+
+@keyframes grSheen {
+  60%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.gr__veil-mark {
+  display: grid;
+  place-items: center;
+  width: clamp(96px, 26vw, 128px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid rgba(231, 185, 90, 0.7);
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.3), rgba(92, 0, 0, 0.4) 70%);
+  color: #ffd36b;
+  font-size: clamp(2.6rem, 8vw, 3.4rem);
+  animation: grBreathe 3.6s ease-in-out infinite;
+}
+
+@keyframes grBreathe {
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 46px rgba(255, 193, 7, 0.45);
+  }
+}
+
+.gr__veil-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(253, 246, 236, 0.8);
+}
+
+.gr__foot {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 14px;
+  min-height: 150px;
+}
+
+.gr__countdown {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(6px, 2vw, 14px);
+}
+
+.gr__unit {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: clamp(76px, 22vw, 104px);
+  padding: 14px 8px 10px;
+  border-radius: var(--akm-r-md);
+  border: 1px solid rgba(231, 185, 90, 0.4);
+  background: linear-gradient(160deg, rgba(255, 244, 227, 0.12), rgba(255, 244, 227, 0.04));
+
+  strong {
+    font-size: clamp(1.9rem, 8vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1;
+    color: #ffd36b;
+    font-variant-numeric: tabular-nums;
+  }
+
+  small {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--akm-on-dark-muted);
+  }
+}
+
+.gr__colon {
+  align-self: center;
+  margin-top: -18px;
+  font-size: clamp(1.5rem, 6vw, 2.2rem);
+  font-weight: 700;
+  color: rgba(231, 185, 90, 0.7);
+}
+
+.gr__note {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--akm-on-dark-muted);
+}
+
+/* ---------------------------------------------------------- revealed */
+
+.gr__burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  margin: -450px 0 0 -450px;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 236, 170, 0.9) 0%,
+    rgba(255, 180, 40, 0.42) 26%,
+    rgba(255, 152, 0, 0.12) 46%,
+    transparent 64%
+  );
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.gr__ring {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  width: 124%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  z-index: -1;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(231, 185, 90, 0.45);
+  box-shadow: inset 0 0 0 14px rgba(231, 185, 90, 0.05);
+  animation: grSpin 90s linear infinite;
+  pointer-events: none;
+}
+
+.gr__welcome {
+  margin: 0;
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.35rem, 5.4vw, 2rem);
+  color: #fff;
+}
+
+.gr__morya {
+  margin: 0;
+  font-size: clamp(1.05rem, 4.2vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--akm-accent-400);
+}
+
+.gr__cta {
+  margin-top: 6px;
+}
+
+/* --------------------------------------------------- reveal choreography
+   Nothing below runs until the section is on screen (.is-playing).
+   1 lights lift · 2 rays · 3 golden burst · 4 ornaments · 5 Ganesh
+   6 aura · 7 particles · 8 words, one after another.                   */
+
+.gr--reveal:not(.is-playing) {
+  .gr__rays,
+  .gr__burst,
+  .gr__aura,
+  .gr__ornament,
+  .gr__frame,
+  .gr__dust,
+  .gr__step {
+    opacity: 0;
+  }
+}
+
+.gr--reveal.is-playing {
+  .gr__dark {
+    animation: grFadeOut 1.4s ease 0.1s both;
+  }
+
+  .gr__rays {
+    animation:
+      grFadeIn 1.6s ease 0.3s both,
+      grSpin 120s linear infinite;
+  }
+
+  .gr__burst {
+    animation: grBurst 2s var(--akm-ease) 0.35s both;
+  }
+
+  .gr__ornament {
+    animation: grFadeIn 1.2s ease 0.8s both;
+  }
+
+  .gr__ring {
+    animation:
+      grFadeIn 1.2s ease 0.8s both,
+      grSpin 90s linear infinite;
+  }
+
+  .gr__frame {
+    animation: grArrive 1.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.9s both;
+  }
+
+  .gr__aura {
+    animation:
+      grFadeIn 1.2s ease 1.2s both,
+      grAura 6s ease-in-out 2.4s infinite;
+  }
+
+  .gr__dust {
+    animation: grFadeIn 1.6s ease 1.6s both;
+  }
+
+  .gr__step {
+    animation: grRise 0.85s var(--akm-ease) both;
+    animation-delay: calc(1.5s + var(--s, 0) * 170ms);
+  }
+}
+
+/* The dark layer is only a starting point; it never returns. */
+.gr--reveal.is-playing .gr__dark {
+  opacity: 0;
+}
+
+@keyframes grFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes grFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes grBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0.12);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+
+@keyframes grArrive {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes grRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------- desktop
+   Text beside the stage, so the whole moment fits on one screen. */
+
+@media (min-width: 992px) {
+  .gr__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'head stage'
+      'foot stage';
+    column-gap: 72px;
+    row-gap: 30px;
+  }
+
+  .gr__head {
+    grid-area: head;
+    align-self: end;
+  }
+
+  .gr__foot {
+    grid-area: foot;
+    align-self: start;
+  }
+
+  .gr__stage {
+    grid-area: stage;
+    align-self: center;
+    width: min(100%, 440px, calc((100svh - 150px) * 0.8));
+    min-width: 340px;
+  }
+}
+
+/* --------------------------------------------------------------- phones */
+
+@media (max-width: 575.98px) {
+  .gr__rays {
+    width: 760px;
+    height: 760px;
+    margin: -380px 0 0 -380px;
+  }
+
+  .gr__burst {
+    width: 640px;
+    height: 640px;
+    margin: -320px 0 0 -320px;
+  }
+
+  /* Fewer particles on small screens. */
+  .gr__dust span:nth-child(n + 9) {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------- reduced motion
+   Show the finished state straight away: no drifting, spinning or sheen. */
+
+@media (prefers-reduced-motion: reduce) {
+  .gr__dark,
+  .gr__dust,
+  .gr__frame--veiled::after {
+    display: none;
+  }
+
+  .gr__rays,
+  .gr__ring,
+  .gr__aura,
+  .gr__veil-mark,
+  .gr--reveal.is-playing .gr__rays,
+  .gr--reveal.is-playing .gr__ring,
+  .gr--reveal.is-playing .gr__aura,
+  .gr--reveal.is-playing .gr__burst,
+  .gr--reveal.is-playing .gr__ornament,
+  .gr--reveal.is-playing .gr__frame,
+  .gr--reveal.is-playing .gr__step {
+    animation: none;
+  }
+
+  .gr--reveal:not(.is-playing) {
+    .gr__rays,
+    .gr__burst,
+    .gr__aura,
+    .gr__ornament,
+    .gr__frame,
+    .gr__step {
+      opacity: 1;
+    }
+  }
+}

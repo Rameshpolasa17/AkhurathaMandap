@@ -1,0 +1,133 @@
+@switch (phase()) {
+  <!-- ============================================================ TEASER -->
+  @case ('teaser') {
+    <section class="gr gr--teaser" aria-labelledby="gr-teaser-title">
+      <div class="gr__bg" aria-hidden="true"></div>
+      <div class="gr__frameline" aria-hidden="true"></div>
+      <div class="gr__dust" aria-hidden="true">
+        @for (p of particles; track p) {
+          <span></span>
+        }
+      </div>
+
+      <div class="akm-container gr__inner">
+        <header class="gr__head" akmReveal>
+          <span class="gr__eyebrow">
+            <i class="fa-solid fa-om" aria-hidden="true"></i>
+            {{ festivalName }} {{ festivalYear }}
+          </span>
+          <h2 id="gr-teaser-title" class="gr__title">A Divine Reveal Awaits</h2>
+          <p class="gr__sub">
+            Our Ganesh Darshan begins at <strong>{{ revealTimeLabel }}</strong>
+          </p>
+        </header>
+
+        <div class="gr__stage" akmReveal="scale" [revealDelay]="120" aria-hidden="true">
+          <div class="gr__rays"></div>
+          <div class="gr__aura"></div>
+          <div class="gr__frame gr__frame--veiled">
+            <div class="gr__veil-mark">
+              <i class="fa-solid fa-om"></i>
+            </div>
+            <span class="gr__veil-text">Darshan at {{ revealTimeLabel }}</span>
+          </div>
+        </div>
+
+        <div class="gr__foot" akmReveal [revealDelay]="200">
+          <div
+            class="gr__countdown"
+            role="timer"
+            aria-live="off"
+            [attr.aria-label]="countdownLabel()"
+          >
+            @for (unit of countdown(); track unit.label; let last = $last) {
+              <div class="gr__unit">
+                <strong>{{ unit.value }}</strong>
+                <small>{{ unit.label }}</small>
+              </div>
+              @if (!last) {
+                <span class="gr__colon" aria-hidden="true">:</span>
+              }
+            }
+          </div>
+          <p class="gr__note">
+            India time (IST)
+            @if (localTimeLabel) {
+              · {{ localTimeLabel }} your time
+            }
+          </p>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- ========================================================== REVEALED -->
+  @case ('revealed') {
+    <section
+      #revealStage
+      class="gr gr--reveal"
+      [class.is-playing]="playing()"
+      aria-labelledby="gr-title"
+    >
+      <div class="gr__bg" aria-hidden="true"></div>
+      <div class="gr__dark" aria-hidden="true"></div>
+      <div class="gr__frameline gr__ornament" aria-hidden="true"></div>
+      <div class="gr__dust" aria-hidden="true">
+        @for (p of particles; track p) {
+          <span></span>
+        }
+      </div>
+
+      <div class="akm-container gr__inner">
+        <header class="gr__head">
+          <span class="gr__eyebrow gr__step" style="--s: 0">
+            <i class="fa-solid fa-crown" aria-hidden="true"></i>
+            {{ rajaTitle }}
+          </span>
+          <h2 id="gr-title" class="gr__title gr__title--gold gr__step" style="--s: 1">
+            Ganesh Darshan
+          </h2>
+        </header>
+
+        <div class="gr__stage">
+          <div class="gr__rays" aria-hidden="true"></div>
+          <div class="gr__burst" aria-hidden="true"></div>
+          <div class="gr__aura" aria-hidden="true"></div>
+          <div class="gr__ring gr__ornament" aria-hidden="true"></div>
+          <figure class="gr__frame">
+            <app-safe-image
+              [src]="image.src"
+              [srcset]="image.srcset"
+              [sizes]="imageSizes"
+              [width]="image.width"
+              [height]="image.height"
+              [position]="image.focus"
+              [alt]="image.alt"
+              [eager]="true"
+              fetchPriority="high"
+              icon="fa-solid fa-om"
+            />
+          </figure>
+        </div>
+
+        <div class="gr__foot">
+          <p class="gr__welcome gr__step" style="--s: 2">Welcome Our Bappa</p>
+          <p class="gr__morya gr__step" style="--s: 3">
+            Ganpati Bappa Morya <span role="img" aria-label="folded hands">🙏</span>
+          </p>
+          <a
+            class="akm-btn akm-btn--on-dark gr__step gr__cta"
+            style="--s: 4"
+            routerLink="/festival-schedule"
+          >
+            <i class="fa-solid fa-fire" aria-hidden="true"></i>
+            Harathi timings
+          </a>
+        </div>
+      </div>
+    </section>
+  }
+}
+
+<!-- Lives outside the switch so the swap itself can be announced. -->
+<p class="akm-visually-hidden" aria-live="polite">{{ announcement() }}</p>

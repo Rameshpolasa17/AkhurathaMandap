@@ -7,6 +7,7 @@ import { PersonCard, PeopleGrid } from '@shared/components/people-grid/people-gr
 import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.directive';
 
 import { HeroBanner } from '@shared/components/hero-banner/hero-banner';
+import { GaneshReveal } from '@shared/components/ganesh-reveal/ganesh-reveal';
 import { FestivalIntro } from '@shared/components/festival-intro/festival-intro';
 import { AnnouncementsPreview } from '@shared/components/announcements-preview/announcements-preview';
 import { EventsPreview } from '@shared/components/events-preview/events-preview';
@@ -27,6 +28,7 @@ import { KidsZone } from '@shared/components/kids-zone/kids-zone';
     RevealOnScrollDirective,
     PeopleGrid,
     HeroBanner,
+    GaneshReveal,
     FestivalIntro,
     AnnouncementsPreview,
     EventsPreview,
