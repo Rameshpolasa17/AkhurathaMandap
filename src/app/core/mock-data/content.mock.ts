@@ -8,7 +8,7 @@ import { Faq, FestivalStat, Highlight, Milestone } from '../models/content';
 export const MOCK_HIGHLIGHTS: Highlight[] = [
   {
     title: 'Ganga Harathi',
-    description: 'Every evening from the 14th to the 24th, 7:30 PM to 8:30 PM.',
+    description: 'Every evening from the 14th to the 25th, 7:30 PM to 8:30 PM.',
     icon: 'fa-solid fa-fire',
     route: '/festival-schedule',
   },
@@ -20,19 +20,19 @@ export const MOCK_HIGHLIGHTS: Highlight[] = [
   },
   {
     title: 'Laddu Velam',
-    description: 'The traditional laddu auction on the 23rd, from 7:00 PM.',
+    description: 'The traditional laddu auction on the 24th, from 7:00 PM.',
     icon: 'fa-solid fa-gift',
     route: '/events',
   },
   {
     title: 'Lucky Draw',
-    description: 'The mandap lucky draw, held on the 23rd.',
+    description: 'The mandap lucky draw, held on the 25th.',
     icon: 'fa-solid fa-ticket',
     route: '/events',
   },
   {
     title: 'Nimarjanam',
-    description: 'The farewell procession and immersion on the 24th.',
+    description: 'The farewell procession and immersion on the 25th.',
     icon: 'fa-solid fa-water',
     route: '/festival-schedule',
   },
@@ -82,8 +82,8 @@ export const MOCK_MILESTONES: Milestone[] = [
 export const MOCK_STATS: FestivalStat[] = [
   { value: '11', label: 'Days of celebration' },
   { value: 'Daily', label: 'Ganga Harathi, 7:30 PM' },
-  { value: '23rd', label: 'Laddu Velam & Lucky Draw' },
-  { value: '24th', label: 'Nimarjanam' },
+  { value: '24th', label: 'Laddu Velam & Roshans' },
+  { value: '25th', label: 'Lucky Draw & Nimarjanam' },
 ];
 
 export const MOCK_FAQS: Faq[] = [

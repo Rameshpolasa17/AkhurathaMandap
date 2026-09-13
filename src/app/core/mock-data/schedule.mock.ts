@@ -6,7 +6,7 @@ import { ScheduleDay } from '../models/schedule';
  *
  * Only the dates and timings the mandap has confirmed appear here — nothing
  * is filled in or rounded out. Ganga Harathi runs every evening from the 14th
- * through the 24th and is shown separately on the schedule page as a standing
+ * through the 25th and is shown separately on the schedule page as a standing
  * daily entry rather than repeated on each day.
  *
  * The month and year come from `APP_CONFIG.festivalStartDate`.
@@ -21,7 +21,7 @@ const day = (d: number) => new Date(YEAR, MONTH, d, 0, 0, 0).toISOString();
 export const DAILY_HARATHI = {
   name: 'Ganga Harathi',
   time: '7:30 PM – 8:30 PM',
-  note: 'Every evening, 14th through 24th',
+  note: 'Every evening, 14th through 25th',
 };
 
 export const MOCK_SCHEDULE: ScheduleDay[] = [
@@ -44,16 +44,16 @@ export const MOCK_SCHEDULE: ScheduleDay[] = [
         time: DAILY_HARATHI.time,
         title: DAILY_HARATHI.name,
         location: 'Akhuratha Mandap',
-        description: 'The evening harathi begins today and runs every evening until the 24th.',
+        description: 'The evening harathi begins today and runs every evening until the 25th.',
         icon: 'fa-solid fa-fire',
       },
     ],
   },
   {
     dayId: 2,
-    label: '23rd',
-    date: day(23),
-    title: 'Laddu Velam, Roshans & Lucky Draw',
+    label: '24th',
+    date: day(24),
+    title: 'Laddu Velam & Roshans',
     summary: 'The biggest evening of the festival at the mandap.',
     highlight: true,
     items: [
@@ -72,13 +72,6 @@ export const MOCK_SCHEDULE: ScheduleDay[] = [
         icon: 'fa-solid fa-lightbulb',
       },
       {
-        time: '',
-        title: 'Lucky Draw',
-        location: 'Akhuratha Mandap',
-        description: '',
-        icon: 'fa-solid fa-ticket',
-      },
-      {
         time: DAILY_HARATHI.time,
         title: DAILY_HARATHI.name,
         location: 'Akhuratha Mandap',
@@ -89,12 +82,19 @@ export const MOCK_SCHEDULE: ScheduleDay[] = [
   },
   {
     dayId: 3,
-    label: '24th',
-    date: day(24),
-    title: 'Nimarjanam',
-    summary: 'The final day — the idol leaves the mandap for immersion.',
+    label: '25th',
+    date: day(25),
+    title: 'Lucky Draw & Nimarjanam',
+    summary: 'The final day — the Lucky Draw, then the idol leaves the mandap for immersion.',
     highlight: true,
     items: [
+      {
+        time: '',
+        title: 'Lucky Draw',
+        location: 'Akhuratha Mandap',
+        description: 'The mandap lucky draw.',
+        icon: 'fa-solid fa-ticket',
+      },
       {
         time: DAILY_HARATHI.time,
         title: DAILY_HARATHI.name,

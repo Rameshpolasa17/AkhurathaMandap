@@ -77,10 +77,10 @@ export interface GaneshRevealConfig {
 }
 
 export const GANESH_REVEAL: GaneshRevealConfig = {
-  enabled: true,
+  enabled: false,
   revealDate: '2026-09-13',
   revealTime: '18:00',
-  showUntilDate: '2026-09-24',
+  showUntilDate: '2026-09-25',
   image: {
     src: 'assets/images/ganesh-reveal.webp',
     srcset:
