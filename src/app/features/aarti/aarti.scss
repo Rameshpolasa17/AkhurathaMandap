@@ -1,0 +1,251 @@
+/* `.akm-section` clips overflow, which would stop the toolbar sticking. */
+.aa {
+  overflow: visible;
+}
+
+.aa__inner {
+  max-width: 820px;
+}
+
+/* ------------------------------------------------------------ toolbar */
+
+.aa__toolbar {
+  position: sticky;
+  top: 76px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px;
+  margin-bottom: 18px;
+  border-radius: var(--akm-r-pill);
+  border: 1px solid var(--akm-border);
+  background: rgba(255, 253, 249, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--akm-shadow-md);
+}
+
+.aa__seg,
+.aa__size {
+  display: inline-flex;
+  gap: 4px;
+
+  button {
+    min-width: 44px;
+    min-height: 40px;
+    padding: 6px 16px;
+    border: 0;
+    border-radius: var(--akm-r-pill);
+    background: transparent;
+    color: var(--akm-ink-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background var(--akm-t-fast), color var(--akm-t-fast);
+
+    &[aria-pressed='true'] {
+      background: var(--akm-grad-brand);
+      color: #fff;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    small {
+      font-size: 0.7em;
+      margin-left: 1px;
+    }
+  }
+}
+
+.aa__size button {
+  padding-inline: 12px;
+  background: var(--akm-surface-tint);
+  color: var(--akm-maroon-800);
+}
+
+/* --------------------------------------------------------------- jump */
+
+.aa__jump {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 30px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .akm-filter {
+    flex: none;
+  }
+}
+
+/* --------------------------------------------------------------- cards */
+
+.aa__list {
+  --aa-scale: 1;
+  display: grid;
+  gap: 22px;
+}
+
+.aa__card {
+  scroll-margin-top: 150px;
+  padding: clamp(22px, 4vw, 36px);
+  border-radius: var(--akm-r-lg);
+  border: 1px solid var(--akm-border);
+  background: var(--akm-white);
+  box-shadow: var(--akm-shadow-sm);
+}
+
+.aa__head {
+  margin-bottom: 22px;
+
+  h2 {
+    margin: 12px 0 8px;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: clamp(1.4rem, 3.4vw, 1.8rem);
+    line-height: 1.25;
+    color: var(--akm-maroon-800);
+  }
+}
+
+.aa__title-te {
+  display: block;
+  margin-top: 4px;
+  font-family: 'Noto Sans Telugu', 'Nirmala UI', 'Telugu Sangam MN', system-ui, sans-serif;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--akm-accent-600);
+}
+
+.aa__note {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--akm-ink-soft);
+
+  i {
+    color: var(--akm-accent-600);
+  }
+}
+
+.aa__verses {
+  display: grid;
+  gap: 18px;
+}
+
+.aa__verse {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding-left: 16px;
+  border-left: 3px solid var(--akm-gold-soft);
+}
+
+.aa__verse--chorus {
+  padding: 16px 18px;
+  border-left-color: var(--akm-accent-500);
+  border-radius: 0 var(--akm-r-md) var(--akm-r-md) 0;
+  background: var(--akm-surface-tint);
+}
+
+.aa__chorus-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--akm-accent-600);
+}
+
+.aa__line {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+
+.aa__te {
+  font-family: 'Noto Sans Telugu', 'Nirmala UI', 'Telugu Sangam MN', system-ui, sans-serif;
+  font-size: calc(1.2rem * var(--aa-scale));
+  line-height: 1.7;
+  font-weight: 500;
+  color: var(--akm-ink);
+}
+
+.aa__en {
+  font-size: calc(0.9rem * var(--aa-scale));
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--akm-ink-muted);
+}
+
+.aa__en--solo {
+  font-size: calc(1.1rem * var(--aa-scale));
+  font-style: normal;
+  font-weight: 500;
+  color: var(--akm-ink);
+}
+
+/* ------------------------------------------------------------- meaning */
+
+.aa__meaning {
+  margin-top: 22px;
+  border-top: 1px dashed var(--akm-border-strong);
+  padding-top: 14px;
+
+  summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--akm-maroon-700);
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: '+';
+      font-weight: 700;
+    }
+  }
+
+  &[open] summary::after {
+    content: '−';
+  }
+
+  p {
+    margin: 10px 0 0;
+    font-size: 0.94rem;
+    line-height: 1.7;
+    color: var(--akm-ink-muted);
+  }
+}
+
+.aa__footnote {
+  margin: 30px 0 0;
+  font-size: 0.8rem;
+  color: var(--akm-ink-soft);
+  text-align: center;
+}
+
+@media (max-width: 575.98px) {
+  .aa__toolbar {
+    top: 66px;
+    border-radius: var(--akm-r-lg);
+  }
+
+  .aa__seg button {
+    padding-inline: 12px;
+  }
+}

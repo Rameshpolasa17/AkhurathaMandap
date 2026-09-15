@@ -11,6 +11,8 @@ export interface NavLink {
    * everywhere at once — header, mobile menu and footer.
    */
   flag?: 'kids';
+  /** Only listed in the mobile menu — the desktop bar has no room left. */
+  mobileOnly?: boolean;
 }
 
 /** Every flag the navigation can gate on. */
@@ -29,6 +31,8 @@ export const MAIN_NAV: NavLink[] = [
   { label: 'About', route: '/about', icon: 'fa-solid fa-om' },
   { label: 'Events', route: '/events', icon: 'fa-solid fa-calendar-days' },
   { label: 'Schedule', route: '/festival-schedule', icon: 'fa-solid fa-clock' },
+  { label: 'Aarti & Mantras', route: '/aarti', icon: 'fa-solid fa-om', mobileOnly: true },
+  { label: 'Devotee Photo Wall', route: '/devotee-wall', icon: 'fa-solid fa-camera', mobileOnly: true },
   { label: 'Gallery', route: '/gallery', icon: 'fa-solid fa-images' },
   { label: 'Competitions', route: '/competitions', icon: 'fa-solid fa-trophy' },
   { label: 'Kids Zone', route: '/kids', icon: 'fa-solid fa-child-reaching', flag: 'kids' },
@@ -39,6 +43,8 @@ export const MAIN_NAV: NavLink[] = [
 /** Footer — "Explore" column. */
 export const FOOTER_EXPLORE: NavLink[] = [
   { label: 'Gallery', route: '/gallery' },
+  { label: 'Devotee Photo Wall', route: '/devotee-wall' },
+  { label: 'Aarti & Mantras', route: '/aarti' },
   { label: 'Events', route: '/events' },
   { label: 'Competitions', route: '/competitions' },
   { label: 'Festival Schedule', route: '/festival-schedule' },

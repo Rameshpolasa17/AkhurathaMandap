@@ -7,13 +7,22 @@ import { EventService } from '@core/services/event';
 import { SafeImage } from '@shared/components/safe-image/safe-image';
 import { RegistrationDialog } from '@shared/components/registration-dialog/registration-dialog';
 import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.directive';
+import { AddToCalendar } from '@shared/components/add-to-calendar/add-to-calendar';
+import { eventShareMessage, whatsAppShareUrl } from '@core/utils/festival-calendar';
 
 const ALL = 'All';
 
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [DatePipe, RouterLink, SafeImage, RegistrationDialog, RevealOnScrollDirective],
+  imports: [
+    DatePipe,
+    RouterLink,
+    SafeImage,
+    RegistrationDialog,
+    RevealOnScrollDirective,
+    AddToCalendar,
+  ],
   templateUrl: './events.html',
   styleUrl: './events.scss',
 })
@@ -75,6 +84,11 @@ export class Events implements OnInit {
   closeRegistration(): void {
     this.registering.set(null);
     document.body.style.overflow = '';
+  }
+
+  /** WhatsApp link with a ready-made invitation the devotee can forward. */
+  shareUrl(event: Event): string {
+    return whatsAppShareUrl(eventShareMessage(event));
   }
 
   /** "14 Sep · 6:00 PM – 10:00 PM" style subtitle for the registration modal. */

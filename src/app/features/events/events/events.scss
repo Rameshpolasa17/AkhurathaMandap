@@ -203,6 +203,22 @@
   flex-wrap: wrap;
 }
 
+/* --------------------------------------------------------- share row */
+
+.ev__share {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--akm-border);
+}
+
+.ev__wa i {
+  color: #1da851;
+  font-size: 1.05rem;
+}
+
 /* ------------------------------------------------------------- details */
 
 .ev__details {

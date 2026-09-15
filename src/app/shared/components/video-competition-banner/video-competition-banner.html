@@ -1,0 +1,106 @@
+<section class="vcb" aria-labelledby="vcb-title">
+  <!-- Film strips -->
+  <div class="vcb__film vcb__film--top" aria-hidden="true"><span class="vcb__film-track"></span></div>
+  <div class="vcb__film vcb__film--bottom" aria-hidden="true"><span class="vcb__film-track"></span></div>
+
+  <div class="vcb__leak" aria-hidden="true"></div>
+  <div class="vcb__dust" aria-hidden="true">
+    @for (p of particles; track p) {
+      <span></span>
+    }
+  </div>
+
+  <div class="akm-container vcb__inner">
+    <!-- ======================================================== COPY -->
+    <div class="vcb__copy">
+      <span class="vcb__badge">
+        <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+        Akhuratha Mandap presents
+      </span>
+
+      <h2 id="vcb-title" class="vcb__title">
+        <span class="vcb__title-1">Video Editing</span>
+        <span class="vcb__title-2">Competition</span>
+      </h2>
+
+      <p class="vcb__tagline">
+        @for (word of words; track word; let i = $index) {
+          <span class="vcb__word" [style.animation-delay]="0.25 + i * 0.22 + 's'">{{ word }}</span>
+        }
+      </p>
+
+      <div class="vcb__prize">
+        <span class="vcb__prize-icon" aria-hidden="true"><i class="fa-solid fa-trophy"></i></span>
+        <span class="vcb__prize-text">
+          <small>Prize money</small>
+          <strong>{{ info.prize }}</strong>
+        </span>
+      </div>
+
+      <div class="vcb__status" role="status">
+        <span class="vcb__soon">
+          <span class="vcb__soon-dot" aria-hidden="true"></span>
+          {{ info.status }}
+        </span>
+        <span class="vcb__tuned">
+          <i class="fa-solid fa-film" aria-hidden="true"></i>
+          Stay Tuned
+        </span>
+      </div>
+
+      @if (instagram) {
+        <p class="vcb__follow">
+          Updates will be shared on
+          <a [href]="instagram.url" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            {{ '@' }}akhuratha_mandap
+          </a>
+        </p>
+      }
+    </div>
+
+    <!-- ================================================ EDITOR MOCK-UP -->
+    <div class="vcb__editor" aria-hidden="true">
+      <div class="vcb__monitor">
+        <img [src]="preview.src" alt="" decoding="async" fetchpriority="low" [attr.width]="preview.width" [attr.height]="preview.height" />
+        <span class="vcb__monitor-shade"></span>
+        <span class="vcb__corner vcb__corner--tl"></span>
+        <span class="vcb__corner vcb__corner--tr"></span>
+        <span class="vcb__corner vcb__corner--bl"></span>
+        <span class="vcb__corner vcb__corner--br"></span>
+        <span class="vcb__rec"><span></span> Preview</span>
+        <span class="vcb__play"><i class="fa-solid fa-play"></i></span>
+        <span class="vcb__timecode">00:00:24:12</span>
+      </div>
+
+      <div class="vcb__timeline">
+        <div class="vcb__ruler"></div>
+
+        <div class="vcb__tracks">
+          <div class="vcb__track">
+            <span class="vcb__label">V1</span>
+            <div class="vcb__lane">
+              @for (clip of clips; track clip.src; let i = $index) {
+                <span class="vcb__clip vcb__clip--{{ i }}">
+                  <img [src]="clip.src" alt="" loading="lazy" decoding="async" />
+                </span>
+              }
+            </div>
+          </div>
+          <div class="vcb__track">
+            <span class="vcb__label">T1</span>
+            <div class="vcb__lane">
+              <span class="vcb__title-clip">Create · Edit · Celebrate</span>
+            </div>
+          </div>
+          <div class="vcb__track">
+            <span class="vcb__label">A1</span>
+            <div class="vcb__lane"><span class="vcb__wave"></span></div>
+          </div>
+
+          <div class="vcb__playhead-lane"><span class="vcb__playhead"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

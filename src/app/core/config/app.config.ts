@@ -166,7 +166,7 @@ export const APP_CONFIG: AppConfig = {
    */
   social: [
     { label: 'Facebook', icon: 'fa-brands fa-facebook-f', url: '' },
-    { label: 'Instagram', icon: 'fa-brands fa-instagram', url: '' },
+    { label: 'Instagram', icon: 'fa-brands fa-instagram', url: 'https://www.instagram.com/akhuratha_mandap/' },
     { label: 'YouTube', icon: 'fa-brands fa-youtube', url: '' },
   ],
 

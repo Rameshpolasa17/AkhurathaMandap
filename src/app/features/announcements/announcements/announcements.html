@@ -61,15 +61,26 @@
                 {{ item.publishDate | date: 'd MMM y' }}
               </time>
 
-              <button
-                type="button"
-                class="akm-link"
-                (click)="open(item)"
-                [attr.aria-label]="'Read ' + item.title"
-              >
-                Read
-                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-              </button>
+              <span class="an__card-actions">
+                <a
+                  class="an__wa"
+                  [href]="shareUrl(item)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="'Share ' + item.title + ' on WhatsApp'"
+                >
+                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <button
+                  type="button"
+                  class="akm-link"
+                  (click)="open(item)"
+                  [attr.aria-label]="'Read ' + item.title"
+                >
+                  Read
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+              </span>
             </div>
           </article>
         }
@@ -141,6 +152,16 @@
       </div>
 
       <footer class="an-modal__foot">
+        <a
+          class="akm-btn akm-btn--ghost akm-btn--sm an__wa-btn"
+          [href]="shareUrl(item)"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          WhatsApp
+        </a>
+
         @if (canShare) {
           <button type="button" class="akm-btn akm-btn--ghost akm-btn--sm" (click)="share(item)">
             <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>

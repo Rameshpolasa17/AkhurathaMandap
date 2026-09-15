@@ -1,0 +1,94 @@
+<app-page-hero
+  eyebrow="Sing along"
+  icon="fa-solid fa-om"
+  heading="Aarti & Mantras"
+  lede="Ganapati aartis, shlokas and mantras in Telugu and English — follow along on your phone at the mandap."
+  titleId="aarti-title"
+/>
+
+<section class="aa akm-section akm-section--cream" aria-label="Aartis and mantras">
+  <div class="akm-container aa__inner">
+    <!-- Reading controls: sticky so they stay in reach while singing -->
+    <div class="aa__toolbar" role="toolbar" aria-label="Reading options">
+      <div class="aa__seg" role="group" aria-label="Script">
+        @for (option of scripts; track option.value) {
+          <button
+            type="button"
+            [attr.aria-pressed]="script() === option.value"
+            (click)="setScript(option.value)"
+            [attr.lang]="option.value === 'telugu' ? 'te' : null"
+          >
+            {{ option.label }}
+          </button>
+        }
+      </div>
+
+      <div class="aa__size" role="group" aria-label="Text size">
+        <button type="button" (click)="changeSize(-1)" [disabled]="sizeStep() === 0" aria-label="Smaller text">
+          A<small>−</small>
+        </button>
+        <button type="button" (click)="changeSize(1)" [disabled]="sizeStep() === 2" aria-label="Larger text">
+          A<small>+</small>
+        </button>
+      </div>
+    </div>
+
+    <!-- Jump list -->
+    <nav class="aa__jump" aria-label="Jump to">
+      @for (aarti of aartis(); track aarti.id) {
+        <button type="button" class="akm-filter" (click)="jumpTo(aarti.id)">{{ aarti.title }}</button>
+      }
+    </nav>
+
+    <div class="aa__list" [style.--aa-scale]="fontScale">
+      @for (aarti of aartis(); track aarti.id) {
+        <article class="aa__card" [id]="aarti.id" [attr.aria-labelledby]="aarti.id + '-title'" akmReveal>
+          <header class="aa__head">
+            <span class="akm-chip">{{ aarti.kind }} · {{ aarti.language }}</span>
+            <h2 [id]="aarti.id + '-title'">
+              {{ aarti.title }}
+              <span class="aa__title-te" lang="te">{{ aarti.titleTelugu }}</span>
+            </h2>
+            <p class="aa__note">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              {{ aarti.note }}
+            </p>
+          </header>
+
+          <div class="aa__verses">
+            @for (verse of aarti.verses; track $index) {
+              <div class="aa__verse" [class.aa__verse--chorus]="verse.chorus">
+                @if (verse.chorus) {
+                  <span class="aa__chorus-label">Chorus</span>
+                }
+                @for (line of verse.telugu; track $index; let i = $index) {
+                  <p class="aa__line">
+                    @if (script() !== 'english') {
+                      <span class="aa__te" lang="te">{{ line }}</span>
+                    }
+                    @if (script() !== 'telugu') {
+                      <span class="aa__en" [class.aa__en--solo]="script() === 'english'">{{ verse.english[i] }}</span>
+                    }
+                  </p>
+                }
+              </div>
+            }
+          </div>
+
+          <details class="aa__meaning">
+            <summary>
+              <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+              Meaning
+            </summary>
+            <p>{{ aarti.meaning }}</p>
+          </details>
+        </article>
+      }
+    </div>
+
+    <p class="aa__footnote">
+      Traditional texts. The Telugu is a transliteration of the original Sanskrit, Hindi
+      and Marathi, and the English lines show how each line is sung.
+    </p>
+  </div>
+</section>

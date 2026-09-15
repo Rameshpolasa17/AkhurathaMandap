@@ -1,0 +1,80 @@
+<section class="ghs" aria-labelledby="ghs-title">
+  <div class="ghs__glow" aria-hidden="true"></div>
+  <div class="ghs__glow ghs__glow--2" aria-hidden="true"></div>
+
+  <div class="akm-container ghs__inner">
+    <!-- Copy -->
+    <div class="ghs__copy" akmReveal="left">
+      <span class="ghs__eyebrow">
+        <span class="ghs__flame" aria-hidden="true"><i class="fa-solid fa-fire-flame-curved"></i></span>
+        Every evening at the mandap
+      </span>
+
+      <h2 id="ghs-title">{{ harathi.name }}</h2>
+
+      <p class="ghs__lede">
+        As evening falls, lamps are raised before Bappa and the whole mandap glows.
+        Join the harathi — everyone is welcome.
+      </p>
+
+      <dl class="ghs__facts">
+        <div>
+          <dt><i class="fa-solid fa-om" aria-hidden="true"></i> Every evening</dt>
+          <dd>Daily {{ harathi.name }}</dd>
+        </div>
+        <div>
+          <dt><i class="fa-regular fa-clock" aria-hidden="true"></i> Time</dt>
+          <dd>{{ harathi.time }}</dd>
+        </div>
+        <div>
+          <dt><i class="fa-regular fa-calendar" aria-hidden="true"></i> Dates</dt>
+          <dd>{{ harathi.range }}</dd>
+        </div>
+      </dl>
+
+      <div class="ghs__actions">
+        <a class="akm-btn akm-btn--primary" routerLink="/festival-schedule">
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          Festival Schedule
+        </a>
+        @if (event) {
+          <app-add-to-calendar class="ghs__cal" [event]="event" />
+        }
+      </div>
+    </div>
+
+    <!-- Photos -->
+    <ul class="ghs__photos">
+      @for (photo of photos; track photo.src; let i = $index) {
+        <li
+          class="ghs__cell"
+          [class.ghs__cell--main]="i === 0"
+          [class.ghs__cell--wide]="photo.width > photo.height"
+          akmReveal="scale"
+          [revealDelay]="i * 110"
+        >
+          <button type="button" class="ghs__tile" (click)="openIndex.set(i)" [attr.aria-label]="'View full size: ' + photo.caption">
+            <app-safe-image
+              [src]="photo.src"
+              [alt]="photo.alt"
+              [width]="photo.width"
+              [height]="photo.height"
+              [position]="i === 0 ? 'center 30%' : 'center'"
+              icon="fa-solid fa-fire"
+            />
+            <span class="ghs__cap" aria-hidden="true">{{ photo.caption }}</span>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+@if (openIndex() >= 0) {
+  <app-photo-lightbox
+    [photos]="photos"
+    [startIndex]="openIndex()"
+    [title]="harathi.name"
+    (closed)="openIndex.set(-1)"
+  />
+}

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 
 /**
  * An image that can never render as a broken-image icon.
@@ -26,7 +26,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
         [attr.fetchpriority]="fetchPriority"
         [attr.loading]="eager ? null : 'lazy'"
         [attr.decoding]="'async'"
-        (error)="failed = true"
+        (error)="onError()"
       />
     } @else {
       <div class="akm-img-fallback" role="img" [attr.aria-label]="alt">
@@ -84,5 +84,13 @@ export class SafeImage {
   /** `high` for the one hero image a page is built around. */
   @Input() fetchPriority: 'high' | 'low' | 'auto' | null = null;
 
+  /** Emits once when the file is missing or cannot be decoded. */
+  @Output() loadFailed = new EventEmitter<void>();
+
   failed = false;
+
+  onError(): void {
+    this.failed = true;
+    this.loadFailed.emit();
+  }
 }

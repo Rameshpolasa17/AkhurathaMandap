@@ -20,6 +20,8 @@ import { Contact } from './features/contact/contact/contact';
 import { FaqPage } from './features/faq/faq';
 import { Announcements } from './features/announcements/announcements/announcements';
 import { Live } from './features/live/live/live';
+import { AartiPage } from './features/aarti/aarti';
+import { DevoteeWall } from './features/devotee-wall/devotee-wall';
 
 const suffix = ' | Akhuratha Mandap';
 
@@ -165,6 +167,8 @@ export const routes: Routes = [
       { path: 'faq', component: FaqPage, title: 'FAQ' + suffix },
       { path: 'announcements', component: Announcements, title: 'Announcements' + suffix },
       { path: 'live', component: Live, title: 'Live Darshan' + suffix },
+      { path: 'aarti', component: AartiPage, title: 'Aarti & Mantras' + suffix },
+      { path: 'devotee-wall', component: DevoteeWall, title: 'Devotee Photo Wall' + suffix },
 
       ...kidsRoutes,
     ],

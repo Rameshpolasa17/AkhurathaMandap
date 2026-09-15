@@ -129,6 +129,20 @@
                 }
               </div>
 
+              <div class="ev__share">
+                <app-add-to-calendar [event]="event" />
+                <a
+                  class="akm-btn akm-btn--ghost akm-btn--sm ev__wa"
+                  [href]="shareUrl(event)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="'Share ' + event.title + ' on WhatsApp'"
+                >
+                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                  Share
+                </a>
+              </div>
+
               @if (expandedId() === event.eventId) {
                 <div class="ev__details">
                   <dl>

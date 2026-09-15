@@ -22,6 +22,7 @@ export const DAILY_HARATHI = {
   name: 'Ganga Harathi',
   time: '7:30 PM – 8:30 PM',
   note: 'Every evening, 14th through 25th',
+  range: '14th – 25th',
 };
 
 export const MOCK_SCHEDULE: ScheduleDay[] = [

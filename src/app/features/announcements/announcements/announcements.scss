@@ -89,6 +89,36 @@
   text-transform: uppercase;
 }
 
+.an__card-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.an__wa {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(29, 168, 81, 0.3);
+  background: rgba(29, 168, 81, 0.08);
+  transition: background var(--akm-t-fast);
+
+  i {
+    color: #1da851;
+    font-size: 1.05rem;
+  }
+
+  &:hover {
+    background: rgba(29, 168, 81, 0.16);
+  }
+}
+
+.an__wa-btn i {
+  color: #1da851;
+}
+
 .an__card-foot {
   display: flex;
   align-items: center;

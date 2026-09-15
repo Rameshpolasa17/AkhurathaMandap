@@ -1,0 +1,62 @@
+<section class="tyg akm-section akm-section--cream" aria-labelledby="tyg-title">
+  <div class="akm-orb tyg__orb" aria-hidden="true"></div>
+
+  <div class="akm-container">
+    <div class="tyg__head" akmReveal>
+      <div class="akm-section-head">
+        <span class="akm-eyebrow">
+          <i class="fa-solid fa-om" aria-hidden="true"></i>
+          Ganesh Mahotsav {{ year }}
+        </span>
+        <h2 id="tyg-title">This Year's Ganesh</h2>
+        <p>{{ rajaTitle }}, {{ year }} — from the workshop to the mandap. Tap any photo to see it full size.</p>
+        <div class="akm-rule"></div>
+      </div>
+    </div>
+
+    <ul class="tyg__grid">
+      @for (photo of photos; track photo.src; let i = $index; let first = $first) {
+        <li class="tyg__cell" [class.tyg__cell--hero]="first" akmReveal="scale" [revealDelay]="first ? 0 : 60 + i * 70">
+          <button
+            type="button"
+            class="tyg__tile"
+            (click)="openIndex.set(i)"
+            [attr.aria-label]="'View full size: ' + photo.caption"
+          >
+            <app-safe-image
+              [src]="photo.src"
+              [alt]="photo.alt"
+              [width]="photo.width"
+              [height]="photo.height"
+              position="center 24%"
+              icon="fa-solid fa-om"
+            />
+            <span class="tyg__shade" aria-hidden="true"></span>
+            <span class="tyg__cap" aria-hidden="true">
+              @if (first) {
+                <small>{{ rajaTitle }}</small>
+              }
+              {{ photo.caption }}
+            </span>
+            <span class="tyg__zoom" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>
+          </button>
+        </li>
+      }
+    </ul>
+
+    <p class="tyg__wall" akmReveal>
+      <i class="fa-solid fa-camera" aria-hidden="true"></i>
+      Visited Bappa this year? Share your photo on the
+      <a routerLink="/devotee-wall">Devotee Photo Wall</a>.
+    </p>
+  </div>
+</section>
+
+@if (openIndex() >= 0) {
+  <app-photo-lightbox
+    [photos]="photos"
+    [startIndex]="openIndex()"
+    title="This Year's Ganesh"
+    (closed)="openIndex.set(-1)"
+  />
+}

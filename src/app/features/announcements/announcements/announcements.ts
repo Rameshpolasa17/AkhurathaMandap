@@ -14,6 +14,8 @@ import { Announcement } from '@core/models/announcement';
 import { AnnouncementService } from '@core/services/announcement';
 import { PageHero } from '@shared/components/page-hero/page-hero';
 import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.directive';
+import { APP_CONFIG } from '@core/config/app.config';
+import { siteUrl, whatsAppShareUrl } from '@core/utils/festival-calendar';
 
 const ALL = 'All';
 const PAGE_SIZE = 8;
@@ -164,6 +166,20 @@ export class Announcements implements OnInit {
     if (this.selected()) {
       this.close();
     }
+  }
+
+  /** WhatsApp link carrying the notice, ready to forward to family groups. */
+  shareUrl(item: Announcement): string {
+    return whatsAppShareUrl(
+      [
+        `📢 *${item.title}*`,
+        `— ${APP_CONFIG.mandapName}, ${APP_CONFIG.contact.city}`,
+        '',
+        item.description,
+        '',
+        `More: ${siteUrl('/announcements')}`,
+      ].join('\n'),
+    );
   }
 
   share(item: Announcement): void {

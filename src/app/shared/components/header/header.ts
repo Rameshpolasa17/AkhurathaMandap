@@ -20,6 +20,8 @@ export class Header {
 
   /** Kids Zone is filtered out here while KIDS_ENABLED is false. */
   readonly menus: NavLink[] = visibleLinks(MAIN_NAV);
+  /** The desktop bar leaves out links marked mobile-only. */
+  readonly desktopMenus: NavLink[] = this.menus.filter((link) => !link.mobileOnly);
 
   readonly isScrolled = signal(false);
   readonly isMenuOpen = signal(false);

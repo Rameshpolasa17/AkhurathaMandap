@@ -9,6 +9,8 @@ import {
   MOCK_STATS,
 } from '@core/mock-data/content.mock';
 import { mockResponse } from '@core/mock-data/mock-utils';
+import { Aarti } from '@core/models/aarti';
+import { MOCK_AARTIS } from '@core/mock-data/aarti.mock';
 
 /**
  * Editorial content: highlights, history milestones, stats and FAQs.
@@ -30,6 +32,11 @@ export class ContentService {
 
   getFaqs(): Observable<Faq[]> {
     return mockResponse(MOCK_FAQS);
+  }
+
+  /** Aartis, shlokas and mantras for the Aarti page. */
+  getAartis(): Observable<Aarti[]> {
+    return mockResponse(MOCK_AARTIS, 0);
   }
 
   getFaqCategories(): Observable<string[]> {

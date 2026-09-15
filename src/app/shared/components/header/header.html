@@ -11,7 +11,7 @@
     </a>
 
     <nav class="hdr__nav" aria-label="Primary">
-      @for (menu of menus; track menu.route) {
+      @for (menu of desktopMenus; track menu.route) {
         <a
           [routerLink]="menu.route"
           routerLinkActive="is-active"

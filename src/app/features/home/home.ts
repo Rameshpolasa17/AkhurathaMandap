@@ -8,6 +8,9 @@ import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.dir
 
 import { HeroBanner } from '@shared/components/hero-banner/hero-banner';
 import { GaneshReveal } from '@shared/components/ganesh-reveal/ganesh-reveal';
+import { VideoCompetitionBanner } from '@shared/components/video-competition-banner/video-competition-banner';
+import { ThisYearGanesh } from '@shared/components/this-year-ganesh/this-year-ganesh';
+import { GangaHarathiShowcase } from '@shared/components/ganga-harathi-showcase/ganga-harathi-showcase';
 import { FestivalIntro } from '@shared/components/festival-intro/festival-intro';
 import { AnnouncementsPreview } from '@shared/components/announcements-preview/announcements-preview';
 import { EventsPreview } from '@shared/components/events-preview/events-preview';
@@ -29,6 +32,9 @@ import { KidsZone } from '@shared/components/kids-zone/kids-zone';
     PeopleGrid,
     HeroBanner,
     GaneshReveal,
+    VideoCompetitionBanner,
+    ThisYearGanesh,
+    GangaHarathiShowcase,
     FestivalIntro,
     AnnouncementsPreview,
     EventsPreview,

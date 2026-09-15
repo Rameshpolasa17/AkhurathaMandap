@@ -1,0 +1,143 @@
+<app-page-hero
+  eyebrow="Devotee Photo Wall"
+  icon="fa-solid fa-camera"
+  heading="Your Moments with Bappa"
+  lede="Devotees who visited Siricilla Ka Raja this year. Send us your selfie with Bappa on WhatsApp — the committee posts favourites here."
+  titleId="dw-title"
+/>
+
+<!-- ======================================================= HOW TO SEND -->
+<section class="dw-how akm-section akm-section--cream" aria-labelledby="dw-how-title">
+  <div class="akm-container">
+    <div class="akm-section-head akm-section-head--center" akmReveal>
+      <span class="akm-eyebrow">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        How it works
+      </span>
+      <h2 id="dw-how-title">Get your photo on the wall</h2>
+      <div class="akm-rule"></div>
+    </div>
+
+    <ol class="dw-steps">
+      <li akmReveal>
+        <span class="dw-steps__icon"><i class="fa-solid fa-camera" aria-hidden="true"></i></span>
+        <h3>Take a photo with Bappa</h3>
+        <p>At the mandap, during darshan, harathi or with your family.</p>
+      </li>
+      <li akmReveal [revealDelay]="90">
+        <span class="dw-steps__icon"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span>
+        <h3>Send it on WhatsApp</h3>
+        <p>Tap the button below — the message is ready, just attach your photo.</p>
+      </li>
+      <li akmReveal [revealDelay]="180">
+        <span class="dw-steps__icon"><i class="fa-solid fa-heart" aria-hidden="true"></i></span>
+        <h3>See it on the wall</h3>
+        <p>The committee picks photos to post here and on our Instagram.</p>
+      </li>
+    </ol>
+
+    <div class="dw-send" akmReveal>
+      @if (canSend) {
+        <a class="akm-btn akm-btn--brand dw-send__btn" [href]="sendUrl" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          Send your photo on WhatsApp
+        </a>
+      }
+      <p class="dw-send__rules">
+        <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+        Only send photos you took yourself, and ask everyone in the photo first. For children,
+        a parent should send it. We never post phone numbers, and we will remove any photo on request.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================== WALL -->
+<section class="dw akm-section akm-section--tint" aria-labelledby="dw-wall-title">
+  <div class="akm-container">
+    <div class="akm-section-head" akmReveal>
+      <h2 id="dw-wall-title">From our devotees</h2>
+      <p>
+        @if (photos.length) {
+          {{ photos.length }} {{ photos.length === 1 ? 'photo' : 'photos' }} so far — tap one to view it full size.
+        } @else {
+          The wall opens with the first photos from this year's festival.
+        }
+      </p>
+      <div class="akm-rule"></div>
+    </div>
+
+    @if (photos.length) {
+      <ul class="dw__grid">
+        @for (photo of photos; track photo.id; let i = $index) {
+          <li akmReveal [revealDelay]="(i % 4) * 70">
+            <button
+              type="button"
+              class="dw__tile"
+              (click)="open(i)"
+              [attr.aria-label]="'View photo' + (caption(photo) ? ' from ' + caption(photo) : '') + ' full size'"
+            >
+              <app-safe-image [src]="photo.imageUrl" [alt]="'Devotee with Bappa' + (photo.name ? ' — ' + photo.name : '')" icon="fa-solid fa-camera" />
+              @if (caption(photo)) {
+                <span class="dw__cap">{{ caption(photo) }}</span>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <div class="akm-empty dw__empty" akmReveal>
+        <i class="fa-solid fa-camera-retro" aria-hidden="true"></i>
+        <h3>Be the first on the wall</h3>
+        <p>Send your photo with {{ rajaTitle }} and it could be the first one here.</p>
+        @if (canSend) {
+          <a class="akm-btn akm-btn--brand akm-btn--sm" [href]="sendUrl" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+            Send your photo
+          </a>
+        }
+      </div>
+    }
+
+    <div class="dw__more" akmReveal>
+      @if (instagram) {
+        <a class="akm-btn akm-btn--ghost" [href]="instagram.url" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          Follow {{ '@' }}akhuratha_mandap
+        </a>
+      }
+      <a class="akm-btn akm-btn--ghost" routerLink="/gallery">
+        <i class="fa-solid fa-images" aria-hidden="true"></i>
+        Festival Gallery
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ VIEWER -->
+@if (active(); as photo) {
+  <div class="dw-view" role="dialog" aria-modal="true" aria-label="Devotee photo" (click)="onBackdrop($event)">
+    <button type="button" class="dw-view__btn dw-view__close" aria-label="Close" (click)="close()">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+    @if (photos.length > 1) {
+      <button type="button" class="dw-view__btn dw-view__prev" aria-label="Previous photo" (click)="step(-1)">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="dw-view__btn dw-view__next" aria-label="Next photo" (click)="step(1)">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    }
+    <figure>
+      <div class="dw-view__img">
+        <app-safe-image [src]="photo.imageUrl" [alt]="'Devotee with Bappa' + (photo.name ? ' — ' + photo.name : '')" fit="contain" [eager]="true" icon="fa-solid fa-camera" />
+      </div>
+      <figcaption>
+        @if (caption(photo)) {
+          <strong>{{ caption(photo) }}</strong>
+        }
+        <span>{{ shortDate(photo.date) }}</span>
+      </figcaption>
+    </figure>
+  </div>
+}
