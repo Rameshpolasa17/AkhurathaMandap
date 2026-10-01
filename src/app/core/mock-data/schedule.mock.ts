@@ -61,7 +61,7 @@ export const MOCK_SCHEDULE: ScheduleDay[] = [
     highlight: true,
     items: [
       {
-        time: 'Starts from 7:00 PM',
+        time: 'Starts at 7:00 PM on Roshans Day',
         title: 'Laddu Velam',
         location: 'Akhuratha Mandap',
         description: 'The traditional laddu auction.',

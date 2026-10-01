@@ -40,7 +40,7 @@ export const MOCK_ANNOUNCEMENTS: Announcement[] = [
   },
   {
     announcementId: 2,
-    title: 'Laddu Velam, from 7:00 PM',
+    title: 'Laddu Velam',
     description:
       'The traditional laddu auction takes place at the mandap, Register on WhatsApp from the Events page if you would like to take part.',
     imageUrl: 'assets/images/IMG_20250906_002957.jpg',

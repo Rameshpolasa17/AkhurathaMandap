@@ -39,8 +39,7 @@ export const MOCK_EVENTS: Event[] = [
   {
     eventId: 2,
     title: 'Ganga Harathi',
-    description:
-      'The evening harathi, performed every day of the festival.',
+    description: 'The evening harathi, performed every day of the festival.',
     location: 'Akhuratha Mandap',
     imageUrl: 'assets/images/ganaga harti.jpg',
     startDate: at(14, 19, 30),
@@ -63,7 +62,7 @@ export const MOCK_EVENTS: Event[] = [
     imageUrl: 'assets/images/IMG_20250906_002957.jpg',
     startDate: at(24, 19),
     endDate: at(24, 22),
-    time: 'Starts at 7:00 PM',
+    time: 'Starts at 7:00 PM on Roshans Day',
     category: 'Celebration',
     featured: true,
     registrationEnabled: true,
