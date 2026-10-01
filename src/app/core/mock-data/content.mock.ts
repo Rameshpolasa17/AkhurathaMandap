@@ -8,31 +8,31 @@ import { Faq, FestivalStat, Highlight, Milestone } from '../models/content';
 export const MOCK_HIGHLIGHTS: Highlight[] = [
   {
     title: 'Ganga Harathi',
-    description: 'Every evening from the 14th to the 25th, 7:30 PM to 8:30 PM.',
+    description: 'Every evening of the festival, 7:30 PM to 8:30 PM.',
     icon: 'fa-solid fa-fire',
     route: '/festival-schedule',
   },
   {
     title: 'First Pooja',
-    description: 'Ganesh Chaturthi at the mandap — the festival opens on the 14th.',
+    description: 'Ganesh Chaturthi at the mandap — the pooja that opens the festival.',
     icon: 'fa-solid fa-hands-praying',
     route: '/events',
   },
   {
     title: 'Laddu Velam',
-    description: 'The traditional laddu auction on the 24th, from 7:00 PM.',
+    description: 'The traditional laddu auction',
     icon: 'fa-solid fa-gift',
     route: '/events',
   },
   {
     title: 'Lucky Draw',
-    description: 'The mandap lucky draw, held on the 25th.',
+    description: 'The mandap lucky draw.',
     icon: 'fa-solid fa-ticket',
     route: '/events',
   },
   {
     title: 'Nimarjanam',
-    description: 'The farewell procession and immersion on the 25th.',
+    description: 'The farewell procession and immersion.',
     icon: 'fa-solid fa-water',
     route: '/festival-schedule',
   },
@@ -82,8 +82,8 @@ export const MOCK_MILESTONES: Milestone[] = [
 export const MOCK_STATS: FestivalStat[] = [
   { value: '11', label: 'Days of celebration' },
   { value: 'Daily', label: 'Ganga Harathi, 7:30 PM' },
-  { value: '24th', label: 'Laddu Velam & Roshans' },
-  { value: '25th', label: 'Lucky Draw & Nimarjanam' },
+  { value: 'Laddu Velam', label: 'Roshans & Lucky Draw' },
+  { value: 'Nimarjanam', label: 'The farewell procession' },
 ];
 
 export const MOCK_FAQS: Faq[] = [
@@ -102,17 +102,10 @@ export const MOCK_FAQS: Faq[] = [
   },
   {
     faqId: 3,
-    question: 'How do I register for an event or competition?',
+    question: 'How do I register for an event?',
     answer:
-      'Open the Events or Competitions page, choose a card and use the Register button. The form opens WhatsApp with your details filled in — send the message and the committee will confirm your slot.',
+      'Open the Events page, choose a card and use the Register button. The form opens WhatsApp with your details filled in — send the message and the committee will confirm your slot.',
     category: 'Events',
-  },
-  {
-    faqId: 4,
-    question: 'Is there an age limit for competitions?',
-    answer:
-      'Most competitions run in age groups, listed on each competition card. Rangoli and idol making are open to all ages.',
-    category: 'Competitions',
   },
   {
     faqId: 5,

@@ -9,8 +9,8 @@
       </span>
       <h2 id="spv-title">Know when to visit</h2>
       <p>
-        Ganga Harathi every evening from the 14th through the 25th, with the Laddu
-        Velam and Roshans on the 24th, and the Lucky Draw and Nimarjanam on the 25th.
+        Ganga Harathi every evening, the Laddu Velam and Roshans, and the Lucky Draw
+        and Nimarjanam on the final day.
       </p>
 
       <div class="spv__aarti">
@@ -30,10 +30,9 @@
       <ol class="spv__list">
         @for (day of days; track day.dayId; let i = $index) {
           <li class="spv__day" [class.is-highlight]="day.highlight" akmReveal [revealDelay]="i * 90">
-            <time class="spv__date" [attr.datetime]="day.date">
-              <strong>{{ day.date | date: 'd' }}</strong>
-              <small>{{ day.date | date: 'MMM' }}</small>
-            </time>
+            <span class="spv__date" aria-hidden="true">
+              <i class="fa-solid fa-om"></i>
+            </span>
 
             <div class="spv__body">
               <span class="spv__label">{{ day.label }}</span>

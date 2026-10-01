@@ -6,7 +6,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { Gallery as GalleryItem } from '@core/models/gallery';
@@ -19,7 +18,7 @@ const ALL = 'All';
 @Component({
   selector: 'app-gallery',
   standalone: true,
-  imports: [DatePipe, RouterLink, SafeImage, RevealOnScrollDirective],
+  imports: [RouterLink, SafeImage, RevealOnScrollDirective],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
 })

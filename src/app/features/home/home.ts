@@ -8,7 +8,7 @@ import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.dir
 
 import { HeroBanner } from '@shared/components/hero-banner/hero-banner';
 import { GaneshReveal } from '@shared/components/ganesh-reveal/ganesh-reveal';
-import { VideoCompetitionBanner } from '@shared/components/video-competition-banner/video-competition-banner';
+import { RajaFeature } from '@shared/components/raja-feature/raja-feature';
 import { ThisYearGanesh } from '@shared/components/this-year-ganesh/this-year-ganesh';
 import { GangaHarathiShowcase } from '@shared/components/ganga-harathi-showcase/ganga-harathi-showcase';
 import { FestivalIntro } from '@shared/components/festival-intro/festival-intro';
@@ -16,7 +16,6 @@ import { AnnouncementsPreview } from '@shared/components/announcements-preview/a
 import { EventsPreview } from '@shared/components/events-preview/events-preview';
 import { SchedulePreview } from '@shared/components/schedule-preview/schedule-preview';
 import { GalleryPreview } from '@shared/components/gallery-preview/gallery-preview';
-import { CompetitionsPreview } from '@shared/components/competitions-preview/competitions-preview';
 import { SponsorsPreview } from '@shared/components/sponsors-preview/sponsors-preview';
 import { SupportQr } from '@shared/components/support-qr/support-qr';
 import { LocationSection } from '@shared/components/location-section/location-section';
@@ -32,7 +31,7 @@ import { KidsZone } from '@shared/components/kids-zone/kids-zone';
     PeopleGrid,
     HeroBanner,
     GaneshReveal,
-    VideoCompetitionBanner,
+    RajaFeature,
     ThisYearGanesh,
     GangaHarathiShowcase,
     FestivalIntro,
@@ -40,7 +39,6 @@ import { KidsZone } from '@shared/components/kids-zone/kids-zone';
     EventsPreview,
     SchedulePreview,
     GalleryPreview,
-    CompetitionsPreview,
     SponsorsPreview,
     SupportQr,
     LocationSection,

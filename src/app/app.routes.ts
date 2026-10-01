@@ -11,7 +11,6 @@ import { History } from './features/history/history';
 import { Events } from './features/events/events/events';
 import { FestivalSchedule } from './features/festival-schedule/festival-schedule/festival-schedule';
 import { Gallery } from './features/gallery/gallery/gallery';
-import { Competitions } from './features/competitions/competitions/competitions';
 import { Sponsors } from './features/sponsors/sponsors/sponsors';
 import { Volunteers } from './features/volunteers/volunteers';
 import { CommitteePage } from './features/committee/committee';
@@ -154,7 +153,6 @@ export const routes: Routes = [
       // The old photo-gallery page duplicated the gallery; keep the link alive.
       { path: 'photo-gallery', redirectTo: 'gallery', pathMatch: 'full' },
 
-      { path: 'competitions', component: Competitions, title: 'Competitions' + suffix },
       { path: 'sponsors', component: Sponsors, title: 'Sponsors' + suffix },
       { path: 'volunteers', component: Volunteers, title: 'Volunteers' + suffix },
       { path: 'committee', component: CommitteePage, title: 'Committee' + suffix },

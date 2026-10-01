@@ -94,6 +94,12 @@
   }
 }
 
+/* The day marker replaced the old date chip. */
+.spv__date i {
+  font-size: 1.15rem;
+  color: var(--akm-accent-400);
+}
+
 .spv__date {
   flex-shrink: 0;
   display: grid;

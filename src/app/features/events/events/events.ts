@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { Event } from '@core/models/event';
@@ -7,22 +6,14 @@ import { EventService } from '@core/services/event';
 import { SafeImage } from '@shared/components/safe-image/safe-image';
 import { RegistrationDialog } from '@shared/components/registration-dialog/registration-dialog';
 import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.directive';
-import { AddToCalendar } from '@shared/components/add-to-calendar/add-to-calendar';
-import { eventShareMessage, whatsAppShareUrl } from '@core/utils/festival-calendar';
+import { eventShareMessage, whatsAppShareUrl } from '@core/utils/festival-share';
 
 const ALL = 'All';
 
 @Component({
   selector: 'app-events',
   standalone: true,
-  imports: [
-    DatePipe,
-    RouterLink,
-    SafeImage,
-    RegistrationDialog,
-    RevealOnScrollDirective,
-    AddToCalendar,
-  ],
+  imports: [RouterLink, SafeImage, RegistrationDialog, RevealOnScrollDirective],
   templateUrl: './events.html',
   styleUrl: './events.scss',
 })
@@ -91,12 +82,8 @@ export class Events implements OnInit {
     return whatsAppShareUrl(eventShareMessage(event));
   }
 
-  /** "14 Sep · 6:00 PM – 10:00 PM" style subtitle for the registration modal. */
+  /** Subtitle for the registration modal — venue only, no dates. */
   subtitleFor(event: Event): string {
-    const date = new Date(event.startDate).toLocaleDateString(undefined, {
-      day: 'numeric',
-      month: 'short',
-    });
-    return [date, event.time, event.location].filter(Boolean).join(' · ');
+    return event.location;
   }
 }

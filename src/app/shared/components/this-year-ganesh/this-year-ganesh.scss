@@ -2,6 +2,10 @@
   display: block;
 }
 
+.tyg {
+  scroll-margin-top: 80px;
+}
+
 .tyg__orb {
   width: 460px;
   height: 460px;
@@ -189,10 +193,10 @@
     aspect-ratio: 4 / 5;
   }
 
-  /* An odd last photo takes the full row instead of leaving a hole. */
-  .tyg__cell:last-child:nth-child(even) {
+  /* A lone last photo takes the full row instead of leaving a hole. */
+  .tyg__cell:last-child:nth-child(odd) {
     grid-column: span 2;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
   }
 
   .tyg__cap {

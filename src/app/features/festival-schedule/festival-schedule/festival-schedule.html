@@ -25,7 +25,7 @@
         Every single evening
       </span>
       <h2 id="sch-aarti-title">{{ dailyHarathi.name }}</h2>
-      <p>Performed every evening of the festival, from the 14th through the 25th.</p>
+      <p>Performed every evening of the festival.</p>
       <div class="akm-rule"></div>
     </div>
 
@@ -44,7 +44,7 @@
   <div class="akm-container">
     <div class="akm-section-head" akmReveal>
       <h2 id="sch-timeline-title">Key Days</h2>
-      <p>The confirmed dates of this year's festival, in order.</p>
+      <p>This year's festival programme, in order.</p>
       <div class="akm-rule"></div>
     </div>
 
@@ -66,10 +66,9 @@
                   <p class="sch__summary">{{ day.summary }}</p>
                 </div>
 
-                <time class="sch__date" [attr.datetime]="day.date">
-                  <strong>{{ day.date | date: 'd' }}</strong>
-                  <small>{{ day.date | date: 'MMM' }}</small>
-                </time>
+                <span class="sch__date" aria-hidden="true">
+                  <i class="fa-solid fa-om"></i>
+                </span>
               </header>
 
               <ul class="sch__items">

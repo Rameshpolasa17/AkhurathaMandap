@@ -231,6 +231,12 @@
   color: var(--akm-ink-muted);
 }
 
+/* The day marker replaced the old date chip. */
+.sch__date i {
+  font-size: 1.2rem;
+  color: var(--akm-maroon-700);
+}
+
 .sch__date {
   flex-shrink: 0;
   display: grid;

@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { APP_CONFIG, activeSocialLinks } from '@core/config/app.config';
 import { DEVOTEE_PHOTOS, DevoteePhoto } from '@core/mock-data/devotee-photos.mock';
 import { WhatsAppService } from '@core/services/whatsapp.service';
-import { formatDate } from '@core/utils/festival-calendar';
 import { PageHero } from '@shared/components/page-hero/page-hero';
 import { SafeImage } from '@shared/components/safe-image/safe-image';
 import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.directive';
@@ -51,10 +50,6 @@ export class DevoteeWall implements OnDestroy {
 
   caption(photo: DevoteePhoto): string {
     return [photo.name, photo.place].filter(Boolean).join(' · ');
-  }
-
-  shortDate(isoDate: string): string {
-    return formatDate(isoDate, { year: true });
   }
 
   open(index: number): void {

@@ -3,7 +3,7 @@
   eyebrow="Notice board"
   icon="fa-solid fa-bullhorn"
   heading="Announcements"
-  lede="Festival dates, registrations, seva calls and every other update from the mandap committee."
+  lede="Registrations, seva calls and every other update from the mandap committee."
 />
 
 <section class="an akm-section akm-section--cream" aria-labelledby="an-list-title">
@@ -56,10 +56,6 @@
             <p>{{ item.description }}</p>
 
             <div class="an__card-foot">
-              <time [attr.datetime]="item.publishDate">
-                <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
-                {{ item.publishDate | date: 'd MMM y' }}
-              </time>
 
               <span class="an__card-actions">
                 <a
@@ -129,10 +125,6 @@
         <div>
           <span class="an-modal__cat">{{ categoryOf(item) }}</span>
           <h2 id="an-modal-title">{{ item.title }}</h2>
-          <time [attr.datetime]="item.publishDate">
-            <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
-            {{ item.publishDate | date: 'EEEE, d MMMM y' }}
-          </time>
         </div>
 
         <button type="button" class="an-modal__close" aria-label="Close announcement" (click)="close()">
@@ -143,12 +135,6 @@
       <div class="an-modal__body">
         <p>{{ item.description }}</p>
 
-        @if (item.expiryDate) {
-          <p class="an-modal__expiry">
-            <i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>
-            Valid until {{ item.expiryDate | date: 'd MMMM y' }}
-          </p>
-        }
       </div>
 
       <footer class="an-modal__foot">

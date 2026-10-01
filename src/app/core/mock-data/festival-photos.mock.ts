@@ -17,48 +17,81 @@ export interface FestivalPhoto {
   height: number;
 }
 
+/**
+ * The single feature photograph on the home page — change this one line to
+ * put a different photo in the spotlight.
+ */
+export const RAJA_FEATURE_PHOTO: FestivalPhoto = {
+  src: 'assets/images/1000285405.jpg',
+  alt: 'Siricilla Ka Raja 2026 — the many-armed Ganesh idol seated on a tiger, holding an axe',
+  caption: 'Siricilla Ka Raja',
+  width: 960,
+  height: 1023,
+};
+
 export const GANESH_2026_PHOTOS: FestivalPhoto[] = [
   {
-    src: 'assets/images/1000284378.jpg',
-    alt: "This year's Ganesh idol at Akhuratha Mandap — the many-armed Lord seated on a tiger",
+    src: 'assets/images/1000284382.jpg',
+    alt: "This year's Ganesh idol at Akhuratha Mandap, garlanded and seated on a tiger",
     caption: 'Darshan at the mandap',
     width: 1200,
     height: 1600,
   },
   {
-    src: 'assets/images/1000284381.jpg',
-    alt: "Close-up of this year's Ganesh idol, with a golden crown and flower garland",
+    src: 'assets/images/1000285411.jpg',
+    alt: 'The Ganesh idol lit by sparks during the evening celebration',
+    caption: 'Lit by sparks',
+    width: 768,
+    height: 1318,
+  },
+  {
+    src: 'assets/images/1000289745.png',
+    alt: "A close look at the tiger's head beneath the Ganesh idol",
+    caption: 'The tiger',
+    width: 1086,
+    height: 1448,
+  },
+  {
+    src: 'assets/images/1000286314.jpg',
+    alt: 'The decorated Akhuratha Mandap entrance with the idol inside',
+    caption: 'The mandap',
+    width: 1200,
+    height: 1600,
+  },
+  {
+    src: 'assets/images/1000289716.png',
+    alt: 'Close-up of the idol’s hand holding a golden axe',
+    caption: 'The axe',
+    width: 1086,
+    height: 1448,
+  },
+  {
+    src: 'assets/images/1000289722.png',
+    alt: 'Close-up of the idol’s hand holding a string of prayer beads',
+    caption: 'The beads',
+    width: 1086,
+    height: 1448,
+  },
+  {
+    src: 'assets/images/1000288562.jpg',
+    alt: 'The crowned face of this year’s Ganesh idol, close up',
     caption: 'Up close',
     width: 1200,
     height: 1600,
   },
   {
-    src: 'assets/images/IMG_3438.JPG',
-    alt: "This year's Ganesh idol on a tiger, photographed outdoors under the open sky",
-    caption: 'Under the open sky',
+    src: 'assets/images/1000291315.jpg',
+    alt: 'The idol on its decorated float, lit up for the procession',
+    caption: 'The procession',
     width: 1200,
     height: 1600,
   },
   {
-    src: 'assets/images/IMG_3447.JPG',
-    alt: "This year's Ganesh idol being lifted by crane, watched by devotees",
-    caption: 'Lifted by crane',
-    width: 1200,
-    height: 1600,
-  },
-  {
-    src: 'assets/images/IMG_3463.JPG',
-    alt: "This year's Ganesh idol inside the workshop, secured with straps",
-    caption: 'At the workshop',
-    width: 1200,
-    height: 1600,
-  },
-  {
-    src: 'assets/images/IMG_3476.JPG',
-    alt: "This year's Ganesh idol inside the workshop under the lights",
-    caption: 'Inside the workshop',
-    width: 1200,
-    height: 1600,
+    src: 'assets/images/1000288618.jpg',
+    alt: 'The letters AKM laid out in pink flower petals',
+    caption: 'AKM in petals',
+    width: 1600,
+    height: 1200,
   },
 ];
 

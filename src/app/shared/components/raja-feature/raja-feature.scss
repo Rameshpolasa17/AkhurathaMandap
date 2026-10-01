@@ -1,0 +1,242 @@
+:host {
+  display: block;
+}
+
+/* ==========================================================================
+   SIRICILLA KA RAJA — one photograph, given room to breathe.
+   ========================================================================== */
+
+.rjf {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(64px, 9vw, 110px);
+  background:
+    radial-gradient(900px 500px at 78% 12%, rgba(255, 152, 0, 0.14), transparent 62%),
+    var(--akm-grad-cream);
+}
+
+.rjf__glow {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: -220px;
+  width: 760px;
+  height: 760px;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 193, 7, 0.16), transparent 68%);
+  pointer-events: none;
+}
+
+.rjf__orb {
+  width: 380px;
+  height: 380px;
+  bottom: -170px;
+  left: -140px;
+  background: rgba(139, 30, 36, 0.1);
+}
+
+.rjf__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 76px);
+}
+
+/* ------------------------------------------------------------- photograph */
+
+.rjf__stage {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 520px);
+}
+
+/* A warm halo so the dark photograph sits on the cream ground naturally. */
+.rjf__halo {
+  position: absolute;
+  inset: -12% -10%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 170, 60, 0.3), transparent 70%);
+  pointer-events: none;
+}
+
+.rjf__frame {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  /* A temple arch: round at the top, square at the base. */
+  border-radius: 999px 999px 26px 26px / 42% 42% 26px 26px;
+  background: var(--akm-maroon-900);
+  box-shadow:
+    0 0 0 2px rgba(201, 154, 46, 0.55),
+    0 0 0 12px rgba(255, 253, 249, 0.75),
+    var(--akm-shadow-lg);
+  cursor: zoom-in;
+  transition:
+    transform 0.5s var(--akm-ease),
+    box-shadow 0.5s var(--akm-ease);
+}
+
+.rjf__frame app-safe-image {
+  position: absolute;
+  inset: 0;
+  transition: transform 1s var(--akm-ease);
+}
+
+.rjf__frame:hover,
+.rjf__frame:focus-visible {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 0 2px rgba(201, 154, 46, 0.75),
+    0 0 0 12px rgba(255, 253, 249, 0.85),
+    0 36px 80px rgba(45, 36, 27, 0.26);
+}
+
+.rjf__frame:hover app-safe-image,
+.rjf__frame:focus-visible app-safe-image {
+  transform: scale(1.05);
+}
+
+.rjf__frame:hover .rjf__zoom,
+.rjf__frame:focus-visible .rjf__zoom {
+  opacity: 1;
+  transform: none;
+}
+
+.rjf__zoom {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 253, 249, 0.92);
+  color: var(--akm-maroon-800);
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity 0.3s var(--akm-ease),
+    transform 0.3s var(--akm-ease);
+}
+
+/* ------------------------------------------------------------------ words */
+
+.rjf__copy {
+  max-width: 520px;
+}
+
+.rjf__eyebrow {
+  margin-bottom: 18px;
+}
+
+.rjf h2 {
+  margin: 0;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(2.4rem, 5.4vw, 3.9rem);
+  font-weight: 700;
+  line-height: 1.06;
+  color: var(--akm-maroon-800);
+}
+
+.rjf__rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 22px;
+  color: var(--akm-gold);
+  font-size: 0.62rem;
+}
+
+.rjf__rule span {
+  height: 2px;
+  border-radius: 2px;
+  background: var(--akm-grad-accent);
+}
+
+.rjf__rule span:first-child {
+  width: 68px;
+}
+
+.rjf__rule span:last-child {
+  flex: 1;
+  max-width: 120px;
+  opacity: 0.45;
+}
+
+.rjf__lede {
+  margin: 0 0 14px;
+  font-size: clamp(1rem, 2.2vw, 1.1rem);
+  line-height: 1.85;
+  color: var(--akm-ink-muted);
+}
+
+.rjf__morya {
+  margin: 0 0 28px;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--akm-accent-600);
+}
+
+.rjf__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ------------------------------------------------------------- responsive */
+
+@media (max-width: 991.98px) {
+  .rjf__inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .rjf__copy {
+    max-width: 560px;
+  }
+
+  .rjf__rule {
+    justify-content: center;
+  }
+
+  .rjf__rule span:first-child,
+  .rjf__rule span:last-child {
+    width: 60px;
+    flex: none;
+  }
+
+  .rjf__cta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .rjf__cta .akm-btn {
+    flex: 1 1 100%;
+  }
+}
+
+@media (hover: none) {
+  .rjf__frame:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rjf__frame,
+  .rjf__frame app-safe-image {
+    transition: none;
+  }
+}

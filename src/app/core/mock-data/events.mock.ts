@@ -40,7 +40,7 @@ export const MOCK_EVENTS: Event[] = [
     eventId: 2,
     title: 'Ganga Harathi',
     description:
-      'The evening harathi, performed every day of the festival from the 14th through the 25th.',
+      'The evening harathi, performed every day of the festival.',
     location: 'Akhuratha Mandap',
     imageUrl: 'assets/images/ganaga harti.jpg',
     startDate: at(14, 19, 30),
@@ -76,7 +76,7 @@ export const MOCK_EVENTS: Event[] = [
   {
     eventId: 4,
     title: 'Roshans',
-    description: 'Roshans at the mandap on the 24th.',
+    description: 'Roshans at the mandap.',
     location: 'Akhuratha Mandap',
     imageUrl: 'assets/images/IMG_20250901_210152.jpg',
     startDate: at(24, 19),
@@ -93,7 +93,7 @@ export const MOCK_EVENTS: Event[] = [
   {
     eventId: 5,
     title: 'Lucky Draw',
-    description: 'The mandap lucky draw, held on the 25th.',
+    description: 'The mandap lucky draw.',
     location: 'Akhuratha Mandap',
     imageUrl: 'assets/images/IMG_20250905_223932.jpg',
     startDate: at(25, 19),
@@ -110,7 +110,7 @@ export const MOCK_EVENTS: Event[] = [
   {
     eventId: 6,
     title: 'Nimarjanam',
-    description: 'The farewell procession and immersion on the 25th, the final day of the festival.',
+    description: 'The farewell procession and immersion on the final day of the festival.',
     location: 'From Akhuratha Mandap',
     imageUrl: 'assets/images/IMG_20250907_044558.jpg',
     startDate: at(25, 9),

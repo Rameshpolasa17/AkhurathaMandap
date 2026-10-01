@@ -34,10 +34,6 @@
                 icon="fa-solid fa-calendar-days"
               />
               <span class="epv__scrim" aria-hidden="true"></span>
-              <span class="epv__date">
-                <strong>{{ event.startDate | date: 'd' }}</strong>
-                <small>{{ event.startDate | date: 'MMM' }}</small>
-              </span>
             </div>
 
             <div class="epv__body">
@@ -48,12 +44,6 @@
               <p>{{ event.description }}</p>
 
               <ul class="epv__facts">
-                @if (event.time) {
-                  <li>
-                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                    {{ event.time }}
-                  </li>
-                }
                 <li>
                   <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                   {{ event.location }}

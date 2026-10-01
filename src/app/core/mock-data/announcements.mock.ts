@@ -15,8 +15,7 @@ const start = new Date(APP_CONFIG.festivalStartDate);
 const YEAR = start.getFullYear();
 const MONTH = start.getMonth();
 
-const on = (day: number, hour = 9) =>
-  new Date(YEAR, MONTH, day, hour, 0, 0).toISOString();
+const on = (day: number, hour = 9) => new Date(YEAR, MONTH, day, hour, 0, 0).toISOString();
 
 /** Published a week before the festival opens. */
 const PUBLISHED = on(7);
@@ -26,9 +25,9 @@ const EXPIRES = on(26);
 export const MOCK_ANNOUNCEMENTS: Announcement[] = [
   {
     announcementId: 1,
-    title: 'Ganga Harathi — every evening, 14th to 25th',
+    title: 'Ganga Harathi — every evening',
     description:
-      'The Ganga Harathi is performed at the mandap every evening of the festival, from the 14th through the 25th, between 7:30 PM and 8:30 PM. Everyone is welcome to join.',
+      'The Ganga Harathi is performed at the mandap every evening of the festival, between 7:30 PM and 8:30 PM. Everyone is welcome to join.',
     imageUrl: 'assets/images/ganaga harti.jpg',
     category: 'Ganga Harathi',
     publishDate: PUBLISHED,
@@ -41,9 +40,9 @@ export const MOCK_ANNOUNCEMENTS: Announcement[] = [
   },
   {
     announcementId: 2,
-    title: 'Laddu Velam on the 24th, from 7:00 PM',
+    title: 'Laddu Velam, from 7:00 PM',
     description:
-      'The traditional laddu auction takes place at the mandap on the 24th, starting at 7:00 PM. Register on WhatsApp from the Events page if you would like to take part.',
+      'The traditional laddu auction takes place at the mandap, Register on WhatsApp from the Events page if you would like to take part.',
     imageUrl: 'assets/images/IMG_20250906_002957.jpg',
     category: 'Laddu Velam',
     publishDate: PUBLISHED,
@@ -56,9 +55,9 @@ export const MOCK_ANNOUNCEMENTS: Announcement[] = [
   },
   {
     announcementId: 3,
-    title: 'Lucky Draw on the 25th',
+    title: 'Lucky Draw at the mandap',
     description:
-      'The mandap Lucky Draw is held on the 25th. Entries can be registered on WhatsApp from the Events page.',
+      'The mandap Lucky Draw is held at the mandap. Entries can be registered on WhatsApp from the Events page.',
     imageUrl: 'assets/images/IMG_20250905_223932.jpg',
     category: 'Lucky Draw',
     publishDate: PUBLISHED,

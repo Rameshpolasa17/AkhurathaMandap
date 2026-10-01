@@ -18,6 +18,7 @@ import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.dir
 export class ThisYearGanesh {
   readonly photos = GANESH_2026_PHOTOS;
   readonly rajaTitle = APP_CONFIG.rajaTitle;
+  readonly festivalName = APP_CONFIG.festivalName;
   readonly year = APP_CONFIG.festivalStartDate.slice(0, 4);
 
   /** Index of the photo open in the preview, or -1. */

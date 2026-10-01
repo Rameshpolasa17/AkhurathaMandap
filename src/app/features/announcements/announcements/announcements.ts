@@ -6,7 +6,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -15,7 +14,7 @@ import { AnnouncementService } from '@core/services/announcement';
 import { PageHero } from '@shared/components/page-hero/page-hero';
 import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.directive';
 import { APP_CONFIG } from '@core/config/app.config';
-import { siteUrl, whatsAppShareUrl } from '@core/utils/festival-calendar';
+import { siteUrl, whatsAppShareUrl } from '@core/utils/festival-share';
 
 const ALL = 'All';
 const PAGE_SIZE = 8;
@@ -23,7 +22,7 @@ const PAGE_SIZE = 8;
 @Component({
   selector: 'app-announcements',
   standalone: true,
-  imports: [DatePipe, FormsModule, RouterLink, PageHero, RevealOnScrollDirective],
+  imports: [FormsModule, RouterLink, PageHero, RevealOnScrollDirective],
   templateUrl: './announcements.html',
   styleUrl: './announcements.scss',
 })

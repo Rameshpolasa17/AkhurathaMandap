@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { ScheduleDay } from '@core/models/schedule';
@@ -10,7 +9,7 @@ import { RevealOnScrollDirective } from '@shared/directives/reveal-on-scroll.dir
 @Component({
   selector: 'app-festival-schedule',
   standalone: true,
-  imports: [DatePipe, RouterLink, RevealOnScrollDirective],
+  imports: [RouterLink, RevealOnScrollDirective],
   templateUrl: './festival-schedule.html',
   styleUrl: './festival-schedule.scss',
 })
