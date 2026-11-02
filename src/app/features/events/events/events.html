@@ -59,6 +59,7 @@
               <app-safe-image
                 [src]="event.imageUrl"
                 [alt]="event.title"
+                [fit]="event.imageFit ?? 'cover'"
                 icon="fa-solid fa-calendar-days"
               />
               <span class="ev__scrim akm-scrim" aria-hidden="true"></span>

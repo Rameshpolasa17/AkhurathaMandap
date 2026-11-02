@@ -4,6 +4,8 @@ export interface Event {
   description: string;
   location: string;
   imageUrl: string;
+  /** `contain` shows the whole image on the card — for posters with text. Defaults to `cover`. */
+  imageFit?: 'cover' | 'contain';
   /** ISO date-time. */
   startDate: string;
   /** ISO date-time. */

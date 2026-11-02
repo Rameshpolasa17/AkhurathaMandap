@@ -1,0 +1,70 @@
+<div class="chat" (keydown.escape)="close()">
+  @if (open()) {
+    <section id="chat-panel" class="chat__panel" aria-label="Chat with {{ mandapName }}">
+      <header class="chat__head">
+        <span class="chat__avatar" aria-hidden="true"><i class="fa-solid fa-om"></i></span>
+        <div class="chat__title">
+          <strong>{{ mandapName }}</strong>
+          <span>Automated help</span>
+        </div>
+        <button type="button" class="chat__close" aria-label="Close chat" (click)="close()">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <div #log class="chat__log" role="log" aria-live="polite" tabindex="0">
+        @for (message of messages(); track message.id) {
+          <div class="chat__msg" [class.chat__msg--visitor]="message.from === 'visitor'">
+            <p>{{ message.text }}</p>
+            @if (message.link; as link) {
+              <a [routerLink]="link.route">
+                {{ link.label }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="chat__chips">
+        @for (suggestion of suggestions; track suggestion) {
+          <button type="button" (click)="send(suggestion)">{{ suggestion }}</button>
+        }
+      </div>
+
+      <form class="chat__form" (ngSubmit)="send()">
+        <input
+          #input
+          type="text"
+          name="question"
+          maxlength="300"
+          autocomplete="off"
+          placeholder="Type your question…"
+          aria-label="Type your question"
+          [(ngModel)]="draft"
+        />
+        <button type="submit" aria-label="Send" [disabled]="!draft.trim()">
+          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </form>
+
+      @if (whatsappAvailable) {
+        <button type="button" class="chat__whatsapp" (click)="continueOnWhatsApp()">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          Ask the committee on WhatsApp
+        </button>
+      }
+    </section>
+  }
+
+  <button
+    #toggleButton
+    type="button"
+    class="chat__toggle"
+    aria-controls="chat-panel"
+    [attr.aria-expanded]="open()"
+    [attr.aria-label]="open() ? 'Close chat' : 'Open chat'"
+    (click)="toggle()"
+  >
+    <i [class]="open() ? 'fa-solid fa-xmark' : 'fa-solid fa-comments'" aria-hidden="true"></i>
+  </button>
+</div>
