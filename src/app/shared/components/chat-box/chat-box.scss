@@ -33,7 +33,8 @@
   display: flex;
   flex-direction: column;
   width: min(370px, calc(100vw - 32px));
-  height: min(540px, calc(100dvh - 110px));
+  /* Leaves room for the fixed header above and the toggle below. */
+  height: min(540px, calc(100dvh - 170px));
   overflow: hidden;
   border-radius: var(--akm-r-lg);
   background: var(--akm-cream-soft);
